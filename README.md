@@ -1,9 +1,7 @@
-<<<<<<< HEAD
 # customify-ui
 
 The repo for customify ui
-=======
-# Customify
+
 Relationship and interaction between a business and their customers is getting harder to manage as time goes on (due to poor guidance and management).
 
 ### Solution
@@ -22,7 +20,7 @@ git clone https://github.com/PatrickNiyogitare28/customify
 
 ```
 branches products,rewarding,reporting and billing have been created for you
-use your branches carefully 
+use your branches carefully
 ```bash
 git checkout origin <your branch>
 ```
@@ -51,7 +49,7 @@ mysql -h bfdc6au0tcay6gxeuohp-mysql.services.clever-cloud.com -P 3306 -u uqq6c1e
 
 
 
-The password is 
+The password is
 ```bash
    jaW3mRUAAwzTAiOTVkZu
 ```
@@ -76,10 +74,9 @@ Dashboard Options
 1. Business Management
 2. Profile management
 ```
---------------------------------------------------------------------------------------
 #### BUSINESS_ADMIN
 ```bash
-email: sam@gmail.com 
+email: sam@gmail.com
 password: 123
 
 Dashboard Options
@@ -88,7 +85,6 @@ Dashboard Options
 3. Report Management
 4. Profile settings
 ```
---------------------------------------------------------------------------------------
 #### EMPLOYEE
 ```bash
 email: sandberg@gmail.com
@@ -105,7 +101,6 @@ Resources
 1. [Project SRS Document](https://docs.google.com/document/d/1QQb2NpTqJYs0DBmqgORl_rMlQrSiHjMEPdxY3kaue-8/edit#)
 2. [GitHub repository](https://github.com/PatrickNiyogitare28/customify)
 3. [See branches created for you](https://github.com/PatrickNiyogitare28/customify/branches)
-4. [Trello Khanban board](https://trello.com/b/CfQDY64n/customfy)
+4. [Trello kanban board](https://trello.com/b/CfQDY64n/customfy)
 
 Happy coding!
->>>>>>> upstream/main
