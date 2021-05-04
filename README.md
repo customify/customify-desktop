@@ -16,7 +16,7 @@ Access to customer data can help businesses identify trends about their customer
 clone repository
 
 ```bash
-git clone https://github.com/PatrickNiyogitare28/customify
+git clone https://github.com/customify/customify-ui.git
 
 ```
 branches products,rewarding,reporting and billing have been created for you
