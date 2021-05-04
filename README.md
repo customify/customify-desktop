@@ -16,7 +16,7 @@ Access to customer data can help businesses identify trends about their customer
 clone repository
 
 ```bash
-git clone https://github.com/PatrickNiyogitare28/customify
+git clone https://github.com/customify/customify-ui.git
 
 ```
 branches products,rewarding,reporting and billing have been created for you
@@ -102,5 +102,6 @@ Resources
 2. [GitHub repository](https://github.com/PatrickNiyogitare28/customify)
 3. [See branches created for you](https://github.com/PatrickNiyogitare28/customify/branches)
 4. [Trello kanban board](https://trello.com/b/CfQDY64n/customfy)
+4. [Figma UI Design](https://www.figma.com/file/7cHtF6HK3KG7tZQO3ol5Yo/Customify?node-id=0%3A1)
 
 Happy coding!
