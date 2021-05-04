@@ -1,4 +1,4 @@
-package com.customify.ui.components;
+package com.customify.client.components;
 
 import javax.swing.*;
 import java.awt.*;

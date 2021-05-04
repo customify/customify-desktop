@@ -1,6 +1,6 @@
-package com.customify.ui.layout;
+package com.customify.client.layout;
 
-import com.customify.ui.components.Sidebar;
+import com.customify.client.components.Sidebar;
 
 import javax.swing.*;
 import java.awt.*;
