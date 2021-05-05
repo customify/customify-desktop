@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Layout {
-    public Layout(){
+    public Layout(JPanel body){
         JFrame frame = new JFrame("Layout");
 
         JPanel sidebar = new Sidebar();
@@ -19,6 +19,7 @@ public class Layout {
         frame.setLayout(null);
         frame.setSize(1920, 1000);
         frame.setVisible(true);
+        frame.add(body);
         frame.add(sidebar);
         frame.setResizable(false);
         frame.add(navbar);
