@@ -4,9 +4,10 @@ import com.customify.client.components.Sidebar;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class Layout {
-    public Layout(JPanel body){
+    public Layout(JPanel body) throws IOException {
         JFrame frame = new JFrame("Layout");
 
         JPanel sidebar = new Sidebar();
@@ -17,11 +18,11 @@ public class Layout {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
-        frame.setSize(1920, 1000);
+        frame.setSize(1920, 900);
         frame.setVisible(true);
         frame.add(body);
         frame.add(sidebar);
-        frame.setResizable(false);
+        frame.setResizable(true);
         frame.add(navbar);
     }
 }
