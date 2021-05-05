@@ -1,55 +1,12 @@
 package com.customify.client.components;
 
 import com.customify.client.layout.Layout;
-//
-//import javax.swing.*;
-//import javax.swing.border.EmptyBorder;
-//import java.awt.*;
-//
-//public class FeatureRegister {
-//    public FeatureRegister(){}
-//    public static JPanel init(){
-//        JPanel container = new JPanel();
-////        container.setBounds(300,100,1000,600);
-//        container.setBackground(Color.red);
-//        /*
-//          @Role wrapper title
-//        */
-//        JLabel title = new JLabel("Register a feature");
-//        title.setFont(new Font("Montserrat", Font.BOLD, 20));
-//        title.setBorder(new EmptyBorder(50,0,0,0));
-//        title.setForeground(new Color(53,32,88));
-//        title.setBackground(Color.BLUE);
-//
-////        container.setBackground(Color.yellow);
-//        container.add(title);
-//
-//
-//        /*
-//          @Role feature name label
-//        */
-////        container.setPreferredSize(new Dimension(1000,1000));
-//        JLabel featureName = new JLabel("Feature Name");
-//        featureName.setBounds(50,200,100,100);
-//        featureName.setBackground(Color.blue);
-////        title.setPreferredSize(new Dimension(1000,1000));
-//
-//        container.add(featureName);
-//        return container;
-//    }
-//
-//    public static void main(String args[]){
-//        JPanel panel = init();
-//        new Layout(panel);
-//    }
-//}
-
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class FeatureRegister  {
     Container c = new Container();
@@ -59,14 +16,6 @@ public class FeatureRegister  {
     JButton btn;
 
     public Container init(){
-//        c.setTitle("Login form");
-//        setSize(400, 300);
-//        setLocation(100,100);
-//        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-//        c = getContentPane();
-//        c.setLayout(null);
-
         JLabel title = new JLabel("Register a feature");
         title.setFont(new Font("Montserrat", Font.BOLD, 20));
         title.setBounds(400,20,300,100);
@@ -104,21 +53,10 @@ public class FeatureRegister  {
         btn.setForeground(Color.white);
         c.add(btn);
         c.setBackground(Color.red);
-
-
-//        btn.addActionListener(this);
-//        se
-//        tVisible(true);
-
         return c;
     }
 
-//    public void actionPerformed(ActionEvent e){
-//        System.out.println("Username: "+user.getText());
-//        System.out.println("Password: "+pass.getPassword());
-//    }
-
-    public static void main(String args[]){
+    public static void main(String args[]) throws IOException {
         new Layout(new FeatureRegister().init());
     }
 }
