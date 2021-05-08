@@ -1,9 +1,9 @@
 package com.customify.client.dashboards;
 
 import com.customify.client.utils.authorization.UserSession;
-import com.customify.client.views.Business.BusinessView;
-import com.customify.client.views.CustomerFeedback.CustomerFeedbackMainView;
-import com.customify.client.views.billing.BillingView;
+import com.customify.client.viewsCli.Business.BusinessView;
+import com.customify.client.viewsCli.CustomerFeedback.CustomerFeedbackMainView;
+import com.customify.client.viewsCli.billing.BillingView;
 
 import java.net.Socket;
 import java.util.Scanner;

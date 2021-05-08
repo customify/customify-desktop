@@ -3,12 +3,11 @@ package com.customify.client.dashboards;
 import com.customify.client.Colors;
 import com.customify.client.Login;
 import com.customify.client.utils.authorization.UserSession;
-import com.customify.client.views.PointCountingView;
-import com.customify.client.views.ProductView;
-import com.customify.client.views.customer.CustomerMainView;
-import com.customify.client.views.CustomerFeedback.CustomerFeedbackView;
-import com.customify.client.views.employee.EmployeeMainView;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.customify.client.viewsCli.PointCountingView;
+import com.customify.client.viewsCli.ProductView;
+import com.customify.client.viewsCli.customer.CustomerMainView;
+import com.customify.client.viewsCli.CustomerFeedback.CustomerFeedbackView;
+import com.customify.client.viewsCli.employee.EmployeeMainView;
 
 import java.net.Socket;
 import java.util.Scanner;
@@ -35,8 +34,7 @@ public class BusinessAdminDashboard {
         this.loggedIn = loggedIn;
     }
 
-    public BusinessAdminDashboard() {
-    }
+    public BusinessAdminDashboard() { }
 
     public BusinessAdminDashboard(Socket socket) throws Exception {
         this.socket = socket;
@@ -64,7 +62,6 @@ public class BusinessAdminDashboard {
         Scanner scan = new Scanner(System.in);
 
         do {
-
             this.Header();
             System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t1. PRODUCT MANAGEMENT");
             System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t2. EMPLOYEE MANAGEMENT");
