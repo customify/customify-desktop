@@ -2,11 +2,11 @@ package com.customify.client.dashboards;
 
 import com.customify.client.Colors;
 import com.customify.client.utils.authorization.UserSession;
-import com.customify.client.views.Coupon;
-import com.customify.client.views.PointCountingView;
-import com.customify.client.views.ProductView;
-import com.customify.client.views.Sales;
-import com.customify.client.views.customer.CustomerMainView;
+import com.customify.client.viewsCli.Coupon;
+import com.customify.client.viewsCli.PointCountingView;
+import com.customify.client.viewsCli.ProductView;
+import com.customify.client.viewsCli.Sales;
+import com.customify.client.viewsCli.customer.CustomerMainView;
 
 import java.net.Socket;
 import java.util.Scanner;

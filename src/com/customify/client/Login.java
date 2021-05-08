@@ -1,4 +1,5 @@
 package com.customify.client;
+
 import com.customify.client.dashboards.BusinessAdminDashboard;
 import com.customify.client.dashboards.EmployeeDashboard;
 import com.customify.client.dashboards.SuperAdminDashboard;
@@ -8,9 +9,10 @@ import com.customify.client.utils.authorization.UserSession;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
+
+
 public class Login {
     private Socket socket;
     public Login()  { }
@@ -55,7 +57,6 @@ public class Login {
 
             AuthenticationDataFormat format = new AuthenticationDataFormat(email, password);
             AuthService authService = new AuthService(this.socket, format);
-
             if (authService.authenticate()) {
                 route(authService.getLoggedInUser());
             } else {
@@ -67,14 +68,10 @@ public class Login {
     public void route(String appUser) throws Exception{
         switch (appUser) {
             case "BUSINESS_ADMIN":
-
-
                 BusinessAdminDashboard bussDashboard = new BusinessAdminDashboard(this.socket);
-
                 break;
             case "EMPLOYEE":
                 EmployeeDashboard empDashboard = new EmployeeDashboard(this.socket);
-
                 break;
             case "SUPER_ADMIN":
                 SuperAdminDashboard admDashboard = new SuperAdminDashboard(this.socket);
