@@ -1,7 +1,5 @@
 package com.customify.client.components;
 
-import com.sun.tools.jconsole.JConsolePlugin;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
