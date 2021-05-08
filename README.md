@@ -1,4 +1,4 @@
-# customify-ui
+# customify-Desktop application
 
 The repo for customify ui
 
