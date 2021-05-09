@@ -23,14 +23,11 @@ import java.util.Properties;
 
 public class PointsService {
     private Socket socket;
-    //    private Request request;
     DataOutputStream output;
     ObjectOutputStream objectOutputStream;
     OutputStream outputStream;
     private ObjectMapper objectMapper = new ObjectMapper();
     NotificationService notificationService = new NotificationService();
-//    SaleDataFormat saleDataFormat;
-
 
 
     public PointsService(Socket socket) {
@@ -43,9 +40,7 @@ public class PointsService {
 //    }
 
     public void getWinners() throws SQLException, IOException {
-//        System.out.println("Request to get winners received at server");
         String sql = "SELECT Points_winning.customer_id,no_points,Points_winning.created_at,first_name,last_name,email,code FROM Points_winning INNER JOIN Customer ON Points_winning.customer_id = Customer.customer_id AND no_points >= 15";
-//        Response response;
         List<String> winners = new ArrayList();
 
         try {
@@ -67,17 +62,15 @@ public class PointsService {
                 String jsonData = this.objectMapper.writeValueAsString(winnersDataFormat);
                 winners.add(jsonData);
             }
-//            System.out.println(winners);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-//            response = new Response(500,new Object());
         }finally{
             outputStream = socket.getOutputStream();
             this.objectOutputStream = new CustomizedObjectOutputStream(this.outputStream);
             objectOutputStream.writeObject(winners);
 
             mailWinner();
-//            resetWinners();
+            resetWinners();
         }
 
     }
@@ -111,7 +104,6 @@ public class PointsService {
 
         while (resultSet1.next()){
             id = resultSet1.getString("customer_id");
-//            System.out.println("Id: "+id);
         }
         notificationService.SendNotification(prop.getProperty("mailFrom"), prop.getProperty("mailPassword"), email, prop.getProperty("subject"), prop.getProperty("msg"));
         notificationService.SaveNotifications(id, prop.getProperty("subject"), prop.getProperty("msg"));
@@ -120,9 +112,9 @@ public class PointsService {
 
 
     public void resetWinners() throws SQLException {
-        String clear = "Update Points_winning set no_points = no_points - 15 where no_points >= 15";
+        String query = "Update Points_winning set no_points = no_points - 15 where no_points >= 15";
         Connection connection = Db.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(clear);
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.executeUpdate();
     }
 

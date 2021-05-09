@@ -53,6 +53,7 @@ public class PointCountingView {
                     break;
                 case "2":
                     System.out.print("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tEnter Customer Email: ");
+//                    Not working with getting points by email
 //                    customerEmail = scan.nextLine();
 //                    PointsByCustomerEmailFormat format = new PointsByCustomerEmailFormat(customerEmail);
 //                    PointsService pointsService = new PointsService(socket);
