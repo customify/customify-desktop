@@ -14,7 +14,6 @@ public class Layout {
         JPanel navbar = new JPanel();
         navbar.setBackground(new Color(53,32,88));
         navbar.setBounds(300, 0, 1620, 70);
-        body.setBackground(Color.GREEN);
         body.setBounds(300, 70, 1620, 780);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);

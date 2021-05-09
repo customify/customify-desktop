@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        JPanel body = new NewBusiness();
-        new Layout(body);
+        JPanel container = new NewBusiness();
+        new Layout(container);
     }
 }
