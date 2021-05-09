@@ -1,6 +1,5 @@
 package com.customify.client.views;
 
-//import com.customify.client.services.AuthService;
 import com.customify.client.Colors;
 import com.customify.client.services.PointsService;
 import java.io.IOException;
