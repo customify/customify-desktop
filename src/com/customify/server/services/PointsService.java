@@ -75,6 +75,8 @@ public class PointsService {
 
     }
 
+
+// mailling winner function
     public void mailWinner() throws SQLException{
 
         String email = null;
@@ -110,7 +112,7 @@ public class PointsService {
 
     }
 
-
+//resting winners functions
     public void resetWinners() throws SQLException {
         String query = "Update Points_winning set no_points = no_points - 15 where no_points >= 15";
         Connection connection = Db.getConnection();
