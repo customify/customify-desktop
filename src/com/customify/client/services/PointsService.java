@@ -19,7 +19,6 @@ import java.util.List;
 
 public class PointsService {
     private Socket socket;
-//    private Common common;
     InputStream inputStream;
     ObjectInputStream objectInputStream;
 
@@ -39,8 +38,8 @@ public class PointsService {
             String request = objectMapper.writeValueAsString(data);
 
             SendToServer sendToServer = new SendToServer(request,socket);
+//            if ..... request igahita iba sent
             if (sendToServer.send()) {
-//                System.out.println("\n\t\tRequest Sent successfully\n");
                 this.getAllWinnersSuccess();
             }
             else{
@@ -50,7 +49,6 @@ public class PointsService {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-//        System.out.println("finished sending");
     }
 
 //    public void getPointsByCustomerEmail(PointsByCustomerEmailFormat format) {
@@ -78,17 +76,6 @@ public class PointsService {
 
         try {
             List<String> response = (ArrayList<String>) objectInputStream.readObject();
-//            System.out.println(response);
-//            List<Response> response = (List<Response>) objectInputStream.readObject();
-
-//            if(response.get(0).getStatusCode() == 200){
-//                List<WinnersDataFormat> winners =(List<WinnersDataFormat>) response.get(0).getData();
-//
-//                if (winners.size() == 0) {
-//                    System.out.println("We don't have any winner.");
-//                    return;
-//                }
-
             if(response.size() == 0 ) {
                 System.out.println("\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tNo winner to show\n\n");
                 return;
@@ -102,7 +89,6 @@ public class PointsService {
                 JsonNode node = objectMapper.readTree(response.get(i));
 
                 System.out.format("\t%-15s%-25s%-25s%-30s%-10s%-30s%-10s\n", node.get("customerId").asText(),node.get("firstName").asText(), node.get("lastName").asText(), node.get("email").asText(), node.get("noPoints").asDouble(), node.get("winingDate").asText(), node.get("code").asText());
-//                System.out.println("\n");
             }
             System.out.println("\n\n");
         } catch (ClassNotFoundException e) {
