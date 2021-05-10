@@ -8,6 +8,7 @@ public class Main {
     private ObjectOutputStream objectOutput = null;
     private boolean isConnectionOn = true;
 
+
     public Main(String serverIP){
         if(!connectTOServer(serverIP)){
             System.out.println("Failed to connect to the server to: "+serverIP);
