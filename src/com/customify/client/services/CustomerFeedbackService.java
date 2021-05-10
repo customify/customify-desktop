@@ -50,14 +50,14 @@ public class CustomerFeedbackService {
     public void getAllCustomerFeedbacks(String json) throws IOException, ClassNotFoundException {
         SendToServer serverSend = new SendToServer(json, this.socket);
         if (serverSend.send()) {
-             this.getFeedbacks();
-             System.out.println("Provided feedbacks");
+            this.getFeedbacks();
+            System.out.println("Provided feedbacks");
         } else {
             System.out.println("Request failed...");
         }
     }
     // --------------------------------------------------------------------------------------------------------
-   //for displaying the data from the server
+    //for displaying the data from the server
     public void getFeedbacks() throws IOException, ClassNotFoundException {
         this.input = this.socket.getInputStream();
         this.objectInput = new ObjectInputStream(this.input);
@@ -70,17 +70,17 @@ public class CustomerFeedbackService {
         System.out.println(Colors.ANSI_RESET);
 
         System.out.println(Colors.ANSI_GREEN);
-        System.out.format("%5s%35s%35s%35s%35s\n", "CustomerID", "BusinessId", "Title", "Description", "CreatedD");
+        System.out.format("%35s%35s%35s%35s%35s\n","Customer name","Business Name", "Title", "Description", "CreatedD");
         System.out.println(Colors.ANSI_RESET);
         ;
-            while (rs.hasNext()) {
-                JsonNode cf = objectMapper.readTree((String) rs.next());
-                System.out.format("%5d%35d%35s%35s%35s\n", cf.get("customerId").asInt(), cf.get("businessId").asInt(),
-                        cf.get("title").asText(), cf.get("description").asText(), cf.get("creationDate").asText());
-            }
+        while (rs.hasNext()) {
+            JsonNode cf = objectMapper.readTree((String) rs.next());
+            System.out.format("%30s%35s%35s%35s%35s\n",cf.get("customer_name").asText(),cf.get("business_name").asText(),
+                    cf.get("title").asText(), cf.get("description").asText(), cf.get("creationDate").asText());
+        }
     }
 
-   // function to delete customer feedback
+    // function to delete customer feedback
     public void deleteCustomerFeedback(String json) throws IOException, ClassNotFoundException {
         SendToServer serverSend = new SendToServer(json, this.socket);
         if (serverSend.send()) {
