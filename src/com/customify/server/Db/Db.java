@@ -2,6 +2,8 @@
  *  created by Makuza Mugabo Verite 29/01/2021
  *  This is for dealing with database interactions
  **/
+
+
 package com.customify.server.Db;
 import com.customify.server.services.*;
 
@@ -19,6 +21,8 @@ public class Db {
     private static  Connection connection = null;
     private static Statement statement = null;
     public Db(){}
+
+
     /**
      * for initializing the connections to the database
      * @param
@@ -47,21 +51,13 @@ public class Db {
             System.out.println("Db connected......");
 
 
-          /*
-
-           @author Yassin
-           this is sendEmail method which sends email to customer who got an award;
-
-
-          NotificationService notification = new NotificationService();
-          notification.sendEmail();
-            */
-
         }catch (SQLException e){
             System.out.println("Db error: "+e.getMessage());
         }
 
     }
+
+
     /*
      * Getting connection
      * */
