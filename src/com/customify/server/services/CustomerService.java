@@ -1,7 +1,5 @@
 package com.customify.server.services;
 
-import com.customify.client.SendToServer;
-import com.customify.client.data_format.DeActivateCustomer;
 import com.customify.server.CustomizedObjectOutputStream;
 import com.customify.server.Db.Db;
 import com.customify.server.SendToClient;
@@ -17,7 +15,6 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class CustomerService {
