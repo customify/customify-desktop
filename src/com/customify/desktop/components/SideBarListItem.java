@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class SideBarListItem extends JPanel {
+public class SideBarListItem extends JButton {
     public SideBarListItem(String imagePath, String name) throws IOException {
         JLabel label = new JLabel();
         label.setText(name);
@@ -26,5 +26,6 @@ public class SideBarListItem extends JPanel {
         setBackground(new Color(53, 32, 88));
         setLayout(new GridLayout(1,2));
         add(label);
+        setBorderPainted(false);
     }
 }
