@@ -1,7 +1,6 @@
 package com.customify.desktop.components;
 
 import com.customify.desktop.sales.Sales;
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 import javax.swing.*;
 import java.awt.*;

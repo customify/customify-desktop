@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
-public class Layout {
+public class Layout  {
     public Layout(Container body) throws IOException {
         JFrame frame = new JFrame("Layout");
         frame.setBackground(Color.white);
@@ -25,5 +25,4 @@ public class Layout {
         frame.setResizable(true);
         frame.add(navbar);
     }
-
 }
