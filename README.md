@@ -1,6 +1,6 @@
-# customify-ui
+# customify-Desktop app
 
-The repo for customify ui
+The repo for customify desktop
 
 Relationship and interaction between a business and their customers is getting harder to manage as time goes on (due to poor guidance and management).
 

@@ -1,6 +1,5 @@
 package com.customify.client.viewsCli;
 
-//import com.customify.client.services.AuthService;
 import com.customify.client.Colors;
 import com.customify.client.services.PointsService;
 import java.io.IOException;
@@ -53,6 +52,7 @@ public class PointCountingView {
                     break;
                 case "2":
                     System.out.print("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tEnter Customer Email: ");
+//                    Not working with getting points by email
 //                    customerEmail = scan.nextLine();
 //                    PointsByCustomerEmailFormat format = new PointsByCustomerEmailFormat(customerEmail);
 //                    PointsService pointsService = new PointsService(socket);

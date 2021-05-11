@@ -2,7 +2,7 @@ package com.customify.server.response_data_format.CustomerFeedback;
 
 /*
  * @author: NSENGIYUMVA Gershom
- * 
+ *
  * @description
  * This class sets the messages as response to the every action going on.
  * */
@@ -23,5 +23,5 @@ public class FeedbackSuccessFormat implements Serializable{
 
     public void setMessage(String successMessage) {
         this.successMessage = successMessage;
-    }   
+    }
 }
