@@ -65,4 +65,8 @@ public class NewBusiness extends JPanel {
         add(main);
         setBackground(Color.WHITE);
     }
+
+    public void createNewBusiness(){
+
+    }
 }
