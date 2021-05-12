@@ -6,6 +6,7 @@ import java.awt.*;
 
 public class FormControl extends JPanel {
     public FormControl(String placeholderTextParam){
+        setBackground(Color.white);
         JLabel placeholderText = new JLabel(placeholderTextParam);
         placeholderText.setFont(new Font("Montserrat", Font.PLAIN, 18));
         placeholderText.setBackground(Color.green);
