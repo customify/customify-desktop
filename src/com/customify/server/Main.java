@@ -1,4 +1,3 @@
-  
 /*
  *
  * By Verite ,  Patrick & Samuel
@@ -7,8 +6,6 @@
  * */
 
 package com.customify.server;
-
-
 import com.customify.server.Db.*;
 import com.customify.server.utils.*;
 
@@ -22,7 +19,6 @@ public class Main {
 
     private static final int portNumber = 3000;
 
-
     public static void main(String[] args) throws Exception {
         ServerSocket serverSocket;
         try {
@@ -35,11 +31,9 @@ public class Main {
                 Thread client = new Server(clientSocket);
                 ExecutorService Pool = Executors.newFixedThreadPool(2);
                 Pool.execute(client);
-                //client.start();
             }
         } catch (Exception e) {
             System.out.println("Can not listen to port: " + portNumber + ", Exception " + e);
-
         }
     }
 }
