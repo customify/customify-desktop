@@ -27,7 +27,6 @@ public class Sales extends JPanel {
          {"101", "Sachin", "670000", "670000", "670000"},
          {"101", "Sachin", "670000", "670000", "670000"},
          {"101", "Sachin", "670000", "670000", "670000"},
-         {"101", "Sachin", "670000", "670000", "670000"},
  };
  String column[] = {"Customer ID", "Quantity", "Total Price", "Employee ID", "Product ID"};
 
