@@ -1,6 +1,3 @@
-/* Created BY: Hagenimana Yassin
-   Date: 20/05/2021
- */
 // Initialize the Desktop applications
 
 package com.customify.desktop;
