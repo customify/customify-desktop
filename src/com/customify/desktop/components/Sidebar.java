@@ -47,12 +47,8 @@ public class Sidebar extends JPanel {
 
         ActionListener salesAction = new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    new Sales();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
+            public void actionPerformed(ActionEvent e){
+                new Sales();
             }
         };
 
