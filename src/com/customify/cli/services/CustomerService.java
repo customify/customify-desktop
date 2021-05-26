@@ -3,8 +3,11 @@ package com.customify.cli.services;
 import com.customify.cli.Colors;
 import com.customify.cli.Keys;
 import com.customify.cli.SendToServer;
-import com.customify.cli.data_format.*;
-//import com.customify.client.data_format.customer.CreateCustomerFormat;
+import com.customify.cli.data_format.CreateCustomerFormat;
+import com.customify.cli.data_format.DeActivateCustomer;
+import com.customify.cli.data_format.GetCustomer;
+import com.customify.cli.data_format.UpdateCustomerFormat;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -12,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,13 +31,17 @@ public class CustomerService {
     }
 
 
-    public void create(CreateCustomerFormat format) throws IOException, ClassNotFoundException {
+    public int create(CreateCustomerFormat format) throws IOException, ClassNotFoundException {
         ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writeValueAsString(format);
         SendToServer serverSend = new SendToServer(json, this.socket);
-        if (serverSend.send()) {
-            this.handleCreateCustomerResponse();
-        }
+        int resp;
+
+        if (serverSend.send())
+            resp =  this.handleCreateCustomerResponse();
+        else
+            resp= 500;
+        return resp;
     }
 
 
@@ -41,18 +49,20 @@ public class CustomerService {
      * @author SAMUEL Dushimimana
      * @role this function is to handle response on the successfully registration of the customer
      */
-    public void handleCreateCustomerResponse() throws IOException, ClassNotFoundException {
+    public int handleCreateCustomerResponse() throws IOException, ClassNotFoundException {
+        int resp;
         try {
             InputStream inputStream = this.socket.getInputStream();
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             List<String> response = (List<String>) objectInputStream.readObject();
-
-            String json_response = response.get(0);
-            System.out.println("HERE'S THE RESPONSE FROM THE SERVER => " + json_response);
-
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(response.get(0));
+            resp = jsonNode.get("status").asInt();
         } catch (Exception e) {
+            resp = 500;
             System.out.println("RESPONSE ERROR =>" + e.getMessage());
         }
+        return resp;
     }
 
     public Socket getSocket() {
