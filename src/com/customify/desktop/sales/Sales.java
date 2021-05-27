@@ -13,7 +13,7 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 
 public class Sales extends JPanel {
- String data[][] = {
+ String[][] data = {
          {"101", "Amit", "670000", "670000", "670000"},
          {"102", "Jai", "670000", "670000", "670000",},
          {"102", "Jai", "670000", "670000", "670000"},
@@ -30,7 +30,7 @@ public class Sales extends JPanel {
          {"101", "Sachin", "670000", "670000", "670000"},
          {"101", "Sachin", "670000", "670000", "670000"},
  };
- String column[] = {"Customer ID", "Quantity", "Total Price", "Employee ID", "Product ID"};
+ String[] column = {"Customer ID", "Quantity", "Total Price", "Employee ID", "Product ID"};
 
  public Sales() {
   JPanel main = new JPanel();
@@ -81,9 +81,9 @@ public class Sales extends JPanel {
   DefaultTableModel model = new DefaultTableModel();
   model.setColumnIdentifiers(column);
   table.setModel(model);
-  for (int i=0;i<data.length;i++) {
-   model.addRow(data[i]);
-  }
+   for (String[] datum : data) {
+     model.addRow(datum);
+   }
   JTableHeader tableHeader = table.getTableHeader();
   tableHeader.setBackground(new Color(53, 32, 88));
   tableHeader.setFont(new Font("Montserrat", Font.BOLD, 13));
@@ -122,9 +122,8 @@ public class Sales extends JPanel {
      nextButton.setForeground(Color.white);
      buttonPanel.add(nextButton);
      buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT,-13,0));
+
      main.add(buttonPanel);
-
-
      add(main);
     setBackground(Color.WHITE);
  }
