@@ -127,4 +127,5 @@ public class Sales extends JPanel {
      add(main);
     setBackground(Color.WHITE);
  }
+
 }
