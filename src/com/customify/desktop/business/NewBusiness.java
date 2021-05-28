@@ -1,5 +1,7 @@
 package com.customify.desktop.business;
 
+import com.customify.cli.Keys;
+import com.customify.cli.data_format.business.BusinessFormat;
 import com.customify.desktop.components.FormControl;
 
 import javax.swing.*;
@@ -67,6 +69,7 @@ public class NewBusiness extends JPanel {
     }
 
     public void createNewBusiness(){
+        BusinessFormat format = new BusinessFormat(Keys.CREATE_BUSINESS, "Business name", "My location", "No phone", "This address", 1, 3);
 
     }
 }
