@@ -55,6 +55,6 @@ public class FeatureRegister  {
     }
 
     public static void main(String args[]) throws IOException {
-        new Layout(new FeatureRegister().init());
+        new Layout(new FeatureRegister().init(), "Feature Register");
     }
 }
