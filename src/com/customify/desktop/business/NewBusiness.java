@@ -2,12 +2,16 @@ package com.customify.desktop.business;
 
 import com.customify.cli.Keys;
 import com.customify.cli.data_format.business.BusinessFormat;
-import com.customify.desktop.components.FormControl;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class NewBusiness extends JPanel {
+    BusinessFormat format = new BusinessFormat();
+
     public NewBusiness(){
         JPanel main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
@@ -21,12 +25,12 @@ public class NewBusiness extends JPanel {
         headline.setForeground(new Color(53,32,88));
         header.setBackground(Color.white);
 
-        JPanel businessName = new FormControl("Business name");
-        JPanel businessLocation = new FormControl("Location");
-        JPanel address = new FormControl("Address");
-        JPanel phoneNumber = new FormControl("Phone number");
-        JPanel representative = new FormControl("Representative");
-        JPanel businessPlan = new FormControl("Business plan");
+        JPanel businessName = createNewInput("Business name");
+        JPanel businessLocation = createNewInput("Location");
+        JPanel address = createNewInput("Address");
+        JPanel phoneNumber = createNewInput("Phone number");
+        JPanel representative = createNewInput("Representative");
+        JPanel businessPlan = createNewInput("Business plan");
 
         JPanel buttonGroup = new JPanel();
         buttonGroup.setBackground(Color.white);
@@ -53,6 +57,15 @@ public class NewBusiness extends JPanel {
 
         header.add(headline);
 
+        JTextField field = new JTextField("anselme");
+        field.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.out.println("Something has been changed ...");
+            }
+        });
+
+        main.add(field);
         main.add(header);
         main.add(businessName);
         main.add(businessLocation);
@@ -70,6 +83,34 @@ public class NewBusiness extends JPanel {
 
     public void createNewBusiness(){
         BusinessFormat format = new BusinessFormat(Keys.CREATE_BUSINESS, "Business name", "My location", "No phone", "This address", 1, 3);
+    }
 
+    public JPanel createNewInput(String placeholderTextParam){
+        JPanel textFieldContainer = new JPanel();
+        textFieldContainer.setBackground(Color.white);
+        JLabel placeholderText = new JLabel(placeholderTextParam);
+        placeholderText.setFont(new Font("Montserrat", Font.PLAIN, 18));
+        placeholderText.setBackground(Color.green);
+        placeholderText.setPreferredSize(new Dimension(200, 30));
+
+
+        JTextField textField = new JTextField("", 20);
+        textField.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Color.black, 1, true),
+                BorderFactory.createEmptyBorder(8, 15, 8, 15))
+        );
+        textField.setFont(new Font("Montserrat", Font.PLAIN, 18));
+
+        textField.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.out.println(textField.getText());
+            }
+        });
+
+        textFieldContainer.add(placeholderText);
+        textFieldContainer.add(textField);
+
+        return textFieldContainer;
     }
 }
