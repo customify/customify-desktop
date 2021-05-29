@@ -10,6 +10,6 @@ public class Business {
 
     public Business() throws IOException {
         JPanel business = new ReadBusiness();
-        new Layout(business);
+        new Layout(business, "Read Business");
     }
 }
