@@ -12,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class NewBusiness extends JPanel {
     BusinessFormat format = new BusinessFormat();
@@ -61,14 +60,11 @@ public class NewBusiness extends JPanel {
                 BorderFactory.createEmptyBorder(7, 30, 7, 30)));
         btn.setFont(new Font("Montserrat", Font.PLAIN, 18));
 
-        btn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                try {
-                    createNewBusiness();
-                } catch (IOException | ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+        btn.addActionListener(actionEvent -> {
+            try {
+                createNewBusiness();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
             }
         });
 
