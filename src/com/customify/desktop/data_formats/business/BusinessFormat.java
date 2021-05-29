@@ -8,9 +8,9 @@
  * @since Wednesday, 3 February 2021 - 08:17 - Time in Nyabihu
  * */
 
-package com.customify.cli.data_format.business;
+package com.customify.desktop.data_formats.business;
 
-import com.customify.cli.Keys;
+import com.customify.desktop.Keys;
 
 import java.io.Serializable;
 
@@ -69,7 +69,7 @@ public class BusinessFormat implements Serializable {
         this.location = location;
     }
 
-    public String getPhone_number() {
+    public String getPhoneNumber() {
         return phone_number;
     }
 

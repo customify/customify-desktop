@@ -19,7 +19,7 @@ public class Sales {
 
 
     public Sales() throws IOException {
-        new Layout(this.listSales());
+        new Layout(this.listSales(), "All sales");
     }
 
     public Container listSales()  {
