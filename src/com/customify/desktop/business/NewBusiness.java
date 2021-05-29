@@ -56,16 +56,7 @@ public class NewBusiness extends JPanel {
         buttonGroup.add(cancel);
 
         header.add(headline);
-
-        JTextField field = new JTextField("anselme");
-        field.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("Something has been changed ...");
-            }
-        });
-
-        main.add(field);
+        
         main.add(header);
         main.add(businessName);
         main.add(businessLocation);
