@@ -1,18 +1,27 @@
 package com.customify.desktop.business;
 
-import com.customify.cli.Keys;
-import com.customify.cli.data_format.business.BusinessFormat;
+import com.customify.desktop.Keys;
+import com.customify.desktop.data_formats.business.BusinessFormat;
+import com.customify.desktop.services.BusinessService;
+import com.customify.desktop.utils.interfaces.IInputChangedEventListener;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.Scanner;
 
 public class NewBusiness extends JPanel {
     BusinessFormat format = new BusinessFormat();
 
-    public NewBusiness(){
+    private final Socket socket;
+
+    public NewBusiness(Socket socket){
+        this.socket = socket;
+
         JPanel main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
         main.setBackground(Color.white);
@@ -52,11 +61,22 @@ public class NewBusiness extends JPanel {
                 BorderFactory.createEmptyBorder(7, 30, 7, 30)));
         btn.setFont(new Font("Montserrat", Font.PLAIN, 18));
 
+        btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    createNewBusiness();
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         buttonGroup.add(btn);
         buttonGroup.add(cancel);
 
         header.add(headline);
-        
+
         main.add(header);
         main.add(businessName);
         main.add(businessLocation);
@@ -72,8 +92,10 @@ public class NewBusiness extends JPanel {
         setBackground(Color.WHITE);
     }
 
-    public void createNewBusiness(){
-        BusinessFormat format = new BusinessFormat(Keys.CREATE_BUSINESS, "Business name", "My location", "No phone", "This address", 1, 3);
+    public void createNewBusiness() throws IOException, ClassNotFoundException {
+        BusinessService service = new BusinessService(this.socket);
+        this.format.setKey(Keys.CREATE_BUSINESS);
+        service.create(this.format);
     }
 
     public JPanel createNewInput(String placeholderTextParam){
@@ -84,7 +106,6 @@ public class NewBusiness extends JPanel {
         placeholderText.setBackground(Color.green);
         placeholderText.setPreferredSize(new Dimension(200, 30));
 
-
         JTextField textField = new JTextField("", 20);
         textField.setBorder(BorderFactory.createCompoundBorder(
                 new LineBorder(Color.black, 1, true),
@@ -92,10 +113,14 @@ public class NewBusiness extends JPanel {
         );
         textField.setFont(new Font("Montserrat", Font.PLAIN, 18));
 
-        textField.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println(textField.getText());
+        textField.getDocument().addDocumentListener((IInputChangedEventListener) e -> {
+            switch (placeholderTextParam) {
+                case "Business name" -> format.setName(textField.getText());
+                case "Location" -> format.setLocation(textField.getText());
+                case "Address" -> format.setAddress(textField.getText());
+                case "Phone number" -> format.setPhoneNumber(textField.getText());
+                case "Representative" -> format.setRepresentative(Integer.parseInt(textField.getText()));
+                case "Business plan" -> format.setPlan(Integer.parseInt(textField.getText()));
             }
         });
 
