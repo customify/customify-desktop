@@ -8,7 +8,6 @@ import com.customify.desktop.layout.Layout;
 import java.net.Socket;
 
 public class InitializeConnection {
-    private boolean isConnectionOn = true;
 
     public static void main(String[] args) {
         new InitializeConnection("localhost");
@@ -28,9 +27,8 @@ public class InitializeConnection {
             new Layout(new NewBusiness(socket), "New business");
 
         } catch (Exception e) {
-            this.isConnectionOn = false;
             System.out.println("Failed to connect to the server at port: " + portNumber);
-            System.out.println("Exception: " + e.toString());
+            System.out.println("Exception: " + e);
         }
         return true;
     }
