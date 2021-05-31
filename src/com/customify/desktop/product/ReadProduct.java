@@ -11,15 +11,15 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 
 public class ReadProduct extends JPanel {
-    String data[][]={ {"101","Amit","670000","670000","670000","670000","670000"},
-            {"102","Jai","670000","670000","670000","670000","670000"},
-            {"102","Jai","670000","670000","670000","670000","670000"},
-            {"102","Jai","670000","670000","670000","670000","670000"},
-            {"102","Jai","670000","670000","670000","670000","670000"},
-            {"102","Jai","670000","670000","670000","670000","670000"},
-            {"101","Sachin","670000","670000","670000","670000","670000"}};
+    String data[][]={ {"101","Amit","670000","670000","670000","670000","670000","me","June 10"},
+            {"102","Jai","670000","670000","670000","670000","670000","me"},
+            {"102","Jai","670000","670000","670000","670000","670000","me"},
+            {"102","Jai","670000","670000","670000","670000","670000","me"},
+            {"102","Jai","670000","670000","670000","670000","670000","me"},
+            {"102","Jai","670000","670000","670000","670000","670000","me"},
+            {"101","Sachin","670000","670000","670000","670000","670000","me"}};
 
-    String column[]={"Product Code","Business Id","Name", "Price", "Quantity", "Description", "Bonded points"};
+    String column[]={"Product Code","Business Id","Name", "Price", "Quantity", "Description", "Bonded points","Registered_by","Created At"};
 
     public ReadProduct(){
         JPanel main = new JPanel();
@@ -28,7 +28,7 @@ public class ReadProduct extends JPanel {
         setLayout(null);
 
         JPanel header = new JPanel();
-        JLabel headline = new JLabel("All businesses ");
+        JLabel headline = new JLabel("Products in the Store ");
         headline.setPreferredSize(new Dimension(300, 100));
         headline.setFont(new Font("Montserrat", Font.BOLD, 25));
         headline.setForeground(new Color(53,32,88));
@@ -63,8 +63,7 @@ public class ReadProduct extends JPanel {
         model.setColumnIdentifiers(column);
         table.setModel(model);
         for (int i = 0; i < 7; i++) {
-            model.addRow(new Object[]{data[i][0],data[i][1],data[i][2],data[i][3],data[i][4],data[i][5],data[i][6]});
-
+            model.addRow(new Object[]{data[i][0],data[i][1],data[i][2],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7],data[i][8]});
         }
         JTableHeader tableHeader = table.getTableHeader();
         tableHeader.setBackground(new Color(53,32,88));
