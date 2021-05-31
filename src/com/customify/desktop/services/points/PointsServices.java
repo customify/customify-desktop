@@ -19,41 +19,25 @@ public class PointsServices extends JPanel {
             {"102", "Jai", "670000", "670000", "670000"},
             {"102", "Jai", "670000", "670000", "670000"},
             {"102", "Jai", "670000", "670000", "670000"},
-            {"102", "Jai", "670000", "670000", "670000"},
-            {"101", "Sachin", "670000", "670000", "670000"},
-            {"101", "Sachin", "670000", "670000", "670000"},
-            {"101", "Sachin", "670000", "670000", "670000"},
-            {"101", "Sachin", "670000", "670000", "670000"},
-            {"101", "Sachin", "670000", "670000", "670000"}
+            {"102", "Jai", "670000", "670000", "670000"}
     };
     String column[] = {"Customer ID", "Quantity", "Total Price", "Employee ID", "Product ID"};
 
     public Container init() {
         JPanel main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
-        main.setBackground(Color.white);
+//        main.setBackground(Color.white);
         setLayout(null);
 
         JPanel header = new JPanel();
-        JLabel headline = new JLabel("Sale Product ");
+        JLabel headline = new JLabel("Winners ");
         headline.setPreferredSize(new Dimension(700, 100));
         Border border=headline.getBorder();
-        Border margin=new EmptyBorder(50,100,0,0);
+        Border margin=new EmptyBorder(50,450,0,0);
         headline.setBorder(new CompoundBorder(border,margin));
         headline.setFont(new Font("Montserrat", Font.BOLD, 24));
         headline.setForeground(new Color(53, 32, 88));
-        header.setBackground(Color.white);
-
-
-        JButton newButton = new JButton();
-        newButton.setPreferredSize(new Dimension(100, 30));
-        JLabel bLabel = new JLabel("Add New");
-        bLabel.setPreferredSize(new Dimension(100, 30));
-        bLabel.setFont(new Font("Montserrat", Font.PLAIN, 14));
-        bLabel.setForeground(new Color(5, 3, 8));
-        bLabel.setBackground(Color.red);
-        bLabel.setBorder(new CompoundBorder(bLabel.getBorder(), new EmptyBorder(20, 2, 20, 0)));
-        newButton.setBounds(50,0,90, 50);
+//        header.setBackground(Color.white);
 
 
 
@@ -88,12 +72,10 @@ public class PointsServices extends JPanel {
         tableHeader.setPreferredSize(new Dimension(100, 32));
 
         header.add(headline);
-        newButton.add(bLabel);
-        header.add(newButton);
         header.setBorder(BorderFactory.createEmptyBorder(70, -390, 3, 1));
         main.add(header);
         main.add(new JScrollPane(table));
-        main.setBounds(10, -100, 1010, 600);
+        main.setBounds(10, -100, 1010, 800);
 
 
         //previous button
@@ -122,7 +104,7 @@ public class PointsServices extends JPanel {
 
 
         add(main);
-        setBackground(Color.WHITE);
+//        setBackground(Color.WHITE);
         c.add(main);
         return c;
     }
