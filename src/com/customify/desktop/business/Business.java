@@ -4,12 +4,13 @@ import com.customify.desktop.layout.Layout;
 
 import java.awt.*;
 import java.io.IOException;
+import java.net.Socket;
 import javax.swing.*;
 
 public class Business {
 
-    public Business() throws IOException {
-        JPanel business = new ReadBusiness();
+    public Business(Socket socket) throws IOException, ClassNotFoundException {
+        JPanel business = new ReadBusiness(socket);
         new Layout(business, "Read Business");
     }
 }
