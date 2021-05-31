@@ -1,6 +1,10 @@
 package com.customify.desktop.product;
 
+import com.customify.cli.Keys;
+import com.customify.cli.services.ProductService;
 import com.customify.desktop.business.Search;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -9,21 +13,21 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.io.IOException;
 import java.net.Socket;
+import java.util.List;
 
-public class ReadProduct extends JPanel {
+public class ReadProductDB extends JPanel {
 
-    String data[][]={ {"101","Amit","670000","670000","670000","670000","670000","me","June 10"},
-            {"102","Jai","670000","670000","670000","670000","670000","me"},
-            {"102","Jai","670000","670000","670000","670000","670000","me"},
-            {"102","Jai","670000","670000","670000","670000","670000","me"},
-            {"102","Jai","670000","670000","670000","670000","670000","me"},
-            {"102","Jai","670000","670000","670000","670000","670000","me"},
-            {"101","Sachin","670000","670000","670000","670000","670000","me"}};
+    private Socket socket;
+    private List<String> productData;
 
     String column[]={"Product Code","Business Id","Name", "Price", "Quantity", "Description", "Bonded points","Registered_by","Created At"};
 
-    public ReadProduct(){
+    public ReadProductDB(Socket socket) throws Exception {
+        this.socket = socket;
+        this.getData();
+
         JPanel main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
         main.setBackground(Color.white);
@@ -64,8 +68,12 @@ public class ReadProduct extends JPanel {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(column);
         table.setModel(model);
-        for (int i = 0; i < 7; i++) {
-            model.addRow(new Object[]{data[i][0],data[i][1],data[i][2],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7],data[i][8]});
+        if(this.productData != null) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            for (int i = 0; i < productData.size(); i++) {
+                JsonNode productNode = objectMapper.readTree(this.productData.get(i));
+                model.addRow(new Object[]{productNode.get("productCode"), productNode.get("business_id"), productNode.get("name"), productNode.get("price"), productNode.get("quantity") , productNode.get("description") , productNode.get("bondedPoints") , productNode.get("registered_by") , productNode.get("createdAt")});
+            }
         }
         JTableHeader tableHeader = table.getTableHeader();
         tableHeader.setBackground(new Color(53,32,88));
@@ -90,6 +98,17 @@ public class ReadProduct extends JPanel {
 
         add(main);
         setBackground(Color.WHITE);
+    }
+
+    private void getData() throws Exception {
+        ProductService service = new ProductService(this.socket);
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        JsonNode productNode = objectMapper.readTree(service.getAllProducts().get(0));
+//        System.out.println("Product node "+productNode);
+//        System.out.println("Testing paths"+productNode.at("/products/productCode"));
+        this.productData = service.getAllProducts();
+        //
+        System.out.println("Results"+productData);
     }
 }
 
