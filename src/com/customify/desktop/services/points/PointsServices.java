@@ -78,7 +78,7 @@ public class PointsServices extends JPanel {
         main.setBounds(10, -100, 1010, 800);
 
 
-        //previous button
+        //previous btn
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
         buttonPanel.add(Box.createRigidArea(new Dimension(50, 50)));
