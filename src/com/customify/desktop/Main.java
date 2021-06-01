@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-    new Layout(new Sales());
+  //  new Layout(new Sales());
 //    new Layout(new addSales());
     }
 }
