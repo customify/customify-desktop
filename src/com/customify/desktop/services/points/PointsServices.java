@@ -32,18 +32,16 @@ public class PointsServices extends JPanel {
             {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
             {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"}
     };
-    String column[] = {"Customer Id", "First name", "Last name", "Email", "Points", "Winning date", "Customer code"};
+    String column[] = {"Customer Id", "First Name", "Last Name", "Email", "Points", "Winning Date", "Customer Code"};
 
     public PointsServices(){}
     public void returnWinner(){
         PointsService pointsService = new PointsService(socket);
         response = pointsService.getWinnersUi();
-
-
-
     }
 
     public Container init() throws JsonProcessingException {
+//        call function to return winner in desktop table
         returnWinner();
         JPanel main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
@@ -68,6 +66,7 @@ public class PointsServices extends JPanel {
         table.setIntercellSpacing(new Dimension(0, 1));
 
 
+//        Aligning content at the center in table
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer(){
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
@@ -84,7 +83,7 @@ public class PointsServices extends JPanel {
         table.setModel(model);
 
 
-
+//        checking if there is any data in database
         if(response.size()>=0){
             ObjectMapper objectMapper = new ObjectMapper();
             for (int i = 0; i < response.size(); i++) {
@@ -132,10 +131,11 @@ public class PointsServices extends JPanel {
 
 
         add(main);
-//        setBackground(Color.WHITE);
         c.add(main);
         return c;
     }
+
+//    main method for calling main layout
     public PointsServices(Socket socket) throws IOException, ClassNotFoundException{
         this.socket = socket;
         new Layout(init(), "Points Services");

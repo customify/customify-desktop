@@ -62,13 +62,13 @@ public class PointsService {
         try {
             List<String> response = (ArrayList<String>) objectInputStream.readObject();
             if(response.size() == 0 ) {
-                System.out.println("\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tNo winner to show\n\n");
+                System.out.println("\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tNo winners to show\n\n");
                 return;
             }
             System.out.println("\n\n");
             this.Header();
             System.out.println(Colors.ANSI_GREEN);
-            System.out.format("\t%-15s%-25s%-25s%-30s%-10s%-30s%-10s", "Customer Id", "First name", "Last name", "Email", "Points", "Winning date", "Customer code");
+            System.out.format("\t%-15s%-25s%-25s%-30s%-10s%-30s%-10s", "Customer ID", "First Name", "Last Name", "Email", "Points", "Winning date", "Customer code");
             System.out.println(Colors.ANSI_RESET);
             for (int i = 0; i < response.size(); i++) {
                 JsonNode node = objectMapper.readTree(response.get(i));
@@ -114,7 +114,7 @@ public class PointsService {
 
             }
             else{
-                System.out.println("\nError occurred when sending request to server\n");
+                System.out.println("\nError when sending request to the server\n");
             }
 
         } catch (IOException | ClassNotFoundException e) {
