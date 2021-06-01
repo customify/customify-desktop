@@ -60,6 +60,7 @@ public class ReadBusiness extends JPanel {
         JPanel search = new JPanel();
         search.setLayout(new FlowLayout(FlowLayout.RIGHT));
         search.setBackground(Color.white);
+        search.setBorder(BorderFactory.createEmptyBorder(20,0,0,0));
         searchField = new JTextField("Search");
         searchField.setPreferredSize(new Dimension(300, 25));
         searchField.setFont(new Font("Montserrat", Font.PLAIN, 12));
@@ -100,7 +101,7 @@ public class ReadBusiness extends JPanel {
         main.add(search);
         main.add(new JScrollPane(table));
 
-        main.setBounds(30, 50, 800, 600);
+        main.setBounds(30, 50, 800, 530);
 
         add(main);
         setBackground(Color.WHITE);
@@ -108,10 +109,12 @@ public class ReadBusiness extends JPanel {
 
     private void createTable() throws JsonProcessingException {
         table = new JTable();
-        table.setBorder(BorderFactory.createEmptyBorder(10,10,0,0));
+        table.setBorder(BorderFactory.createEmptyBorder(15,10,0,0));
         table.setShowGrid(false);
         table.setIntercellSpacing(new Dimension(0, 0));
         table.setRowHeight(30);
+        table.setBounds(0,0,200,200);
+//        table.setSize(new Dimension(500,500));
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer(){
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
