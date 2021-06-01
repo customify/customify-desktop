@@ -111,12 +111,12 @@ public class NewBusiness extends JPanel {
 
         textField.getDocument().addDocumentListener((IInputChangedEventListener) e -> {
             switch (placeholderTextParam) {
-                case "Business name" -> format.setName(textField.getText());
-                case "Location" -> format.setLocation(textField.getText());
-                case "Address" -> format.setAddress(textField.getText());
-                case "Phone number" -> format.setPhoneNumber(textField.getText());
-                case "Representative" -> format.setRepresentative(Integer.parseInt(textField.getText()));
-                case "Business plan" -> format.setPlan(Integer.parseInt(textField.getText()));
+                case "Business name": format.setName(textField.getText());
+                case "Location" : format.setLocation(textField.getText());
+                case "Address" : format.setAddress(textField.getText());
+                case "Phone number" : format.setPhoneNumber(textField.getText());
+                case "Representative" : format.setRepresentative(Integer.parseInt(textField.getText()));
+                case "Business plan" : format.setPlan(Integer.parseInt(textField.getText()));
             }
         });
 

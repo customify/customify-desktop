@@ -12,20 +12,19 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class Main {
-
-    public static void main(String[] args) throws IOException {
-  //  new Layout(new Sales());
-//    new Layout(new addSales());
-
-    private Socket socket;
+    private  Socket socket;
     public Main(Socket socket) throws Exception {
         this.socket=socket;
         new Product(socket);
 
     }
-//    public static void main(String[] args) throws IOException {
-////        new Sales();
-//        private Socket socket;
-//        new Main(this.socket);
-//    }
+
+    public void main(String[] args) throws  IOException {
+        new Sales();
+        try {
+            new Main(this.socket);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
