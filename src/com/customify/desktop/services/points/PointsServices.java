@@ -14,14 +14,15 @@ import java.io.IOException;
 public class PointsServices extends JPanel {
     Container c = new Container();
     String data[][] = {
-            {"101", "Amit", "670000", "670000", "670000"},
-            {"102", "Jai", "670000", "670000", "670000",},
-            {"102", "Jai", "670000", "670000", "670000"},
-            {"102", "Jai", "670000", "670000", "670000"},
-            {"102", "Jai", "670000", "670000", "670000"},
-            {"102", "Jai", "670000", "670000", "670000"}
+            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
+            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
+            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
+            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
+            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
+            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
+            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"}
     };
-    String column[] = {"Customer ID", "Quantity", "Total Price", "Employee ID", "Product ID"};
+    String column[] = {"Customer Id", "First name", "Last name", "Email", "Points", "Winning date", "Customer code"};
 
     public Container init() {
         JPanel main = new JPanel();
@@ -31,9 +32,9 @@ public class PointsServices extends JPanel {
 
         JPanel header = new JPanel();
         JLabel headline = new JLabel("Winners ");
-        headline.setPreferredSize(new Dimension(700, 100));
+        headline.setPreferredSize(new Dimension(700, 200));
         Border border=headline.getBorder();
-        Border margin=new EmptyBorder(50,450,0,0);
+        Border margin=new EmptyBorder(100,450,50,0);
         headline.setBorder(new CompoundBorder(border,margin));
         headline.setFont(new Font("Montserrat", Font.BOLD, 24));
         headline.setForeground(new Color(53, 32, 88));
@@ -75,7 +76,7 @@ public class PointsServices extends JPanel {
         header.setBorder(BorderFactory.createEmptyBorder(70, -390, 3, 1));
         main.add(header);
         main.add(new JScrollPane(table));
-        main.setBounds(10, -100, 1010, 800);
+        main.setBounds(10, -100, 1040, 650);
 
 
         //previous btn
