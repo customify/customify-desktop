@@ -38,7 +38,7 @@ public class PointsService {
             String request = objectMapper.writeValueAsString(data);
 
             SendToServer sendToServer = new SendToServer(request,socket);
-//            if ..... request igahita iba sent
+//            if ..... request ........
             if (sendToServer.send()) {
                 this.getAllWinnersSuccess();
             }
@@ -108,4 +108,35 @@ public class PointsService {
         System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tWINNERS");
         System.out.println(Colors.ANSI_RESET);
     }
+
+    public List<String> getWinnersUi() {
+        try {
+            GetWinnersDataFormat data =  new GetWinnersDataFormat();
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            String request = objectMapper.writeValueAsString(data);
+
+            SendToServer sendToServer = new SendToServer(request,socket);
+//            if ..... request ........
+            if (sendToServer.send()) {
+//                this.getAllWinnersSuccess();
+                inputStream = this.getSocket().getInputStream();
+                objectInputStream = new ObjectInputStream(inputStream);
+
+                    List<String> response = (ArrayList<String>) objectInputStream.readObject();
+
+                    return response;
+
+            }
+            else{
+                System.out.println("\nError occurred when sending request to server\n");
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+
 }

@@ -1,6 +1,11 @@
 package com.customify.desktop.services.points;
 
+import com.customify.cli.services.PointsService;
 import com.customify.desktop.layout.Layout;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -10,8 +15,14 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.io.IOException;
+import java.net.Socket;
+import java.util.List;
+import java.util.Vector;
 
 public class PointsServices extends JPanel {
+    private List<String> response;
+    private Socket socket;
+    DefaultTableModel model;
     Container c = new Container();
     String data[][] = {
             {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
@@ -24,7 +35,17 @@ public class PointsServices extends JPanel {
     };
     String column[] = {"Customer Id", "First name", "Last name", "Email", "Points", "Winning date", "Customer code"};
 
-    public Container init() {
+    public PointsServices(){}
+    public void returnWinner(){
+        PointsService pointsService = new PointsService(socket);
+        response = pointsService.getWinnersUi();
+
+
+
+    }
+
+    public Container init() throws JsonProcessingException {
+        returnWinner();
         JPanel main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
 //        main.setBackground(Color.white);
@@ -46,24 +67,46 @@ public class PointsServices extends JPanel {
         table.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
         table.setShowGrid(false);
         table.setIntercellSpacing(new Dimension(0, 1));
-        table.setRowHeight(40);
 
 
 
         table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            public Component getTtable.setRowHeight(40);ableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 c.setBackground(row % 2 == 0 ? new Color(253, 249, 249) : new Color(240, 240, 240));
                 return c;
             }
         });
 
-        DefaultTableModel model = new DefaultTableModel();
+        model = new DefaultTableModel();
         model.setColumnIdentifiers(column);
         table.setModel(model);
-        for (int i=0;i<data.length;i++) {
-            model.addRow(data[i]);
+
+
+//        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer(){
+//            @Override
+//            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
+//            {
+//                final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+//                c.setBackground(row % 2 == 0 ? new Color(240, 240, 240) :new Color(253, 249, 249));
+//                return c;
+//            }
+//        };
+//        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+//        table.setDefaultRenderer(Object.class, centerRenderer);
+//        model = new DefaultTableModel();
+//        model.setColumnIdentifiers(column);
+//        table.setModel(model);
+
+
+
+        if(response.size()>=0){
+            ObjectMapper objectMapper = new ObjectMapper();
+            for (int i = 0; i < response.size(); i++) {
+                JsonNode node = objectMapper.readTree(response.get(i));
+                model.addRow(new Object[]{node.get("customerId").asText(),node.get("firstName").asText(), node.get("lastName").asText(), node.get("email").asText(), node.get("noPoints").asDouble(), node.get("winingDate").asText(), node.get("code").asText()});
+            }
         }
         JTableHeader tableHeader = table.getTableHeader();
         tableHeader.setBackground(new Color(53, 32, 88));
@@ -109,7 +152,9 @@ public class PointsServices extends JPanel {
         c.add(main);
         return c;
     }
-    public static void main(String args[]) throws IOException {
-        new Layout(new PointsServices().init(), "Points Services");
+    public PointsServices(Socket socket) throws IOException, ClassNotFoundException{
+        this.socket = socket;
+        new Layout(init(), "Points Services");
+
     }
 }
