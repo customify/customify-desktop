@@ -51,21 +51,6 @@ public class PointsService {
         }
     }
 
-//    public void getPointsByCustomerEmail(PointsByCustomerEmailFormat format) {
-//        try {
-////                System.out.println(format);
-//            Request request = new Request(Keys.POINTS_BY_CUSTOMER_EMAIL, format);
-//            this.common = new Common(request, this.socket);
-//            if (common.sendToServer()) {
-//                System.out.println("\n\t\t   Request Sent successfully\n");
-//            } else {
-//                System.out.println("\nError occurred when sending request to server\n");
-//            }
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
-
     public void getAllWinnersSuccess() throws IOException {
 
         inputStream = this.getSocket().getInputStream();

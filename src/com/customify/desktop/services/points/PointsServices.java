@@ -17,7 +17,6 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
-import java.util.Vector;
 
 public class PointsServices extends JPanel {
     private List<String> response;
