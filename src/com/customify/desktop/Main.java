@@ -8,7 +8,6 @@ import com.customify.desktop.product.Product;
 import com.customify.desktop.product.ReadProductDB;
 import com.customify.desktop.services.points.PointsServices;
 
-
 import java.io.IOException;
 import java.net.Socket;
 

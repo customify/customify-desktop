@@ -23,15 +23,6 @@ public class PointsServices extends JPanel {
     private Socket socket;
     DefaultTableModel model;
     Container c = new Container();
-//    String data[][] = {
-//            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
-//            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
-//            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
-//            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
-//            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
-//            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
-//            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"}
-//    };
     String column[] = {"Customer Id", "First Name", "Last Name", "Email", "Points", "Winning Date", "Customer Code"};
 
     public PointsServices(){}
@@ -57,7 +48,6 @@ public class PointsServices extends JPanel {
         headline.setFont(new Font("Montserrat", Font.BOLD, 24));
         headline.setForeground(new Color(53, 32, 88));
 //        header.setBackground(Color.white);
-
 
 
         JTable table = new JTable();
@@ -128,7 +118,6 @@ public class PointsServices extends JPanel {
         buttonPanel.add(nextButton);
         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT,-13,0));
         main.add(buttonPanel);
-
 
         add(main);
         c.add(main);
