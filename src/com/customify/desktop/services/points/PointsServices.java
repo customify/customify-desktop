@@ -23,15 +23,15 @@ public class PointsServices extends JPanel {
     private Socket socket;
     DefaultTableModel model;
     Container c = new Container();
-    String data[][] = {
-            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
-            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
-            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
-            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
-            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
-            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
-            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"}
-    };
+//    String data[][] = {
+//            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
+//            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
+//            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
+//            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
+//            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
+//            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"},
+//            {"CUST001", "Gisa Kaze", "Fredson", "fredson.coder@gmail.com", "14", "2021-05-21", "CZ001"}
+//    };
     String column[] = {"Customer Id", "First Name", "Last Name", "Email", "Points", "Winning Date", "Customer Code"};
 
     public PointsServices(){}
