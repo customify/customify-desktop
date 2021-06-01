@@ -70,34 +70,34 @@ public class PointsServices extends JPanel {
 
 
 
-        table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+//        table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+//            @Override
+//            public Component getT        table.setRowHeight(40);ableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+//                final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+//                c.setBackground(row % 2 == 0 ? new Color(253, 249, 249) : new Color(240, 240, 240));
+//                return c;
+//            }
+//        });
+//
+//        DefaultTableModel model = new DefaultTableModel();
+//        model.setColumnIdentifiers(column);
+//        table.setModel(model);
+
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer(){
             @Override
-            public Component getTtable.setRowHeight(40);ableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
+            {
                 final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                c.setBackground(row % 2 == 0 ? new Color(253, 249, 249) : new Color(240, 240, 240));
+                c.setBackground(row % 2 == 0 ? new Color(240, 240, 240) :new Color(253, 249, 249));
                 return c;
             }
-        });
-
+        };
+        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        table.setDefaultRenderer(Object.class, centerRenderer);
         model = new DefaultTableModel();
         model.setColumnIdentifiers(column);
         table.setModel(model);
-
-
-//        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer(){
-//            @Override
-//            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
-//            {
-//                final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-//                c.setBackground(row % 2 == 0 ? new Color(240, 240, 240) :new Color(253, 249, 249));
-//                return c;
-//            }
-//        };
-//        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
-//        table.setDefaultRenderer(Object.class, centerRenderer);
-//        model = new DefaultTableModel();
-//        model.setColumnIdentifiers(column);
-//        table.setModel(model);
 
 
 
