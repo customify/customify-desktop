@@ -114,6 +114,6 @@ public class Sales extends JPanel {
 
 
   public static void main(String[] args) throws  IOException{
-    new Layout(new Sales().DisplaySales());
+    new Layout(new Sales().DisplaySales(), "Sales");
   }
 }
