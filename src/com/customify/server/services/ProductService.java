@@ -221,14 +221,17 @@ public class ProductService {
     // Jacques update this according to new Structure
 
     public void getAllProducts() throws IOException, SQLException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String statusCode;
         System.out.println("Request to get all products");
         List products = new ArrayList<ProductFormat>();
         GetAllProductsFormat allProductsFormat = new GetAllProductsFormat();
-
+        List<String> alldata = new ArrayList<>();
         try {
+            statusCode = "200";
             Statement statement = Db.getStatement();
             ResultSet records = statement.executeQuery("SELECT * FROM products");
-
+            String data;
             while (records.next()) {
                 ProductFormat product = new ProductFormat(
                         records.getInt("business_id"), records.getString("name"),
@@ -236,19 +239,23 @@ public class ProductService {
                         records.getString("description"), records.getDouble("bonded_points"),
                         records.getInt("registered_by"), records.getString("created_at")
                 );
-
-                product.setProductCode(records.getLong("product_code"));
-                products.add(product);
+                data = objectMapper.writeValueAsString(product);
+                alldata.add(data);
+//                product.setProductCode(records.getLong("product_code"));
+//                products.add(product);
             }
-            allProductsFormat.setProducts(products);
-            allProductsFormat.setStatus(200);
+//            allProductsFormat.setProducts(products);
+//            allProductsFormat.setStatus(200);
         } catch (SQLException e) {
-            allProductsFormat.setStatus(500);
+//            allProductsFormat.setStatus(500);
+            statusCode = "500";
+            alldata.add(statusCode);
             System.out.println(e.getMessage());
         } finally {
-            responseData.clear();
-            responseData.add(new ObjectMapper().writeValueAsString(allProductsFormat));
-            objectOutput.writeObject(responseData);
+//            responseData.clear();
+//            responseData.add(new ObjectMapper().writeValueAsString(allProductsFormat));
+//            objectOutput.writeObject(responseData);
+            objectOutput.writeObject(alldata);
         }
     }
 
