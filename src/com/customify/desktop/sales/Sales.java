@@ -25,7 +25,7 @@ public class Sales {
     public Container listSales()  {
         JPanel panel = new JPanel();
         panel.setBounds(4040,80,200,200);
-        panel.setBackground(Color.red);
+        panel.setBackground(Color.white);
 
         c.add(tableListing());
         return c;

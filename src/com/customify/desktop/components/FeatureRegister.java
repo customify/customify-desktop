@@ -43,6 +43,7 @@ public class FeatureRegister  {
 
         JButton cancel = new JButton("Cancel");
         cancel.setBounds(400,400,180,40);
+        cancel.setBackground(Color.white);
         c.add(cancel);
 
         btn = new JButton("Create");
@@ -50,7 +51,7 @@ public class FeatureRegister  {
         btn.setBackground(new Color(53,32,88));
         btn.setForeground(Color.white);
         c.add(btn);
-        c.setBackground(Color.red);
+        c.setBackground(Color.white);
         return c;
     }
 
