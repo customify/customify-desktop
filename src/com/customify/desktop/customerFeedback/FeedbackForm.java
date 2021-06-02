@@ -52,7 +52,6 @@ public class FeedbackForm extends JFrame {
      */
 
     public FeedbackForm() {
-//        setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\STDM.jpg"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(450, 190, 1014, 597);
         setResizable(false);
@@ -135,18 +134,20 @@ public class FeedbackForm extends JFrame {
 //                    String query = "INSERT INTO account values('" + firstName + "','" + lastName + "','" + userName + "','" +
 //                            password + "','" + emailId + "','" + mobileNumber + "')";
 
-                    String query = "INSERT INTO CustomerFeedback values('" + names + "','" + businessId + "','" + feedbackTitle +"','"+feedbackDescription+"')";
 
                     Connection connection = Db.getConnection();
+                    String query = "INSERT INTO CustomerFeedback values('" + names + "','" + businessId + "','" + feedbackTitle +"','"+feedbackDescription+"')";
+
                     Statement sta = connection.createStatement();
-                    int x = sta.executeUpdate(query);
-                    if (x == 0) {
-                        JOptionPane.showMessageDialog(btnNewButton, "This is alredy exist");
-                    } else {
-                        JOptionPane.showMessageDialog(btnNewButton,
-                                 "Feedback successfully sent");
-                    }
-                    connection.close();
+                        int x = sta.executeUpdate(query);
+                        if (x == 0) {
+                            JOptionPane.showMessageDialog(btnNewButton, "This is already exist");
+                        } else {
+                            JOptionPane.showMessageDialog(btnNewButton,
+                                    "Feedback successfully sent");
+                        }
+                        connection.close();
+
                 } catch (Exception exception) {
                     exception.printStackTrace();
                 }
