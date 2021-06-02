@@ -1,7 +1,7 @@
 /**
- * @author GISA KAZE Fredson
- * */
-
+ @author GISA KAZE Fredson
+ Date: 20/05/2021
+ */
 package com.customify.cli.services;
 
 import com.customify.cli.Colors;
@@ -22,9 +22,7 @@ public class PointsService {
     InputStream inputStream;
     ObjectInputStream objectInputStream;
 
-    public PointsService(){
-
-    }
+    public PointsService(){ }
 
     public PointsService(Socket socket) {
         this.socket = socket;
