@@ -1,55 +1,56 @@
-package com.customify.desktop.business;
+package com.customify.desktop.customerFeedback;
 
 import com.customify.desktop.Keys;
-import com.customify.desktop.data_formats.business.BusinessFormat;
-import com.customify.desktop.services.BusinessService;
+import com.customify.desktop.data_formats.Customer_feedback.CustomerFeedbackFormat;
+import com.customify.desktop.services.FeedbackServices;
 import com.customify.desktop.utils.interfaces.IInputChangedEventListener;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.Socket;
 
-public class NewBusiness extends JPanel {
-    BusinessFormat format = new BusinessFormat();
+public class CustomerFeedbackForm extends JPanel {
+    CustomerFeedbackFormat format = new CustomerFeedbackFormat();
 
     private final Socket socket;
+    private JPanel contentPane;
 
-    public NewBusiness(Socket socket){
+    public CustomerFeedbackForm(Socket socket){
         this.socket = socket;
 
-        JPanel main = new JPanel();
-        main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
-        main.setBackground(Color.white);
+        contentPane = new JPanel();
+        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
+        contentPane.setBackground(Color.white);
         setLayout(null);
 
+        String country[]={"India","Aus","U.S.A","England","Newzealand"};
         JPanel header = new JPanel();
-        JLabel headline = new JLabel("New Business ");
+        JLabel headline = new JLabel("Customer feedback ");
         headline.setPreferredSize(new Dimension(300, 100));
         headline.setFont(new Font("Montserrat", Font.BOLD, 29));
         headline.setForeground(new Color(53,32,88));
         header.setBackground(Color.white);
 
-        JPanel businessName = createNewInput("Business name");
-        JPanel businessLocation = createNewInput("Location");
-        JPanel address = createNewInput("Address");
-        JPanel phoneNumber = createNewInput("Phone number");
-        JPanel representative = createNewInput("Representative");
-        JPanel businessPlan = createNewInput("Business plan");
+
+        JPanel customer_name = createNewInput("Customer name");
+        JPanel business_id = createNewInput("Business Id");
+        // JComboBox cb=new JComboBox(country);
+        // cb.setPreferredSize(new Dimension(300, 20));
+        JPanel title = createNewInput("Title");
+        JPanel description = createNewInput("Description");
 
         JPanel buttonGroup = new JPanel();
         buttonGroup.setBackground(Color.white);
 
-        JButton cancel = new JButton("Cancel");
-        cancel.setBounds(400,400,180,40);
-        cancel.setBackground(Color.white);
-        cancel.setBorder(BorderFactory.createCompoundBorder(
-                cancel.getBorder(),
-                BorderFactory.createEmptyBorder(7, 30, 7, 30)));
-        cancel.setFont(new Font("Montserrat", Font.PLAIN, 18));
+        // JButton cancel = new JButton("Cancel");
+        // cancel.setBounds(400,400,180,40);
+        // cancel.setBackground(Color.white);
+        // cancel.setBorder(BorderFactory.createCompoundBorder(
+        //         cancel.getBorder(),
+        //         BorderFactory.createEmptyBorder(7, 30, 7, 30)));
+        // cancel.setFont(new Font("Montserrat", Font.PLAIN, 18));
 
         JButton btn = new JButton("Register");
         btn.setBounds(1020,400,180,40);
@@ -62,36 +63,34 @@ public class NewBusiness extends JPanel {
 
         btn.addActionListener(actionEvent -> {
             try {
-                createNewBusiness();
+                newCustomerFeedback();
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
         });
 
         buttonGroup.add(btn);
-        buttonGroup.add(cancel);
 
         header.add(headline);
 
-        main.add(header);
-        main.add(businessName);
-        main.add(businessLocation);
-        main.add(address);
-        main.add(phoneNumber);
-        main.add(representative);
-        main.add(businessPlan);
-        main.add(buttonGroup);
+        contentPane.add(header);
+        contentPane.add(customer_name);
+        contentPane.add(business_id);
+        // contentPane.add(cb);
+        contentPane.add(title);
+        contentPane.add(description);
+        contentPane.add(buttonGroup);
 
-        main.setBounds(200, 50, 800, 600);
+        contentPane.setBounds(200, 50, 800, 600);
 
-        add(main);
+        add(contentPane);
         setBackground(Color.WHITE);
     }
 
-    public void createNewBusiness() throws IOException, ClassNotFoundException {
-        BusinessService service = new BusinessService(this.socket);
-        this.format.setKey(Keys.CREATE_BUSINESS);
-        service.create(this.format);
+    public void newCustomerFeedback() throws IOException, ClassNotFoundException {
+        FeedbackServices service = new FeedbackServices(this.socket);
+        this.format.setKey(Keys.FEEDBACK);
+        service.Feedback(this.format);
     }
 
     public JPanel createNewInput(String placeholderTextParam){
@@ -111,12 +110,10 @@ public class NewBusiness extends JPanel {
 
         textField.getDocument().addDocumentListener((IInputChangedEventListener) e -> {
             switch (placeholderTextParam) {
-                case "Business name": format.setName(textField.getText());
-                case "Location" : format.setLocation(textField.getText());
-                case "Address" : format.setAddress(textField.getText());
-                case "Phone number" : format.setPhoneNumber(textField.getText());
-                case "Representative" : format.setRepresentative(Integer.parseInt(textField.getText()));
-                case "Business plan" : format.setPlan(Integer.parseInt(textField.getText()));
+                case "Customer name" -> format.setCustomer_name(textField.getText());
+                case "Business Id" -> format.setBusinessId(Integer.parseInt(textField.getText()));
+                case "Title" -> format.setTitle(textField.getText());
+                case "Description" -> format.setDescription(textField.getText());
             }
         });
 

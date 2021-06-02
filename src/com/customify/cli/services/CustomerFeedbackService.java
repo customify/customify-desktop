@@ -116,4 +116,33 @@ public class CustomerFeedbackService {
             System.out.println(e.getMessage());
         }
     }
+
+
+
+    public void getBusinesses(String json) throws IOException, ClassNotFoundException {
+        SendToServer serverSend = new SendToServer(json, this.socket);
+        if (serverSend.send()) {
+            this.handleGetResponse();
+        } else {
+            System.out.println("Request failed...");
+        }
+    }
+
+    public void handleGetResponse() throws IOException, ClassNotFoundException {
+        this.input = this.socket.getInputStream();
+        this.objectInput = new ObjectInputStream(this.input);
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<String> data = (List<String>) this.objectInput.readObject();
+
+        if(data.get(0)=="500") System.out.println("An error occurred");
+        else {
+
+            System.out.format("%20s\n","Name");
+            for (int i = 1; i < data.size(); i++) {
+                JsonNode bs = objectMapper.readTree(data.get(i));
+                System.out.format("%20s\n", bs.get("name").asText());
+            }
+        }
+    }
+
 }
