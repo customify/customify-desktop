@@ -45,7 +45,6 @@ public class BusinessService {
 
     /**
      * @param businessFormat the business detains in form of a format
-     * @return void
      * @author IRUMVA HABUMUGISHA Anselme
      * @role this function is to create a new business
      * We send the request to the backend
@@ -93,9 +92,9 @@ public class BusinessService {
     }
 
     /**
-     * @author Kellia Umuhire
-     * @role this function is for handling the response after fetching all the businesses from the server
+     * this function is for handling the response after fetching all the businesses from the server
      * and displaying the response
+     * @author Kellia Umuhire
      */
     public void handleGetResponse() throws IOException, ClassNotFoundException {
         //Get response
