@@ -1,10 +1,8 @@
-package com.customify.desktop.products;
+package com.customify.desktop.product;
 
-import com.customify.desktop.business.ReadBusiness;
 import com.customify.desktop.layout.Layout;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 
 public class Products {
