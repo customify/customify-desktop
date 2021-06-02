@@ -5,6 +5,7 @@ import com.customify.desktop.components.Sidebar;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -23,8 +24,25 @@ public class Layout  {
         navbar.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        BufferedImage img = ImageIO.read(new File(System.getProperty("user.dir") + "/src/com/customify/desktop/assets/profile.png"));
+        JTextField textField = new JTextField("");
+        textField.setColumns(30);
+        textField.setBackground(new Color(53, 32, 88));
+        textField.setBorder(BorderFactory.createMatteBorder(0,0,2,0,Color.white));
+        textField.setForeground(Color.white);
+        textField.setFont(textField.getFont().deriveFont(14.0f));
+        textField.setCaretColor(Color.white);
 
+        navbar.add(textField,gbc);
+
+        BufferedImage search = ImageIO.read(new File(System.getProperty("user.dir") + "/src/com/customify/desktop/assets/si-search.png"));
+        ImageIcon searchIcon = new ImageIcon(search.getScaledInstance(20,20,BufferedImage.SCALE_SMOOTH));
+        JLabel searchLabel = new JLabel();
+        searchLabel.setIcon(searchIcon);
+        searchLabel.setBorder(new EmptyBorder(0, 10, 0, 0));
+
+        navbar.add(searchLabel,gbc);
+
+        BufferedImage img = ImageIO.read(new File(System.getProperty("user.dir") + "/src/com/customify/desktop/assets/profile.png"));
         int diameter = Math.min(img.getWidth(), img.getHeight());
         BufferedImage mask = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
@@ -45,12 +63,10 @@ public class Layout  {
         
         ImageIcon icon = new ImageIcon(masked.getScaledInstance(30,30,BufferedImage.SCALE_SMOOTH));
         JLabel imageLabel = new JLabel();
-        imageLabel.setBorder(new EmptyBorder(0, 10, 0, 10));
+        imageLabel.setBorder(new EmptyBorder(0, 20, 0, 20));
         imageLabel.setIcon(icon);
-        
-        
 
-        navbar.add(imageLabel);
+        navbar.add(imageLabel,gbc);
 
         JLabel name = new JLabel("Gisa Kaze Fredson");;
         name.setForeground(Color.white);
@@ -59,7 +75,7 @@ public class Layout  {
         navbar.add(name,gbc);
 
         navbar.setBackground(new Color(53,32,88));
-        navbar.setBounds(300, 0, 1620, 70);
+        navbar.setBounds(300, 0, 1300, 70);
 
         /*Header ends here*/
 
