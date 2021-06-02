@@ -16,7 +16,7 @@ public class Main {
     public Main(Socket socket) throws Exception {
         this.socket=socket;
 //        new Product(socket);
-        new PointsServices(socket);
+        new Product(socket);
 
     }
 
