@@ -1,11 +1,9 @@
 package com.customify.desktop.layout;
 
-import com.customify.desktop.components.SideBarListItem;
 import com.customify.desktop.components.Sidebar;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -13,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Layout  {
-    public Layout(Container body) throws IOException {
+    public Layout(Container body, String customer_feedback_registration) throws IOException {
         JFrame frame = new JFrame("Layout");
         frame.setBackground(Color.white);
         JPanel sidebar = new Sidebar();

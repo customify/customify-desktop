@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -119,30 +120,37 @@ public class CustomerFeedbackService {
 
 
 
-    public void getBusinesses(String json) throws IOException, ClassNotFoundException {
+    public ArrayList<String> getBusinesses(String json) throws IOException, ClassNotFoundException {
         SendToServer serverSend = new SendToServer(json, this.socket);
+        ArrayList<String> businessesList = new ArrayList<>();
         if (serverSend.send()) {
-            this.handleGetResponse();
+//            System.out.println(this.handleGetResponse().get(0));
+            for(String blist:this.handleGetResponse()){
+                businessesList.add(blist);
+            }
         } else {
             System.out.println("Request failed...");
         }
+        return businessesList;
     }
 
-    public void handleGetResponse() throws IOException, ClassNotFoundException {
+    public ArrayList<String> handleGetResponse() throws IOException, ClassNotFoundException {
         this.input = this.socket.getInputStream();
         this.objectInput = new ObjectInputStream(this.input);
         ObjectMapper objectMapper = new ObjectMapper();
         List<String> data = (List<String>) this.objectInput.readObject();
+        ArrayList<String> businesses = new ArrayList<>();
 
         if(data.get(0)=="500") System.out.println("An error occurred");
         else {
-
-            System.out.format("%20s\n","Name");
+//            System.out.format("%20s\n","Name");
             for (int i = 1; i < data.size(); i++) {
                 JsonNode bs = objectMapper.readTree(data.get(i));
-                System.out.format("%20s\n", bs.get("name").asText());
+                businesses.add(bs.get("name").asText());
+//                System.out.format("%10s\n", bs.get("name").asText());
             }
         }
+        return businesses;
     }
 
 }
