@@ -1,7 +1,7 @@
 /**
  * @author GISA KAZE Fredson
+   Date: 20/05/2021
  */
-
 package com.customify.server.services;
 
 import com.customify.server.*;
@@ -34,11 +34,6 @@ public class PointsService {
         this.socket = socket;
     }
 
-//    public void getPointsByCustomerEmail() {
-//        PointsByCustomerEmailFormat data = (PointsByCustomerEmailFormat) request.getObject();
-//        System.out.println("Customer email: " + data.getEmail());
-//    }
-
     public void getWinners() throws SQLException, IOException {
         String sql = "SELECT Points_winning.customer_id,no_points,Points_winning.created_at,first_name,last_name,email,code FROM Points_winning INNER JOIN Customer ON Points_winning.customer_id = Customer.customer_id AND no_points >= 15";
         List<String> winners = new ArrayList();
@@ -70,18 +65,18 @@ public class PointsService {
             objectOutputStream.writeObject(winners);
 
             mailWinner();
-            resetWinners();
+//            resetWinners();
         }
 
     }
 
 
-// mailling winner function
+// Milling winner function
     public void mailWinner() throws SQLException{
 
         String email = null;
         String id = null;
-      
+
         String result = "SELECT Customer.email FROM Customer INNER JOIN Points_winning ON Customer.customer_id = Points_winning.customer_id AND no_points >= 15 ";
         String outputId = "SELECT Customer.customer_id FROM Customer INNER JOIN Points_winning ON Customer.customer_id = Points_winning.customer_id AND no_points >= 15 ";
         Connection connection = Db.getConnection();
@@ -137,10 +132,10 @@ public class PointsService {
 
             while (resultSet.next()) {
                 product_points = saleDataFormat.getQuantity() * resultSet.getFloat("bonded_points");
-                System.out.println("Points: "+product_points);
+//                System.out.println("Points: "+product_points);
 
             }
-            System.out.println("Points now: "+product_points);
+//            System.out.println("Points now: "+product_points);
 
             preparedStatement = connection.prepareStatement("INSERT INTO Points(customer_id,number_of_points,`source`) VALUES (?,?,'product')");
             preparedStatement.setString(1, saleDataFormat.getCustomerID());

@@ -60,7 +60,7 @@ public class BusinessService {
             statement.setString(1, jsonNode.get("name").asText());
             statement.setString(2, jsonNode.get("location").asText());
             statement.setString(3, jsonNode.get("address").asText());
-            statement.setString(4, jsonNode.get("phone_number").asText());
+            statement.setString(4, jsonNode.get("phoneNumber").asText());
             statement.setInt(5, jsonNode.get("representative").asInt());
             statement.setInt(6, jsonNode.get("plan").asInt());
 
@@ -93,7 +93,7 @@ public class BusinessService {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, jsonNode.get("location").asText());
             statement.setString(2, jsonNode.get("address").asText());
-            statement.setString(3, jsonNode.get("phone_number").asText());
+            statement.setString(3, jsonNode.get("phoneNumber").asText());
             statement.setString(4, jsonNode.get("name").asText());
             statement.setInt(5, jsonNode.get("representative").asInt());
             statement.setInt(6, jsonNode.get("plan").asInt());
@@ -226,7 +226,6 @@ public class BusinessService {
             this.output = socket.getOutputStream();
             this.objectOutput = new CustomizedObjectOutputStream(this.output);
             objectOutput.writeObject(alldata);
-
         }
 
     }

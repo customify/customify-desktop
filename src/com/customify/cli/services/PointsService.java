@@ -1,7 +1,7 @@
 /**
- * @author GISA KAZE Fredson
- * */
-
+ @author GISA KAZE Fredson
+ Date: 20/05/2021
+ */
 package com.customify.cli.services;
 
 import com.customify.cli.Colors;
@@ -22,9 +22,7 @@ public class PointsService {
     InputStream inputStream;
     ObjectInputStream objectInputStream;
 
-    public PointsService(){
-
-    }
+    public PointsService(){ }
 
     public PointsService(Socket socket) {
         this.socket = socket;
@@ -38,7 +36,7 @@ public class PointsService {
             String request = objectMapper.writeValueAsString(data);
 
             SendToServer sendToServer = new SendToServer(request,socket);
-//            if ..... request igahita iba sent
+//            if ..... request ........
             if (sendToServer.send()) {
                 this.getAllWinnersSuccess();
             }
@@ -51,21 +49,6 @@ public class PointsService {
         }
     }
 
-//    public void getPointsByCustomerEmail(PointsByCustomerEmailFormat format) {
-//        try {
-////                System.out.println(format);
-//            Request request = new Request(Keys.POINTS_BY_CUSTOMER_EMAIL, format);
-//            this.common = new Common(request, this.socket);
-//            if (common.sendToServer()) {
-//                System.out.println("\n\t\t   Request Sent successfully\n");
-//            } else {
-//                System.out.println("\nError occurred when sending request to server\n");
-//            }
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
-
     public void getAllWinnersSuccess() throws IOException {
 
         inputStream = this.getSocket().getInputStream();
@@ -77,13 +60,13 @@ public class PointsService {
         try {
             List<String> response = (ArrayList<String>) objectInputStream.readObject();
             if(response.size() == 0 ) {
-                System.out.println("\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tNo winner to show\n\n");
+                System.out.println("\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tNo winners to show\n\n");
                 return;
             }
             System.out.println("\n\n");
             this.Header();
             System.out.println(Colors.ANSI_GREEN);
-            System.out.format("\t%-15s%-25s%-25s%-30s%-10s%-30s%-10s", "Customer Id", "First name", "Last name", "Email", "Points", "Winning date", "Customer code");
+            System.out.format("\t%-15s%-25s%-25s%-30s%-10s%-30s%-10s", "Customer ID", "First Name", "Last Name", "Email", "Points", "Winning date", "Customer code");
             System.out.println(Colors.ANSI_RESET);
             for (int i = 0; i < response.size(); i++) {
                 JsonNode node = objectMapper.readTree(response.get(i));
@@ -108,4 +91,35 @@ public class PointsService {
         System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tWINNERS");
         System.out.println(Colors.ANSI_RESET);
     }
+
+    public List<String> getWinnersUi() {
+        try {
+            GetWinnersDataFormat data =  new GetWinnersDataFormat();
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            String request = objectMapper.writeValueAsString(data);
+
+            SendToServer sendToServer = new SendToServer(request,socket);
+//            if ..... request ........
+            if (sendToServer.send()) {
+//                this.getAllWinnersSuccess();
+                inputStream = this.getSocket().getInputStream();
+                objectInputStream = new ObjectInputStream(inputStream);
+
+                    List<String> response = (ArrayList<String>) objectInputStream.readObject();
+
+                    return response;
+
+            }
+            else{
+                System.out.println("\nError when sending request to the server\n");
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+
 }

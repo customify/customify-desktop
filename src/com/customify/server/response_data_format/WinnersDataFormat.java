@@ -1,7 +1,7 @@
 /**
- * @author GISA KAZE Fredson
+  @author GISA KAZE Fredson
+Date: 20/05/2021
  */
-
 
 package com.customify.server.response_data_format;
 

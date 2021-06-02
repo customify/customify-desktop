@@ -1,6 +1,8 @@
 package com.customify.desktop.components;
 
 import com.customify.desktop.layout.Layout;
+
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -56,6 +58,6 @@ public class FeatureRegister  {
     }
 
     public static void main(String args[]) throws IOException {
-        new Layout(new FeatureRegister().init());
+        new Layout(new FeatureRegister().init(), "Feature Register");
     }
 }
