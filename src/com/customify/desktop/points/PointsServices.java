@@ -59,7 +59,7 @@ public class PointsServices extends JPanel {
         table.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
         table.setShowGrid(false);
         table.setIntercellSpacing(new Dimension(0, 1));
-
+        table.setRowHeight(40);
 
 //        Aligning content at the center in table
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer(){

@@ -1,6 +1,7 @@
 // Initialize the Desktop applications
 
 package com.customify.desktop;
+import com.customify.desktop.points.PointsServices;
 import com.customify.desktop.sales.Sales;
 import com.customify.desktop.business.Business;
 import com.customify.desktop.product.Product;
@@ -13,8 +14,8 @@ public class Main {
     public Main(Socket socket) throws Exception {
         this.socket=socket;
 //        new Product(socket);
-        new Product(socket);
-
+//        new Product(socket);
+        new PointsServices(socket);
     }
 
     public void main(String[] args) throws  IOException {
