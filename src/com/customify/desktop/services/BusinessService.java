@@ -94,7 +94,7 @@ public class BusinessService {
 
     /**
      * @author Kellia Umuhire
-     * @role this function is for handling the response after fetching all the businesses from the server
+     * @role this function is for h+andling the response after fetching all the businesses from the server
      * and displaying the response
      */
     public void handleGetResponse() throws IOException, ClassNotFoundException {
