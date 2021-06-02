@@ -226,7 +226,6 @@ public class BusinessService {
             this.output = socket.getOutputStream();
             this.objectOutput = new CustomizedObjectOutputStream(this.output);
             objectOutput.writeObject(alldata);
-
         }
 
     }
