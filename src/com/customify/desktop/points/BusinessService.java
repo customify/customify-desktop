@@ -10,7 +10,7 @@
  * @since Wednesday, 3 February 2021 - 08:17 - Time in Nyabihu
  * */
 
-package com.customify.desktop.services;
+package com.customify.desktop.points;
 
 import com.customify.desktop.SendToServer;
 import com.customify.desktop.data_formats.business.BusinessFormat;

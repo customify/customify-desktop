@@ -3,7 +3,7 @@
  Date: 20/05/2021
  */
 
-package com.customify.desktop.services.points;
+package com.customify.desktop.points;
 
 import com.customify.cli.services.PointsService;
 import com.customify.desktop.layout.Layout;
