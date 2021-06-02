@@ -10,8 +10,13 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        new Sales();
-//        new Business();
+    private Socket socket;
+    public Main(Socket socket) throws IOException, ClassNotFoundException {
+        this.socket=socket;
+        new Business(socket);
     }
+//    public static void main(String[] args) throws IOException {
+//        new Sales();
+////        new Business();
+//    }
 }
