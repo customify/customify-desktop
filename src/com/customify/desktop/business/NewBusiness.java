@@ -2,6 +2,7 @@ package com.customify.desktop.business;
 
 import com.customify.desktop.Keys;
 import com.customify.desktop.data_formats.business.BusinessFormat;
+import com.customify.desktop.layout.Layout;
 import com.customify.desktop.services.BusinessService;
 import com.customify.desktop.utils.interfaces.IInputChangedEventListener;
 
@@ -39,6 +40,7 @@ public class NewBusiness extends JPanel {
         JPanel phoneNumber = createNewInput("Phone number");
         JPanel representative = createNewInput("Representative");
         JPanel businessPlan = createNewInput("Business plan");
+//        JPanel selectAString = createNewSelect("Business Plan");
 
         JPanel buttonGroup = new JPanel();
         buttonGroup.setBackground(Color.white);
@@ -80,6 +82,7 @@ public class NewBusiness extends JPanel {
         main.add(phoneNumber);
         main.add(representative);
         main.add(businessPlan);
+//        main.add(selectAString);
         main.add(buttonGroup);
 
         main.setBounds(200, 50, 800, 600);
@@ -110,18 +113,66 @@ public class NewBusiness extends JPanel {
         textField.setFont(new Font("Montserrat", Font.PLAIN, 18));
 
         textField.getDocument().addDocumentListener((IInputChangedEventListener) e -> {
+            System.out.println(textField.getText() + placeholderTextParam);
             switch (placeholderTextParam) {
-                case "Business name": format.setName(textField.getText());
-                case "Location" : format.setLocation(textField.getText());
-                case "Address" : format.setAddress(textField.getText());
-                case "Phone number" : format.setPhoneNumber(textField.getText());
-                case "Representative" : format.setRepresentative(Integer.parseInt(textField.getText()));
-                case "Business plan" : format.setPlan(Integer.parseInt(textField.getText()));
+                case "Business name":
+                    format.setName(textField.getText());
+                    break;
+                case "Location" :
+                    format.setLocation(textField.getText());
+                    break;
+                case "Address" :
+                    format.setAddress(textField.getText());
+                    break;
+                case "Phone number" :
+                    format.setPhoneNumber(textField.getText());
+                    break;
+                case "Representative" :
+                    format.setRepresentative(Integer.parseInt(textField.getText()));
+                    break;
+                case "Business plan" :
+                    format.setPlan(Integer.parseInt(textField.getText()));
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + placeholderTextParam);
             }
         });
 
         textFieldContainer.add(placeholderText);
         textFieldContainer.add(textField);
+
+        return textFieldContainer;
+    }
+
+    public static void main(String[] args) throws IOException {
+        new Layout(new NewBusiness(new Socket()), "testing....");
+    }
+
+    public JPanel createNewSelect(String placeholderTextParam){
+        JPanel textFieldContainer = new JPanel();
+        textFieldContainer.setBackground(Color.white);
+
+        JLabel placeholderText = new JLabel(placeholderTextParam);
+        placeholderText.setFont(new Font("Montserrat", Font.PLAIN, 18));
+        placeholderText.setBackground(Color.green);
+        placeholderText.setPreferredSize(new Dimension(200, 30));
+
+
+
+        String[] petStrings = { "Bird", "Cat", "Dog", "Rabbit", "Pig" };
+        JComboBox<String> petList = new JComboBox<>(petStrings);
+
+        petList.setFont(new Font("Montserrat", Font.PLAIN, 18));
+
+        petList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.out.println(petList.getSelectedIndex());
+            }
+        });
+
+        textFieldContainer.add(placeholderText);
+        textFieldContainer.add(petList);
 
         return textFieldContainer;
     }

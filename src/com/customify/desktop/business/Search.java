@@ -50,6 +50,10 @@ public class Search extends JPanel {
         setBackground(Color.white);
     }
 
+    public Search() {
+        
+    }
+
     private void search(String searchTerm) throws IOException, ClassNotFoundException {
         BusinessService service = new BusinessService(this.socket);
         String json = "{ \"name\" : \""+searchTerm+"\", \"key\" : \""+ Keys.GET_BUSINESSES_BY_NAME +"\" }";
