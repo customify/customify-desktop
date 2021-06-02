@@ -22,7 +22,7 @@ git clone https://github.com/customify/customify-ui.git
 branches products,rewarding,reporting and billing have been created for you
 use your branches carefully
 ```bash
-git checkout origin <your branch>
+git checkout <your branch>
 ```
 before going to sleep commit your changes
 ```bash
