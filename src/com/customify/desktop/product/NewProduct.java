@@ -1,17 +1,20 @@
 package com.customify.desktop.product;
 
+import com.customify.cli.data_format.products.ProductFormat;
 import com.customify.desktop.components.FormControl;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.net.Socket;
 
 public class NewProduct extends JPanel {
+   private Socket socket;
 
-    public NewProduct(){
-
+   public NewProduct(Socket socket){
+        this.socket=socket;
         JPanel header = new JPanel();
-
+        JPanel main = new JPanel();
         JLabel headline = new JLabel("ADD PRODUCT ");
         headline.setFont(new Font("Montserrat", Font.BOLD, 20));
         headline.setForeground(new Color(53,32,88));
@@ -20,7 +23,6 @@ public class NewProduct extends JPanel {
         header.setBounds(100,90,300,30);
         header.add(headline);
 
-        JPanel main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
         main.setBackground(Color.white);
         setLayout(null);
@@ -63,9 +65,6 @@ public class NewProduct extends JPanel {
         buttonGroup.add(btn);
         buttonGroup.add(cancel);
 
-
-
-        //main.add(header);
         main2.add(productName);
         main2.add(quantity);
         main2.add(productDescription);
@@ -74,7 +73,6 @@ public class NewProduct extends JPanel {
         main.add(main2);
         main.add(buttonGroup);
 
-
         main.setBounds(150, 120, 700, 500);
         main2.setBounds(150, 100, 600, 600);
 
@@ -82,5 +80,4 @@ public class NewProduct extends JPanel {
         add(main);
         setBackground(Color.white);
     }
-
 }
