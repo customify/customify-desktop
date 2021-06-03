@@ -77,6 +77,10 @@ public class RequestHandler {
                 CustomerFeedbackService feedback1 = new CustomerFeedbackService(this.clientSocket);
                 feedback1.getAllFeedbacks(json_data);
                 break;
+            case GET_BUSINESS_NAME:
+                CustomerFeedbackService f = new CustomerFeedbackService(this.clientSocket);
+                f.getAllBusinesses();
+                break;
             case REMOVE_FEEDBACK:
                 CustomerFeedbackService feedback2 = new CustomerFeedbackService(this.clientSocket);
                 feedback2.deleteCustomerFeedback(json_data);

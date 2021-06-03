@@ -3,6 +3,7 @@ package com.customify.server;
 public enum Keys {
     LOGIN,
     REGISTER,
+    GET_BUSINESS_NAME,
     GET_USERS,
     GET_WINNERS,
     FEEDBACK,
