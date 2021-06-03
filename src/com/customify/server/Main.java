@@ -19,7 +19,7 @@ public class Main {
 
     private static final int portNumber = 3000;
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception,ClassNotFoundException {
         ServerSocket serverSocket;
         try {
             serverSocket = new ServerSocket(portNumber);

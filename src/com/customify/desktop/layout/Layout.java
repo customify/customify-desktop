@@ -11,8 +11,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class Layout  {
-    public Layout(Container body, String title) throws IOException {
-        JFrame frame = new JFrame(title);
+    public Layout(Container body, String customer_feedback_registration) throws IOException {
+        JFrame frame = new JFrame("Layout");
         frame.setBackground(Color.white);
         JPanel sidebar = new Sidebar();
         JPanel navbar = new JPanel();
@@ -77,6 +77,7 @@ public class Layout  {
 
         /*Header ends here*/
 
+        body.setBackground(Color.lightGray);
         body.setBounds(300,70,1060,667);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
@@ -86,5 +87,8 @@ public class Layout  {
         frame.add(sidebar);
         frame.setResizable(true);
         frame.add(navbar);
+    }
+
+    public Layout(Container body) {
     }
 }
