@@ -1,8 +1,8 @@
 package com.customify.desktop.employee;
 
 import com.customify.cli.utils.authorization.structure.EmployeeUser;
-import com.customify.desktop.data_formats.business.BusinessFormat;
 import com.customify.desktop.layout.Layout;
+import com.customify.desktop.data_formats.business.BusinessFormat;
 import com.customify.desktop.utils.interfaces.IInputChangedEventListener;
 
 import javax.swing.*;
@@ -10,19 +10,20 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.io.IOException;
 
-public class UpdateEmployee extends JPanel {
+public class createEmp extends JPanel {
     public static JPanel init(){
         JPanel main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
         main.setBackground(Color.white);
 
         JPanel header = new JPanel();
-        JLabel headline = new JLabel("Update employee ");
-        headline.setPreferredSize(new Dimension(300, 100));
+        JLabel headline = new JLabel("Create employee. ");
+        headline.setPreferredSize(new Dimension(300, 80));
         headline.setFont(new Font("Montserrat", Font.BOLD, 29));
         headline.setForeground(new Color(53,32,88));
         header.setBackground(Color.white);
 
+        main.add(header);
         InputFactory factory = new InputFactory();
 
         JTextField firstNameField = factory.createInput();
@@ -37,8 +38,8 @@ public class UpdateEmployee extends JPanel {
         JTextField titleField = factory.createInput();
         main.add(factory.createPanel("Title",titleField));
 
-        JTextField usernameField = factory.createInput();
-        main.add(factory.createPanel("Username",usernameField));
+        JTextField passwordField = factory.createInput();
+        main.add(factory.createPanel("Password",passwordField));
 
         JPanel buttonGroup = new JPanel();
         buttonGroup.setBackground(Color.white);
@@ -62,11 +63,7 @@ public class UpdateEmployee extends JPanel {
 
         btn.addActionListener(actionEvent -> {
             EmployeeUser employee = new EmployeeUser();
-            /*try {
 
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }*/
         });
 
         buttonGroup.add(cancel);
@@ -76,20 +73,19 @@ public class UpdateEmployee extends JPanel {
         main.add(buttonGroup);
 
         main.setBounds(90, 40, 800, 600);
-
         return main;
     }
 
     public static void main(String[] args) throws IOException {
         Container container = new Container();
-        container.add(UpdateEmployee.init());
+        container.add(createEmp.init());
 
-        new Layout(container,"Update Employee");
+        new Layout(container,"Create Employee");
     }
 }
 
 
-class InputFactory{
+class InputDesign{
     public JTextField createInput(){
         JTextField textField = new JTextField("", 20);
         textField.setBorder(BorderFactory.createCompoundBorder(
@@ -101,6 +97,7 @@ class InputFactory{
 
         return textField;
     }
+
 
     public JPanel createPanel(String placeholder,JTextField jTextField){
         JPanel container = new JPanel();
@@ -116,5 +113,4 @@ class InputFactory{
 
         return container;
     }
-
 }
