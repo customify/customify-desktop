@@ -49,7 +49,7 @@ public class CustomerReadFeedbacks {
 
 
     public void viewAll()throws IOException,ClassNotFoundException{
-        String json = "{ \"key\" : \""+ Keys.GET_ALL_BUSINESSES +"\" }";
+        String json = "{ \"key\" : \""+ Keys.GET_BUSINESS_NAME +"\" }";
         CustomerFeedbackService feedService = new CustomerFeedbackService(socket);
         feedService.getBusinesses(json);
     }

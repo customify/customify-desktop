@@ -3,6 +3,7 @@ package com.customify.cli;
 public enum Keys {
     LOGIN,
     REGISTER,
+    GET_BUSINESS_NAME,
     FEEDBACK,
     GET_ALL_FEEDBACKS,
     REMOVE_FEEDBACK,

@@ -126,10 +126,7 @@ public void getAllBusinesses() throws IOException {
         ResultSet res = statement.executeQuery(query);
         String data;
         while(res.next()){
-
-            BusinessRFormat bs = new BusinessRFormat(
-                    res.getString(3)
-            );
+            BusinessRFormat bs = new BusinessRFormat(res.getString(1));
             data = objectMapper.writeValueAsString(bs);
             alldata.add(data);
         }
@@ -143,7 +140,6 @@ public void getAllBusinesses() throws IOException {
         this.objectOutput = new CustomizedObjectOutputStream(this.output);
         objectOutput.writeObject(alldata);
     }
-
 }
 
     /*

@@ -1,5 +1,7 @@
 package com.customify.cli;
 
+import com.customify.cli.views.CustomerFeedback.CustomerFeedbackMainView;
+
 import java.io.*;
 import java.net.*;
 
@@ -25,11 +27,12 @@ public class Main {
         try{
             Socket socket = new Socket(serverIp, portNumber);
 //            while(isConnectionOn){
-////                Login log = new Login(socket);
+//                Login log = new Login(socket);
 //
 //            }
-            new com.customify.desktop.Main(socket);
 //            new com.customify.desktop.Main(socket);
+            CustomerFeedbackMainView mainView = new CustomerFeedbackMainView(socket);
+            mainView.view();
         }catch (Exception e){
             this.isConnectionOn = false;
             System.out.println("Failed to connect to the server at port: "+ portNumber);
