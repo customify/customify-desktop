@@ -27,8 +27,6 @@ public class BusinessService {
     private Socket socket;
     private InputStream input;
     private ObjectInputStream objectInput;
-    private String json_data;
-    private List<String> response;
 
     public BusinessService() {
     }
@@ -50,14 +48,14 @@ public class BusinessService {
      * @role this function is to create a new business
      * We send the request to the backend
      */
-    public void create(BusinessFormat businessFormat) throws IOException, ClassNotFoundException {
+    public int create(BusinessFormat businessFormat) throws IOException, ClassNotFoundException {
         var mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(businessFormat);
         SendToServer sendToServer = new SendToServer(json, this.socket);
         if (sendToServer.send()) {
-            this.handleResponse("create");
+            return 1;
         } else {
-            System.out.println("Failed to send the request on the server ....");
+            return 0;
         }
     }
 
@@ -67,14 +65,14 @@ public class BusinessService {
      * @role this function is to edit an existing business
      * We send the request to the backend
      */
-    public void update(BusinessFormat businessFormat) throws IOException, ClassNotFoundException {
+    public int update(BusinessFormat businessFormat) throws IOException, ClassNotFoundException {
         var mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(businessFormat);
         SendToServer sendToServer = new SendToServer(json, this.socket);
         if (sendToServer.send()) {
-            this.handleResponse("update");
+            return 1;
         } else {
-            System.out.println("The request is not sent to the server ....");
+            return 0;
         }
     }
 
@@ -144,10 +142,10 @@ public class BusinessService {
         try {
             this.input = this.socket.getInputStream();
             this.objectInput = new ObjectInputStream(this.input);
-            this.json_data = (String) this.objectInput.readObject();
+            String json_data = (String) this.objectInput.readObject();
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(json_data);
-            System.out.println(this.json_data);
+            System.out.println(json_data);
         } catch (IOException e) {
             System.out.println("Error in reading Object " + e.getMessage());
         }
