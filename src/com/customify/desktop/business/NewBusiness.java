@@ -1,13 +1,26 @@
 package com.customify.desktop.business;
 
-import com.customify.desktop.components.FormControl;
+import com.customify.desktop.Keys;
+import com.customify.desktop.data_formats.business.BusinessFormat;
+import com.customify.desktop.layout.Layout;
+import com.customify.desktop.points.BusinessService;
+import com.customify.desktop.utils.interfaces.IInputChangedEventListener;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.io.IOException;
+import java.net.Socket;
 
 public class NewBusiness extends JPanel {
-    public NewBusiness(){
-        JPanel main = new JPanel();
+    BusinessFormat format = new BusinessFormat();
+
+    private final Socket socket;
+
+    public NewBusiness(Socket socket) throws IOException {
+        this.socket = socket;
+
+        Container main = new Container();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
         main.setBackground(Color.white);
         setLayout(null);
@@ -19,12 +32,12 @@ public class NewBusiness extends JPanel {
         headline.setForeground(new Color(53,32,88));
         header.setBackground(Color.white);
 
-        JPanel businessName = new FormControl("Business name");
-        JPanel businessLocation = new FormControl("Location");
-        JPanel address = new FormControl("Address");
-        JPanel phoneNumber = new FormControl("Phone number");
-        JPanel representative = new FormControl("Representative");
-        JPanel businessPlan = new FormControl("Business plan");
+        JPanel businessName = createNewInput("Business name");
+        JPanel businessLocation = createNewInput("Location");
+        JPanel address = createNewInput("Address");
+        JPanel phoneNumber = createNewInput("Phone number");
+        JPanel representative = createNewInput("Representative");
+        JPanel businessPlan = createNewInput("Business plan");
 
         JPanel buttonGroup = new JPanel();
         buttonGroup.setBackground(Color.white);
@@ -46,6 +59,14 @@ public class NewBusiness extends JPanel {
                 BorderFactory.createEmptyBorder(7, 30, 7, 30)));
         btn.setFont(new Font("Montserrat", Font.PLAIN, 18));
 
+        btn.addActionListener(actionEvent -> {
+            try {
+                createNewBusiness();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+
         buttonGroup.add(btn);
         buttonGroup.add(cancel);
 
@@ -61,12 +82,55 @@ public class NewBusiness extends JPanel {
         main.add(buttonGroup);
 
         main.setBounds(200, 50, 800, 600);
-
-        add(main);
-        setBackground(Color.WHITE);
+//
+//        add(main);
+//        setBackground(Color.WHITE);
+//        JFrame frame = new JFrame();
+//        frame.add(main);
+        Layout layout = new Layout(main,"New Business");
     }
 
-    public void createNewBusiness(){
 
+
+//    public static  void main(String args[]){
+//        new NewBusiness();
+//    }
+
+    public void createNewBusiness() throws IOException, ClassNotFoundException {
+        BusinessService service = new BusinessService(this.socket);
+        this.format.setKey(Keys.CREATE_BUSINESS);
+        service.create(this.format);
+    }
+
+    public JPanel createNewInput(String placeholderTextParam){
+        JPanel textFieldContainer = new JPanel();
+        textFieldContainer.setBackground(Color.white);
+        JLabel placeholderText = new JLabel(placeholderTextParam);
+        placeholderText.setFont(new Font("Montserrat", Font.PLAIN, 18));
+        placeholderText.setBackground(Color.green);
+        placeholderText.setPreferredSize(new Dimension(200, 30));
+
+        JTextField textField = new JTextField("", 20);
+        textField.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Color.black, 1, true),
+                BorderFactory.createEmptyBorder(8, 15, 8, 15))
+        );
+        textField.setFont(new Font("Montserrat", Font.PLAIN, 18));
+
+        textField.getDocument().addDocumentListener((IInputChangedEventListener) e -> {
+            switch (placeholderTextParam) {
+                case "Business name": format.setName(textField.getText());
+                case "Location" : format.setLocation(textField.getText());
+                case "Address" : format.setAddress(textField.getText());
+                case "Phone number" : format.setPhoneNumber(textField.getText());
+                case "Representative" : format.setRepresentative(Integer.parseInt(textField.getText()));
+                case "Business plan" : format.setPlan(Integer.parseInt(textField.getText()));
+            }
+        });
+
+        textFieldContainer.add(placeholderText);
+        textFieldContainer.add(textField);
+
+        return textFieldContainer;
     }
 }

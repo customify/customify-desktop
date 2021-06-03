@@ -1,9 +1,15 @@
 package com.customify.desktop.components;
 
+import com.customify.desktop.enums.UserRoles;
 import com.customify.desktop.layout.Layout;
+
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 public class FeatureRegister  {
@@ -12,8 +18,12 @@ public class FeatureRegister  {
     JTextField user;
     JPasswordField pass;
     JButton btn;
+    public Layout layout;
 
-    public Container init(){
+    public FeatureRegister() throws IOException {
+//        this.init();
+    }
+    public void init() throws IOException {
         JLabel title = new JLabel("Register a feature");
         title.setFont(new Font("Montserrat", Font.BOLD, 20));
         title.setBounds(400,20,300,100);
@@ -51,10 +61,15 @@ public class FeatureRegister  {
         btn.setForeground(Color.white);
         c.add(btn);
         c.setBackground(Color.red);
-        return c;
+//        return c;
+
+        layout = new Layout(c, "Feature register");
+
+
+
     }
 
-    public static void main(String args[]) throws IOException {
-        new Layout(new FeatureRegister().init());
-    }
+//    public static void main(String args[]) throws IOException {
+//        new FeatureRegister().init();
+//    }
 }

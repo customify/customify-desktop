@@ -9,6 +9,7 @@ package com.customify.server.services;
 
 import com.customify.server.CustomizedObjectOutputStream;
 import com.customify.server.Db.Db;
+import com.customify.server.data_format.business.BusinessRFormat;
 import com.customify.server.data_format_CustomerFeedback.CustomerFeedbackDataFormat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -26,6 +27,7 @@ public class CustomerFeedbackService {
     Socket socket;
     OutputStream output;
     ObjectOutputStream objectOutput;
+    String statusCode;
 
     public CustomerFeedbackService(Socket socket)throws IOException{
         this.socket = socket;
@@ -108,8 +110,37 @@ public class CustomerFeedbackService {
         } catch (Exception e){
             e.printStackTrace();
         }
-
     }
+
+
+//    helper business method
+public void getAllBusinesses() throws IOException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    Statement statement = Db.getStatement();
+    String query = "Select id,name from businesses";
+    List<String> alldata = new ArrayList<>();
+
+    try {
+        this.statusCode = "200";
+        alldata.add(this.statusCode);
+        ResultSet res = statement.executeQuery(query);
+        String data;
+        while(res.next()){
+            BusinessRFormat bs = new BusinessRFormat(res.getInt(1),res.getString(2));
+            data = objectMapper.writeValueAsString(bs);
+            alldata.add(data);
+        }
+    }
+    catch (Exception e){
+        this.statusCode = "500";
+        alldata.add(this.statusCode);
+    }
+    finally{
+        this.output = socket.getOutputStream();
+        this.objectOutput = new CustomizedObjectOutputStream(this.output);
+        objectOutput.writeObject(alldata);
+    }
+}
 
     /*
      * Here is the function for deleting the customer feedback from the database

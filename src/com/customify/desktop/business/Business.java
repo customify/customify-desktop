@@ -9,7 +9,7 @@ import javax.swing.*;
 public class Business {
 
     public Business() throws IOException {
-        JPanel business = new ReadBusiness();
-        new Layout(business);
+//        JPanel business = new ReadBusiness();
+//        new Layout(business, "Read Business");
     }
 }
