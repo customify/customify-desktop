@@ -16,7 +16,7 @@ public class NewBusiness extends JPanel {
 
     private final Socket socket;
 
-    public NewBusiness(Socket socket){
+    public NewBusiness(Socket socket) {
         this.socket = socket;
 
         JPanel main = new JPanel();
@@ -28,8 +28,13 @@ public class NewBusiness extends JPanel {
         JLabel headline = new JLabel("New Business ");
         headline.setPreferredSize(new Dimension(300, 100));
         headline.setFont(new Font("Montserrat", Font.BOLD, 29));
-        headline.setForeground(new Color(53,32,88));
+        headline.setForeground(new Color(53, 32, 88));
         header.setBackground(Color.white);
+
+        JLabel response = new JLabel("");
+        response.setPreferredSize(new Dimension(300, 50));
+        response.setFont(new Font("Montserrat", Font.PLAIN, 19));
+        response.setForeground(Color.green);
 
         JPanel businessName = createNewInput("Business name");
         JPanel businessLocation = createNewInput("Location");
@@ -41,7 +46,7 @@ public class NewBusiness extends JPanel {
         buttonGroup.setBackground(Color.white);
 
         JButton cancel = new JButton("Cancel");
-        cancel.setBounds(400,400,180,40);
+        cancel.setBounds(400, 400, 180, 40);
         cancel.setBackground(Color.white);
         cancel.setBorder(BorderFactory.createCompoundBorder(
                 cancel.getBorder(),
@@ -49,8 +54,8 @@ public class NewBusiness extends JPanel {
         cancel.setFont(new Font("Montserrat", Font.PLAIN, 18));
 
         JButton btn = new JButton("Register");
-        btn.setBounds(1020,400,180,40);
-        btn.setBackground(new Color(53,32,88));
+        btn.setBounds(1020, 400, 180, 40);
+        btn.setBackground(new Color(53, 32, 88));
         btn.setForeground(Color.white);
         btn.setBorder(BorderFactory.createCompoundBorder(
                 btn.getBorder(),
@@ -58,8 +63,9 @@ public class NewBusiness extends JPanel {
         btn.setFont(new Font("Montserrat", Font.PLAIN, 18));
 
         btn.addActionListener(actionEvent -> {
+
             try {
-                createNewBusiness();
+                if (createNewBusiness() == 1) response.setText("Successfully created the business");
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -71,6 +77,7 @@ public class NewBusiness extends JPanel {
         header.add(headline);
 
         main.add(header);
+        main.add(response);
         main.add(businessName);
         main.add(businessLocation);
         main.add(address);
@@ -84,14 +91,14 @@ public class NewBusiness extends JPanel {
         setBackground(Color.WHITE);
     }
 
-    public void createNewBusiness() throws IOException, ClassNotFoundException {
+    public int createNewBusiness() throws IOException, ClassNotFoundException {
         BusinessService service = new BusinessService(this.socket);
         this.format.setKey(Keys.CREATE_BUSINESS);
         this.format.setRepresentative(1);
-        service.create(this.format);
+        return service.create(this.format);
     }
 
-    public JPanel createNewSelect(String placeholderTextParam){
+    public JPanel createNewSelect(String placeholderTextParam) {
         format.setPlan(1);
         String[] strings = {"Basic", "Classic updated", "Plan updated"};
         JPanel container = new JPanel();
@@ -104,7 +111,7 @@ public class NewBusiness extends JPanel {
 
         JComboBox<String> comboBox = new JComboBox<>(strings);
         comboBox.setPreferredSize(new Dimension(370, 40));
-        comboBox.addActionListener(actionEvent -> format.setPlan(comboBox.getSelectedIndex()+1));
+        comboBox.addActionListener(actionEvent -> format.setPlan(comboBox.getSelectedIndex() + 1));
 
         container.add(label);
         container.add(comboBox);
@@ -112,7 +119,7 @@ public class NewBusiness extends JPanel {
         return container;
     }
 
-    public JPanel createNewInput(String placeholderTextParam){
+    public JPanel createNewInput(String placeholderTextParam) {
         JPanel textFieldContainer = new JPanel();
         textFieldContainer.setBackground(Color.white);
         JLabel placeholderText = new JLabel(placeholderTextParam);
