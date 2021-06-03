@@ -1,6 +1,8 @@
 package com.customify.desktop.services;
 
-import com.customify.cli.SendToServer;
+import com.customify.desktop.SendToServer;
+import com.customify.server.Db.Db;
+//import com.customify.cli.SendToServer;
 import com.customify.desktop.data_formats.Customer_feedback.CustomerFeedbackFormat;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -69,6 +71,7 @@ public class FeedbackServices {
             System.out.format("%20s\n","Name");
             for (int i = 1; i < data.size(); i++) {
                 JsonNode bs = objectMapper.readTree(data.get(i));
+                System.out.format("%10d\n", bs.get("id").asInt());
                 System.out.format("%10s\n", bs.get("name").asText());
             }
         }

@@ -2,6 +2,7 @@ package com.customify.desktop.customerFeedback;
 
 import com.customify.cli.Keys;
 import com.customify.cli.services.CustomerFeedbackService;
+import com.customify.desktop.utils.interfaces.SelectBusinessFormat;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -21,11 +22,9 @@ public class Businesses {
     public void setSocket() {
 
     }
-    public ArrayList<String> viewAll()throws IOException,ClassNotFoundException{
+    public SelectBusinessFormat viewAll()throws IOException,ClassNotFoundException{
         String json = "{ \"key\" : \""+ Keys.GET_BUSINESS_NAME +"\" }";
         CustomerFeedbackService feedService = new CustomerFeedbackService(socket);
-//        feedService.getBusinesses(json);
-//        System.out.println(feedService.getBusinesses(json));
         return feedService.getBusinesses(json);
     }
 }

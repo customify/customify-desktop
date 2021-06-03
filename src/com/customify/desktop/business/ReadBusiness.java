@@ -1,6 +1,7 @@
 package com.customify.desktop.business;
 
 import com.customify.desktop.components.FormControl;
+import com.customify.desktop.layout.Layout;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -10,8 +11,15 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.Socket;
 
-public class ReadBusiness extends JPanel {
+public class ReadBusiness extends Container {
+    public Layout layout;
+    public Socket socket;
+
     String data[][]={ {"101","Amit","670000","670000","670000","670000","670000"},
             {"102","Jai","670000","670000","670000","670000","670000"},
             {"102","Jai","670000","670000","670000","670000","670000"},
@@ -20,8 +28,10 @@ public class ReadBusiness extends JPanel {
             {"102","Jai","670000","670000","670000","670000","670000"},
             {"101","Sachin","670000","670000","670000","670000","670000"}};
     String column[]={"Business ID","Name","Location", "Address", "Phone Number", "Date created", "Action"};
-    public ReadBusiness(){
-        JPanel main = new JPanel();
+    public ReadBusiness(Socket socket,JFrame closableFrame) throws IOException {
+        this.socket = socket;
+
+        Container main = new Container();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
         main.setBackground(Color.white);
         setLayout(null);
@@ -31,17 +41,20 @@ public class ReadBusiness extends JPanel {
         headline.setPreferredSize(new Dimension(300, 100));
         headline.setFont(new Font("Montserrat", Font.BOLD, 25));
         headline.setForeground(new Color(53,32,88));
-        header.setBackground(Color.white);
+//        header.setBackground(Color.white);
 
         JPanel newButton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         newButton.setPreferredSize(new Dimension(100, 30));
 //        newButton.setBorder(BorderFactory.createEmptyBorder(0,500,0,0));
-        JLabel bLabel = new JLabel("New");
-        bLabel.setPreferredSize(new Dimension(100, 30));
+        JButton bLabel = new JButton("New");
+//        bLabel.setPreferredSize(new Dimension(100, 30));
+
         bLabel.setFont(new Font("Montserrat", Font.PLAIN, 13));
-        bLabel.setForeground(new Color(53,32,88));
-        bLabel.setBackground(Color.white);
-        bLabel.setBorder(new CompoundBorder(bLabel.getBorder(), new EmptyBorder(10,40,20,10)));
+        bLabel.setBounds(400, 100,400,200);
+
+//        bLabel.setForeground(new Color(53,32,88));
+//        bLabel.setBackground(Color.white);
+//        bLabel.setBorder(new CompoundBorder(bLabel.getBorder(), new EmptyBorder(10,40,20,10)));
 
         JTable table = new JTable();
         table.setBorder(BorderFactory.createEmptyBorder(10,10,0,0));
@@ -88,5 +101,27 @@ public class ReadBusiness extends JPanel {
 
         add(main);
         setBackground(Color.WHITE);
+        ActionListener triggerCreateBus = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    closableFrame.dispose();
+                    new NewBusiness(socket);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+        };
+        bLabel.addActionListener(triggerCreateBus);
+        layout = new Layout(main, "List business");
     }
+
+//    public static  void main(String args[]) throws IOException {
+//        new ReadBusiness();
+//    }
+
+//    public void init() throws IOException {
+//        new ReadBusiness();
+//    }
+
 }

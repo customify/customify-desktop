@@ -84,23 +84,15 @@ public class ProductService {
         }
     }
 
-    public List<String> getAllProducts() throws Exception {
+    public void getAllProducts() throws Exception {
         ProductFormat format = new ProductFormat();
         format.setKey(Keys.GET_ALL_PRODUCTS);
 
         SendToServer sendToServer = new SendToServer(new ObjectMapper().writeValueAsString(format),this.socket);
         if (sendToServer.send()) {
-            this.inputStream = this.socket.getInputStream();
-            this.objectInputStream = new ObjectInputStream(this.inputStream);
-
-            System.out.println("Storing data");
-            List<String> data = (List<String>) this.objectInputStream.readObject();
-            System.out.println("data"+data);
-//            this.handleGetProductListSuccess();
-            return data;
+            this.handleGetProductListSuccess();
         }
         else System.out.println("\n\n\t\t\tERROR OCCURRED WHEN SENDING REQUEST TO SERVER\n");
-        return null;
     }
 
     /**

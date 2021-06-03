@@ -77,7 +77,7 @@ public class RetrieveLoggedInUser {
 
 
     public File retrieveEmployee(){
-        File file = new File("src/com/customify/client/utils/authorization/files/Employee.csv");
+        File file = new File("src/com/customify/cli/utils/authorization/files/Employee.csv");
         EmployeeUser user = new EmployeeUser();
 
         boolean exists = false;
@@ -126,7 +126,7 @@ public class RetrieveLoggedInUser {
     }
 
     public File retrieveAdmin(){
-        File   file = new File("src/com/customify/client/utils/authorization/files/Admin.csv");
+        File   file = new File("src/com/customify/cli/utils/authorization/files/Admin.csv");
         AdminUser user = new AdminUser();
 
         boolean exists = false;
@@ -174,7 +174,7 @@ public class RetrieveLoggedInUser {
 
 
     public File retrieveSuperAdmin(){
-        File   file = new File("src/com/customify/client/utils/authorization/files/SuperAdmin.csv");
+        File   file = new File("src/com/customify/cli/utils/authorization/files/SuperAdmin.csv");
         SuperAdminUser user = new SuperAdminUser();
 
         boolean exists = false;
