@@ -28,7 +28,6 @@ public class Sidebar extends JPanel {
         JButton settings = new SideBarListItem("4. contacts.png", "Settings");
         JButton subscription = new SideBarListItem("4. contacts.png", "Subscription");
 
-
         navBarItems.add(overView);
         navBarItems.add(employees);
         navBarItems.add(customers);
@@ -81,7 +80,7 @@ public class Sidebar extends JPanel {
         myLogo.setBackground(new Color(53,32,88));
         myLogo.setBounds(53, 81, 200, 50);
 
-        JLabel logoName = new JLabel("Customize");
+        JLabel logoName = new JLabel("Customify");
         logoName.setFont(new Font("Montserrat", Font.BOLD, 29));
         logoName.setForeground(new Color(164, 166, 179));
 
