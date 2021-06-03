@@ -27,13 +27,14 @@ public class CustomerService {
     }
 
 
-    public void create(CreateCustomerFormat format) throws IOException, ClassNotFoundException {
+    public int create(CreateCustomerFormat format) throws IOException, ClassNotFoundException {
         ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writeValueAsString(format);
         SendToServer serverSend = new SendToServer(json, this.socket);
         if (serverSend.send()) {
             this.handleCreateCustomerResponse();
         }
+        return 0;
     }
 
 
