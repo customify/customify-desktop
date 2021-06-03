@@ -3,7 +3,12 @@
    Date: 20/05/2021
  */
 package com.customify.desktop.sales;
+import com.customify.cli.services.PointsService;
+import com.customify.cli.services.SalesService;
 import com.customify.desktop.layout.Layout;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -11,23 +16,34 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.io.IOException;
+import java.net.Socket;
+import java.util.List;
 
 public class Sales extends JPanel {
- public  Container DisplaySales() {
+  private List<String> response;
+  private static Socket socket;
+
+  public Sales(){}
+  public void returnSales(){
+    SalesService salesService = new SalesService(socket);
+    response = salesService.getSalesUi();
+  }
+ public  Container DisplaySales() throws JsonProcessingException {
+    returnSales();
    Container container=new Container();
 
-   String[][] data = {
-       {"101", "Amit", "670000", "670000", "670000"},
-       {"102", "Jai", "670000", "670000", "670000",},
-       {"102", "Jai", "670000", "670000", "670000"},
-       {"102", "Jai", "670000", "670000", "670000"},
-       {"102", "Jai", "670000", "670000", "670000",},
-       {"102", "Jai", "670000", "670000", "670000"},
-       {"102", "Jai", "670000", "670000", "670000"},
-       {"102", "Jai", "670000", "670000", "670000",},
-       {"102", "Jai", "670000", "670000", "670000"},
-       {"102", "Jai", "670000", "670000", "670000"},
-   };
+//   String[][] data = {
+//       {"101", "Amit", "670000", "670000", "670000"},
+//       {"102", "Jai", "670000", "670000", "670000",},
+//       {"102", "Jai", "670000", "670000", "670000"},
+//       {"102", "Jai", "670000", "670000", "670000"},
+//       {"102", "Jai", "670000", "670000", "670000",},
+//       {"102", "Jai", "670000", "670000", "670000"},
+//       {"102", "Jai", "670000", "670000", "670000"},
+//       {"102", "Jai", "670000", "670000", "670000",},
+//       {"102", "Jai", "670000", "670000", "670000"},
+//       {"102", "Jai", "670000", "670000", "670000"},
+//   };
    String[] column = {"Customer ID", "Quantity", "Total Price", "Employee ID", "Product ID"};
 
 
@@ -76,8 +92,15 @@ public class Sales extends JPanel {
   };
   model.setColumnIdentifiers(column);
   table.setModel(model);
-   for (String[] datum : data) {
-     model.addRow(datum);
+//   for (String[] datum : data) {
+//     model.addRow(datum);
+//   }
+   if(response.size()>=0){
+     ObjectMapper objectMapper = new ObjectMapper();
+     for (int i = 0; i < response.size(); i++) {
+       JsonNode jsonNode = objectMapper.readTree(response.get(i));
+       model.addRow(new Object[]{jsonNode.get("saleId"),jsonNode.get("customerID").textValue(),jsonNode.get("quantity").textValue(),jsonNode.get("totalPrice").textValue(),jsonNode.get("employeeID").textValue(),jsonNode.get("productID").textValue()});
+     }
    }
 
   JTableHeader tableHeader = table.getTableHeader();
@@ -114,6 +137,6 @@ public class Sales extends JPanel {
 
 
   public static void main(String[] args) throws  IOException{
-    new Layout(new Sales().DisplaySales(), "Sales");
+    new Layout(new Sales().DisplaySales(),"Sales");
   }
 }

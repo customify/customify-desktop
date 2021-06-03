@@ -1,6 +1,7 @@
 // Initialize the Desktop applications
 
 package com.customify.desktop;
+import com.customify.cli.services.SalesService;
 import com.customify.desktop.points.PointsServices;
 import com.customify.desktop.sales.Sales;
 import com.customify.desktop.business.Business;
