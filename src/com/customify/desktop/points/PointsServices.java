@@ -33,7 +33,7 @@ public class PointsServices extends JPanel {
     public PointsServices(){}
     public void returnWinner(){
         PointsService pointsService = new PointsService(socket);
-//        response = pointsService.getWinnersUi();
+  //response = pointsService.getWinnersUi();
     }
 
     public Container init() throws JsonProcessingException {
