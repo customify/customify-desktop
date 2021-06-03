@@ -11,6 +11,9 @@ public class Product {
     public Product(Socket socket) throws Exception {
         JPanel product = new ReadProductDB(socket);
         new Layout(product, "Read Business");
+       
+        JPanel newProduct=new NewProduct();
+        new Layout(newProduct);
     }
 
 }
