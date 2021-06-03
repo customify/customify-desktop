@@ -47,6 +47,7 @@ public class Sidebar extends JPanel {
         JButton billing = new SideBarListItem("4. contacts.png", "Billing");
         JButton business = new SideBarListItem("4. contacts.png", "Businesses");
 
+
         switch (role){
             case ADMIN:
                 navBarItems.add(overView);
@@ -68,7 +69,6 @@ public class Sidebar extends JPanel {
                 navBarItems.add(feedback);
                 navBarItems.add(employees);
                 navBarItems.add(customers);
-
                 break;
             case EMPLOYEE:
                 navBarItems.add(overView);

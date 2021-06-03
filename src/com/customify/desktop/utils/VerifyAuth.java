@@ -13,14 +13,18 @@ public class VerifyAuth {
     public VerifyAuth()  { }
     public VerifyAuth(Socket socket) throws Exception{
         this.socket = socket;
-
         UserSession userSession = new UserSession();
         if(userSession.isLoggedIn())
         {
+            /*
             String json = userSession.getUserJsonObject();
+
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(json);
             RouteWindow route = new RouteWindow(jsonNode.get("appUser").asText(),this.socket);
+             */
+            openLogin=false;
+            this.view();
         }else{
             openLogin=true;
             this.view();
