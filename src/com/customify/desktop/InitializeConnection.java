@@ -34,7 +34,7 @@ public class InitializeConnection {
 //              new Sidebar(socket);
 //              new Overview().init();
 //            VerifyAuth auth = new VerifyAuth(socket);
-            Product product = new Product(socket);
+            VerifyAuth auth = new VerifyAuth(socket);
 //            new com.customify.desktop.Main(socket);
 //            String businesses[];
 //            Businesses b = new Businesses(socket);
