@@ -9,8 +9,8 @@ import javax.swing.*;
 
 public class Business {
 
-    public Business(Socket socket) throws IOException, ClassNotFoundException {
-        JPanel business = new ReadBusiness(socket);
-        new Layout(business, "Read Business");
+    public Business() throws IOException {
+//        JPanel business = new ReadBusiness();
+//        new Layout(business, "Read Business");
     }
 }

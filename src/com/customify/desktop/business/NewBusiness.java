@@ -19,10 +19,10 @@ public class NewBusiness extends JPanel {
 
     private final Socket socket;
 
-    public NewBusiness(Socket socket){
+    public NewBusiness(Socket socket) throws IOException {
         this.socket = socket;
 
-        JPanel main = new JPanel();
+        Container main = new Container();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
         main.setBackground(Color.white);
         setLayout(null);
@@ -82,10 +82,19 @@ public class NewBusiness extends JPanel {
         main.add(buttonGroup);
 
         main.setBounds(200, 50, 800, 600);
-
-        add(main);
-        setBackground(Color.WHITE);
+//
+//        add(main);
+//        setBackground(Color.WHITE);
+//        JFrame frame = new JFrame();
+//        frame.add(main);
+        Layout layout = new Layout(main,"New Business");
     }
+
+
+
+//    public static  void main(String args[]){
+//        new NewBusiness();
+//    }
 
     public void createNewBusiness() throws IOException, ClassNotFoundException {
         BusinessService service = new BusinessService(this.socket);

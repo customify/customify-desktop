@@ -43,16 +43,18 @@ public class ReadBusiness extends JPanel {
         headline.setPreferredSize(new Dimension(300, 100));
         headline.setFont(new Font("Montserrat", Font.BOLD, 25));
         headline.setForeground(new Color(53,32,88));
-        header.setBackground(Color.white);
+//        header.setBackground(Color.white);
 
         JPanel newButton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         newButton.setPreferredSize(new Dimension(100, 30));
         JLabel bLabel = new JLabel("New");
         bLabel.setPreferredSize(new Dimension(100, 30));
         bLabel.setFont(new Font("Montserrat", Font.PLAIN, 13));
-        bLabel.setForeground(new Color(53,32,88));
-        bLabel.setBackground(Color.white);
-        bLabel.setBorder(new CompoundBorder(bLabel.getBorder(), new EmptyBorder(10,40,20,10)));
+        bLabel.setBounds(400, 100,400,200);
+
+//        bLabel.setForeground(new Color(53,32,88));
+//        bLabel.setBackground(Color.white);
+//        bLabel.setBorder(new CompoundBorder(bLabel.getBorder(), new EmptyBorder(10,40,20,10)));
 
         createTable();
 
@@ -215,4 +217,13 @@ public class ReadBusiness extends JPanel {
             }
         }
     }
+
+//    public static  void main(String args[]) throws IOException {
+//        new ReadBusiness();
+//    }
+
+//    public void init() throws IOException {
+//        new ReadBusiness();
+//    }
+
 }

@@ -117,7 +117,7 @@ public class CustomerFeedbackService {
 public void getAllBusinesses() throws IOException {
     ObjectMapper objectMapper = new ObjectMapper();
     Statement statement = Db.getStatement();
-    String query = "Select name from businesses";
+    String query = "Select id,name from businesses";
     List<String> alldata = new ArrayList<>();
 
     try {
@@ -126,7 +126,7 @@ public void getAllBusinesses() throws IOException {
         ResultSet res = statement.executeQuery(query);
         String data;
         while(res.next()){
-            BusinessRFormat bs = new BusinessRFormat(res.getString(1));
+            BusinessRFormat bs = new BusinessRFormat(res.getInt(1),res.getString(2));
             data = objectMapper.writeValueAsString(bs);
             alldata.add(data);
         }
