@@ -72,7 +72,7 @@ public class CustomerFeedbackForm extends JPanel {
         contentPane.add(header);
         contentPane.add(customer_name);
         contentPane.add(business_id);
-        contentPane.add(cb);
+         contentPane.add(cb);
         contentPane.add(title);
         contentPane.add(description);
         contentPane.add(buttonGroup);
