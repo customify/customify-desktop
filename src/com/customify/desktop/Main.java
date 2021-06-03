@@ -18,12 +18,7 @@ public class Main {
         new PointsServices(socket);
     }
 
-    public void main(String[] args) throws  IOException {
-        new Sales();
-        try {
-            new Main(this.socket);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public static void main(String[] args) throws  IOException {
+        new  PointsServices();
     }
 }
