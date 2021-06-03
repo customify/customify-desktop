@@ -105,7 +105,6 @@ public class SalesService {
         try{
             SaleDataFormat data = new SaleDataFormat();
             ObjectMapper objectMapper = new ObjectMapper();
-
             String jsonData = objectMapper.writeValueAsString(data);
             SendToServer sendToServer = new SendToServer(jsonData,this.socket);
 
@@ -114,9 +113,7 @@ public class SalesService {
                 objectInputStream = new ObjectInputStream(inputStream);
 
                 List<String> response = (ArrayList<String>) objectInputStream.readObject();
-
                 return response;
-
             }
             else{
                 System.out.println("\nError when sending request to the server\n");

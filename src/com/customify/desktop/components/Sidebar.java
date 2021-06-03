@@ -5,6 +5,7 @@ import com.customify.desktop.business.ReadBusiness;
 import com.customify.desktop.enums.UserRoles;
 import com.customify.desktop.layout.Layout;
 import com.customify.desktop.sales.Sales;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +26,8 @@ public class Sidebar extends JPanel {
         setBackground(new Color(53, 32, 88));
         setBounds(0, 0, 300, 1080);
         setLayout(null);
+
+        socket = new Socket("localhost",3000);
 
         JPanel navBarItems = new JPanel();
         navBarItems.setLayout(new BoxLayout(navBarItems, BoxLayout.Y_AXIS));
@@ -52,6 +55,7 @@ public class Sidebar extends JPanel {
                 navBarItems.add(plans);
                 navBarItems.add(billing);
                 navBarItems.add(report);
+                navBarItems.add(sales);
                 navBarItems.add(subscription);
                 navBarItems.add(settings);
                 break;
@@ -85,7 +89,13 @@ public class Sidebar extends JPanel {
         ActionListener salesAction = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                new Sales();
+                try {
+                    new Sales();
+                } catch(JsonProcessingException jsonProcessingException) {
+                    jsonProcessingException.printStackTrace();
+                } catch(IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         };
 

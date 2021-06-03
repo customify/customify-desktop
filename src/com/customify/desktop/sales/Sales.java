@@ -3,7 +3,6 @@
    Date: 20/05/2021
  */
 package com.customify.desktop.sales;
-import com.customify.cli.services.PointsService;
 import com.customify.cli.services.SalesService;
 import com.customify.desktop.layout.Layout;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,15 +20,18 @@ import java.util.List;
 
 public class Sales extends JPanel {
   private List<String> response;
-  private static Socket socket;
+  private Socket socket;
 
-  public Sales(){}
+  public Sales() throws IOException {
+    new Layout(DisplaySales(),"Sales");
+  }
   public void returnSales(){
     SalesService salesService = new SalesService(socket);
     response = salesService.getSalesUi();
   }
+
  public  Container DisplaySales() throws JsonProcessingException {
-    returnSales();
+        returnSales();
    Container container=new Container();
 
 //   String[][] data = {
@@ -135,8 +137,4 @@ public class Sales extends JPanel {
    return container;
  }
 
-
-  public static void main(String[] args) throws  IOException{
-    new Layout(new Sales().DisplaySales(),"Sales");
-  }
 }

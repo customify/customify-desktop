@@ -126,10 +126,6 @@ public class AddSales extends JPanel{
 
 
    public static void main(String[] args) throws IOException {
-<<<<<<< HEAD:src/com/customify/desktop/sales/AddSales.java
      new Layout(new AddSales().addingSales(),"Add Sales");
-=======
-//     new Layout(new AddSales().addingSales());
->>>>>>> d0f46e65057169825f29d25b794dee44c6ae4eda:src/com/customify/desktop/layout/AddSales.java
    }
 }
