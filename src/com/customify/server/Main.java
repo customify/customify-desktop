@@ -19,7 +19,7 @@ public class Main {
 
     private static final int portNumber = 3000;
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception,ClassNotFoundException {
         ServerSocket serverSocket;
         try {
             serverSocket = new ServerSocket(portNumber);
@@ -27,10 +27,11 @@ public class Main {
             Db.init();
             while(true){
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("New Client is connected on the Servers");
-                Thread client = new Server(clientSocket);
-                ExecutorService Pool = Executors.newFixedThreadPool(2);
-                Pool.execute(client);
+                System.out.println("New Client is connected on the Server");
+                RequestHandler con = new RequestHandler(clientSocket);
+                while(true) {
+                    con.init(clientSocket.getInputStream());
+                }
             }
         } catch (Exception e) {
             System.out.println("Can not listen to port: " + portNumber + ", Exception " + e);
