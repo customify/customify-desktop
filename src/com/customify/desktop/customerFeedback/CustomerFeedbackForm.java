@@ -4,10 +4,13 @@ import com.customify.desktop.Keys;
 import com.customify.desktop.data_formats.Customer_feedback.CustomerFeedbackFormat;
 import com.customify.desktop.services.FeedbackServices;
 import com.customify.desktop.utils.interfaces.IInputChangedEventListener;
+import com.customify.desktop.utils.interfaces.SelectBusinessFormat;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -15,17 +18,31 @@ public class CustomerFeedbackForm extends JPanel {
     CustomerFeedbackFormat format = new CustomerFeedbackFormat();
 
     private final Socket socket;
-    private JPanel contentPane;
+//    private JPanel contentPane;
 
-    public CustomerFeedbackForm(Socket socket){
+    public CustomerFeedbackForm(Socket socket) throws IOException, ClassNotFoundException {
         this.socket = socket;
 
-        contentPane = new JPanel();
+        JPanel contentPane = new JPanel();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
         contentPane.setBackground(Color.white);
         setLayout(null);
 
-        String country[]={"India","Aus","U.S.A","England","Newzealand"};
+        Businesses b = new Businesses(socket);
+        SelectBusinessFormat businessFormat = b.viewAll();
+        String[] busList = new String[businessFormat.getNames().size()];
+        for(int i = 0; i < busList.length; i++) {
+            busList[i] = businessFormat.getNames().get(i);
+        }
+        JComboBox<String> cb=new JComboBox<>(busList);
+        cb.setPreferredSize(new Dimension(100,40));
+        cb.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                format.setBusinessId(businessFormat.getIds().get(cb.getSelectedIndex()));
+            }
+        });
+
         JPanel header = new JPanel();
         JLabel headline = new JLabel("Customer feedback ");
         headline.setPreferredSize(new Dimension(300, 100));
@@ -36,21 +53,11 @@ public class CustomerFeedbackForm extends JPanel {
 
         JPanel customer_name = createNewInput("Customer name");
         JPanel business_id = createNewInput("Business Id");
-        // JComboBox cb=new JComboBox(country);
-        // cb.setPreferredSize(new Dimension(300, 20));
         JPanel title = createNewInput("Title");
         JPanel description = createNewInput("Description");
 
         JPanel buttonGroup = new JPanel();
         buttonGroup.setBackground(Color.white);
-
-        // JButton cancel = new JButton("Cancel");
-        // cancel.setBounds(400,400,180,40);
-        // cancel.setBackground(Color.white);
-        // cancel.setBorder(BorderFactory.createCompoundBorder(
-        //         cancel.getBorder(),
-        //         BorderFactory.createEmptyBorder(7, 30, 7, 30)));
-        // cancel.setFont(new Font("Montserrat", Font.PLAIN, 18));
 
         JButton btn = new JButton("Register");
         btn.setBounds(1020,400,180,40);
@@ -75,13 +82,13 @@ public class CustomerFeedbackForm extends JPanel {
 
         contentPane.add(header);
         contentPane.add(customer_name);
-        contentPane.add(business_id);
-        // contentPane.add(cb);
+        contentPane.add(cb);
+//        contentPane.add(business_id);
         contentPane.add(title);
         contentPane.add(description);
         contentPane.add(buttonGroup);
 
-        contentPane.setBounds(200, 50, 800, 600);
+        contentPane.setBounds(200, 50, 800, 450);
 
         add(contentPane);
         setBackground(Color.WHITE);
@@ -110,10 +117,17 @@ public class CustomerFeedbackForm extends JPanel {
 
         textField.getDocument().addDocumentListener((IInputChangedEventListener) e -> {
             switch (placeholderTextParam) {
-                case "Customer name" -> format.setCustomer_name(textField.getText());
-                case "Business Id" -> format.setBusinessId(Integer.parseInt(textField.getText()));
-                case "Title" -> format.setTitle(textField.getText());
-                case "Description" -> format.setDescription(textField.getText());
+                case "Customer name":
+                    format.setCustomer_name(textField.getText());
+                    break;
+                case "Title":
+                    format.setTitle(textField.getText());
+                    break;
+                case "Description":
+                    format.setDescription(textField.getText());
+                    break;
+                default:
+                    System.out.println("No such label");
             }
         });
 

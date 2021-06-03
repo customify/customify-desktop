@@ -11,6 +11,7 @@ package com.customify.cli.services;
 import com.customify.cli.Colors;
 import com.customify.cli.SendToServer;
 import com.customify.cli.data_format.CustomerFeedback.CustomerFeedbackDataFormat;
+import com.customify.desktop.utils.interfaces.SelectBusinessFormat;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -119,30 +121,37 @@ public class CustomerFeedbackService {
 
 
 
-    public void getBusinesses(String json) throws IOException, ClassNotFoundException {
+    public SelectBusinessFormat getBusinesses(String json) throws IOException, ClassNotFoundException {
         SendToServer serverSend = new SendToServer(json, this.socket);
         if (serverSend.send()) {
-            this.handleGetResponse();
+
+            return this.handleGetResponse();
         } else {
             System.out.println("Request failed...");
+            return new SelectBusinessFormat();
         }
     }
 
-    public void handleGetResponse() throws IOException, ClassNotFoundException {
+    public SelectBusinessFormat handleGetResponse() throws IOException, ClassNotFoundException {
+
         this.input = this.socket.getInputStream();
         this.objectInput = new ObjectInputStream(this.input);
         ObjectMapper objectMapper = new ObjectMapper();
         List<String> data = (List<String>) this.objectInput.readObject();
+        ArrayList<String> businessNames = new ArrayList<>();
+        ArrayList<Integer> businessIds = new ArrayList<>();
 
         if(data.get(0)=="500") System.out.println("An error occurred");
         else {
-
-            System.out.format("%20s\n","Name");
             for (int i = 1; i < data.size(); i++) {
                 JsonNode bs = objectMapper.readTree(data.get(i));
-                System.out.format("%20s\n", bs.get("name").asText());
+                businessIds.add(bs.get("id").asInt());
+                businessNames.add(bs.get("name").asText());
             }
         }
-    }
+        SelectBusinessFormat response = new SelectBusinessFormat(businessIds, businessNames);
 
+        return response;
+
+    }
 }

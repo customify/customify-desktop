@@ -37,8 +37,7 @@ public class CustomerFeedbackMainView {
 
         switch (choice) {
             case 1:
-//                readFeedbacks.GetFeedbacks();
-                readFeedbacks.viewAll();
+                readFeedbacks.GetFeedbacks();
                 break;
             case 2:
                 readFeedbacks.deleteCustomerFeedback();

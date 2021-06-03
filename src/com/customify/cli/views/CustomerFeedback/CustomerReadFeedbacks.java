@@ -4,7 +4,6 @@ package com.customify.cli.views.CustomerFeedback;
  *@author: NSENGIYUMVA GERSHOM
  */
 import com.customify.cli.Colors;
-import com.customify.cli.services.BusinessService;
 import com.customify.cli.services.CustomerFeedbackService;
 import com.customify.cli.Keys;
 
@@ -46,14 +45,6 @@ public class CustomerReadFeedbacks {
         feedService.getAllCustomerFeedbacks(json);
     }
     // -------------------------------------------------------------------------------
-
-
-    public void viewAll()throws IOException,ClassNotFoundException{
-        String json = "{ \"key\" : \""+ Keys.GET_ALL_BUSINESSES +"\" }";
-        CustomerFeedbackService feedService = new CustomerFeedbackService(socket);
-        feedService.getBusinesses(json);
-    }
-
 
     /*
      * The function for deleting certain customer feedback
