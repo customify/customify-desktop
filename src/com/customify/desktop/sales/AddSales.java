@@ -19,7 +19,7 @@ public class AddSales extends JPanel{
       setBounds(20, 190, 1014, 597);
 
 
-      JLabel headLabel = new JLabel("Sale Product");
+      JLabel headLabel = new JLabel("Sale a Product");
       headLabel.setFont(new Font("Tahoma",  Font.PLAIN, 14));
       headLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
       headLabel.setBounds(60, 42, 325, 50);
