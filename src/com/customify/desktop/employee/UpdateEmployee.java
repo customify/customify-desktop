@@ -1,16 +1,21 @@
 package com.customify.desktop.employee;
 
 import com.customify.cli.utils.authorization.structure.EmployeeUser;
-import com.customify.desktop.data_formats.business.BusinessFormat;
 import com.customify.desktop.layout.Layout;
-import com.customify.desktop.utils.interfaces.IInputChangedEventListener;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.io.IOException;
+import java.net.Socket;
 
 public class UpdateEmployee extends JPanel {
+    private final Socket socket;
+
+    public UpdateEmployee(Socket socket) {
+        this.socket = socket;
+    }
+
     public static JPanel init(){
         JPanel main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
@@ -22,6 +27,8 @@ public class UpdateEmployee extends JPanel {
         headline.setFont(new Font("Montserrat", Font.BOLD, 29));
         headline.setForeground(new Color(53,32,88));
         header.setBackground(Color.white);
+
+        main.add(header);
 
         InputFactory factory = new InputFactory();
 
@@ -75,11 +82,14 @@ public class UpdateEmployee extends JPanel {
         header.add(headline);
         main.add(buttonGroup);
 
-        main.setBounds(90, 40, 800, 600);
+        main.setBounds(90, 40, 800, 550);
 
         return main;
     }
 
+    public void update(){
+
+    }
     public static void main(String[] args) throws IOException {
         Container container = new Container();
         container.add(UpdateEmployee.init());
