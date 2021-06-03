@@ -126,6 +126,6 @@ public class AddSales extends JPanel{
 
 
    public static void main(String[] args) throws IOException {
-     new Layout(new AddSales().addingSales(),"Add Sales");
+     new Layout(new AddSales().addingSales(),"Add Sale");
    }
 }

@@ -18,16 +18,16 @@ public class Sidebar extends JPanel {
     public Overview overview = new Overview();
     public Layout layout;
     public FeatureRegister featureRegister;
-    public Socket socket;
+    private Socket soc;
     public Sidebar(Socket socket){
-        this.socket = socket;
+        this.soc = socket;
     }
     public Sidebar(UserRoles role, JFrame closableFrame) throws IOException {
         setBackground(new Color(53, 32, 88));
         setBounds(0, 0, 300, 1080);
         setLayout(null);
 
-        socket = new Socket("localhost",3000);
+        Socket socket = new Socket("localhost",3000);
 
         JPanel navBarItems = new JPanel();
         navBarItems.setLayout(new BoxLayout(navBarItems, BoxLayout.Y_AXIS));

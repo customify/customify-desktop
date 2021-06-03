@@ -6,6 +6,7 @@ import com.customify.desktop.business.NewBusiness;
 import com.customify.desktop.customerFeedback.Businesses;
 import com.customify.desktop.customerFeedback.CustomerFeedbackForm;
 import com.customify.desktop.layout.Layout;
+import com.customify.desktop.sales.Sales;
 import com.customify.desktop.utils.VerifyAuth;
 
 import java.net.Socket;

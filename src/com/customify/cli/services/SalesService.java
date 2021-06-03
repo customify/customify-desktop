@@ -12,22 +12,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class SalesService {
-    private Socket socket;
-    InputStream inputStream;
-    ObjectInputStream objectInputStream;
 
-    public Socket getSocket() {
-        return socket;
-    }
-
-    public void setSocket(Socket socket) {
-        this.socket = socket;
-    }
+    private final Socket socket;
 
     public SalesService(Socket socket) {
         this.socket = socket;
@@ -101,29 +91,6 @@ public class SalesService {
         }
     }
 
-    public List<String> getSalesUi() {
-        try{
-            SaleDataFormat data = new SaleDataFormat();
-            ObjectMapper objectMapper = new ObjectMapper();
-            String jsonData = objectMapper.writeValueAsString(data);
-            SendToServer sendToServer = new SendToServer(jsonData,this.socket);
-
-            if (sendToServer.send()) {
-                inputStream = this.getSocket().getInputStream();
-                objectInputStream = new ObjectInputStream(inputStream);
-
-                List<String> response = (ArrayList<String>) objectInputStream.readObject();
-                return response;
-            }
-            else{
-                System.out.println("\nError when sending request to the server\n");
-            }
-
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
 
    private void handleCreateSale()  {
         try{
