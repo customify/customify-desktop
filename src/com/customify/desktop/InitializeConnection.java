@@ -1,3 +1,4 @@
+
 package com.customify.desktop;
 
 
@@ -5,6 +6,7 @@ import com.customify.desktop.business.NewBusiness;
 import com.customify.desktop.customerFeedback.Businesses;
 import com.customify.desktop.customerFeedback.CustomerFeedbackForm;
 import com.customify.desktop.layout.Layout;
+import com.customify.desktop.utils.VerifyAuth;
 
 import java.net.Socket;
 
@@ -26,7 +28,19 @@ public class InitializeConnection {
             Socket socket = new Socket(serverIp, portNumber);
 
 //            new Layout(new NewBusiness(socket), "New business");
-            new Layout(new CustomerFeedbackForm(socket),"Customer feedback registration");
+//            new Layout(new CustomerFeedbackForm(socket),"Customer feedback registration");
+
+//            String businesses[];
+//              new Sidebar(socket);
+//              new Overview().init();
+            VerifyAuth auth = new VerifyAuth(socket);
+//            String businesses[];
+//            Businesses b = new Businesses(socket);
+//            b.viewAll();
+//            CustomerFeedbackService c = new CustomerFeedbackService(socket);
+//            System.out.println("Business: "+c.handleGetResponse());
+//            System.out.println(b.viewAll().get(0));
+//            System.out.println("Connected .........///");
 
         } catch (Exception e) {
             System.out.println("Failed to connect to the server at port: " + portNumber);

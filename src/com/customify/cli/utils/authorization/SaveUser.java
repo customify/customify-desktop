@@ -28,7 +28,7 @@ public class SaveUser {
             switch (userType){
                 case "EMPLOYEE":
                     EmployeeUser emp_user =(EmployeeUser)user;
-                    file = new File("src/com/customify/client/utils/authorization/files/Employee.csv");
+                    file = new File("src/com/customify/cli/utils/authorization/files/Employee.csv");
                     writer   = new FileWriter(file,true);
                     writer.write("\n"+emp_user.getId()+"\t"+emp_user.getFirName()+"\t "+emp_user.getLasName()+"\t "+emp_user.getEmail()+"\t"+emp_user.getBusiness_id()+"\t"+emp_user.getTitle()+"\t"+emp_user.getCreatedAt()+"\t5-21-2021");
                     writer.close();
@@ -36,7 +36,7 @@ public class SaveUser {
                     break;
                 case "ADMIN":
                     AdminUser admin_user =(AdminUser)user;
-                    file = new File("src/com/customify/client/utils/authorization/files/Admin.csv");
+                    file = new File("src/com/customify/cli/utils/authorization/files/Admin.csv");
                     writer = new FileWriter(file,true);
                     writer.write("\n"+admin_user.getId()+"\t"+admin_user.getFirName()+"\t "+admin_user.getLasName()+"\t "+admin_user.getEmail()+"\t"+admin_user.getBusiness_id()+"\t"+admin_user.getTitle()+"\t"+"5-21-2021");
                     writer.close();
@@ -46,7 +46,7 @@ public class SaveUser {
 
                 case "SUPER_ADMIN":
                     SuperAdminUser super_admin_user =(SuperAdminUser)user;
-                    file = new File("src/com/customify/client/utils/authorization/files/SuperAdmin.csv");
+                    file = new File("src/com/customify/cli/utils/authorization/files/SuperAdmin.csv");
                     writer = new FileWriter(file,true);
                     writer.write("\n"+super_admin_user.getId()+"\t"+super_admin_user.getFirName()+"\t "+super_admin_user.getLasName()+"\t "+super_admin_user.getEmail()+"\t"+super_admin_user.getTel()+"\t"+"5-21-2021");
                     writer.close();
