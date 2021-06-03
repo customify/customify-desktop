@@ -220,7 +220,7 @@ public class ReadProductDBSearch extends JPanel {
 
     private void search(String searchTerm) throws IOException, ClassNotFoundException {
         ProductService service = new ProductService(this.socket);
-        String json = "{ \"name\" : \""+searchTerm+"\", \"key\" : \""+ Keys.GET_PRODUCT_BY_ID +"\" }";
+        String json = "{ \"name\" : \""+searchTerm+"\", \"key\" : \""+ Keys.GET_PRODUCTS_BY_NAME +"\" }";
         this.searchResult= service.searchByName(json);
         this.searched = true;
     }
@@ -272,6 +272,7 @@ public class ReadProductDBSearch extends JPanel {
                             jsonProcessingException.printStackTrace();
                         }
                         model.addRow(new Object[]{productNode.get("productCode"), productNode.get("business_id"), productNode.get("name"), productNode.get("price"), productNode.get("quantity") , productNode.get("description") , productNode.get("bondedPoints") , productNode.get("registered_by") , productNode.get("createdAt")});
+                        System.out.println("Results from ReadProduct: "+productNode.get("productCode")+" "+productNode.get("name"));
                     }
                 }
 

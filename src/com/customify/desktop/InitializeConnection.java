@@ -6,6 +6,7 @@ import com.customify.desktop.business.NewBusiness;
 import com.customify.desktop.customerFeedback.Businesses;
 import com.customify.desktop.customerFeedback.CustomerFeedbackForm;
 import com.customify.desktop.layout.Layout;
+import com.customify.desktop.product.Product;
 import com.customify.desktop.utils.VerifyAuth;
 
 import java.net.Socket;
@@ -33,7 +34,9 @@ public class InitializeConnection {
 //            String businesses[];
 //              new Sidebar(socket);
 //              new Overview().init();
-            VerifyAuth auth = new VerifyAuth(socket);
+//            VerifyAuth auth = new VerifyAuth(socket);
+            Product product = new Product(socket);
+//            new com.customify.desktop.Main(socket);
 //            String businesses[];
 //            Businesses b = new Businesses(socket);
 //            b.viewAll();

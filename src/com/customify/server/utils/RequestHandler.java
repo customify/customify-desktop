@@ -98,7 +98,7 @@ public class RequestHandler {
                 productService.getProductById(json_data);
                 break;
             case GET_PRODUCTS_BY_NAME:
-                productService.getProductById(json_data);
+                productService.searchByName(json_data);
                 break;
             case UPDATE_PRODUCT:
                 productService.updateProduct(json_data);
