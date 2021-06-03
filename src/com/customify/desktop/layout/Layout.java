@@ -11,8 +11,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class Layout  {
-    public Layout(Container body, String customer_feedback_registration) throws IOException {
-        JFrame frame = new JFrame("Layout");
+    public Layout(Container body, String title) throws IOException {
+        JFrame frame = new JFrame(title);
         frame.setBackground(Color.white);
         JPanel sidebar = new Sidebar();
         JPanel navbar = new JPanel();
