@@ -1,7 +1,6 @@
 package com.customify.desktop;
 
 
-import com.customify.cli.services.CustomerFeedbackService;
 import com.customify.desktop.business.NewBusiness;
 import com.customify.desktop.customerFeedback.Businesses;
 import com.customify.desktop.customerFeedback.CustomerFeedbackForm;
@@ -28,13 +27,6 @@ public class InitializeConnection {
 
 //            new Layout(new NewBusiness(socket), "New business");
             new Layout(new CustomerFeedbackForm(socket),"Customer feedback registration");
-
-//            String businesses[];
-            Businesses b = new Businesses(socket);
-//            b.viewAll();
-//            CustomerFeedbackService c = new CustomerFeedbackService(socket);
-//            System.out.println("Business: "+c.handleGetResponse());
-//            System.out.println(b.viewAll().get(0));
 
         } catch (Exception e) {
             System.out.println("Failed to connect to the server at port: " + portNumber);

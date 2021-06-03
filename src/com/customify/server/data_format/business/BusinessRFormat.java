@@ -22,7 +22,8 @@ public class BusinessRFormat implements Serializable{
     public int statusCode;
     public BusinessRFormat(){};
 
-    public BusinessRFormat(String name){
+    public BusinessRFormat(int id,String name){
+        this.id = id;
         this.name=name;
     };
 
