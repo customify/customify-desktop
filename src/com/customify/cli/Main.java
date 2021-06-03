@@ -1,6 +1,7 @@
 package com.customify.cli;
 
 import com.customify.cli.views.CustomerFeedback.CustomerFeedbackMainView;
+import com.customify.desktop.utils.VerifyAuth;
 
 import java.io.*;
 import java.net.*;
@@ -26,13 +27,9 @@ public class Main {
         int portNumber = 3000;
         try{
             Socket socket = new Socket(serverIp, portNumber);
-//            while(isConnectionOn){
-//                Login log = new Login(socket);
-//
-//            }
-//            new com.customify.desktop.Main(socket);
-            CustomerFeedbackMainView mainView = new CustomerFeedbackMainView(socket);
-            mainView.view();
+            while(isConnectionOn){
+                VerifyAuth auth = new VerifyAuth(socket);
+            }
         }catch (Exception e){
             this.isConnectionOn = false;
             System.out.println("Failed to connect to the server at port: "+ portNumber);
