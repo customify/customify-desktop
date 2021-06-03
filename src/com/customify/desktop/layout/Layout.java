@@ -10,10 +10,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Layout  {
-    public Layout(Container body, String customer_feedback_registration) throws IOException {
-        JFrame frame = new JFrame("Layout");
+public class Layout extends JPanel {
+    public Layout(Container body, String title) throws IOException {
+        JFrame frame = new JFrame(title);
         frame.setBackground(Color.white);
+
+        JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        frame.setContentPane(pane);
+
         JPanel sidebar = new Sidebar();
         JPanel navbar = new JPanel();
 
@@ -88,4 +92,5 @@ public class Layout  {
         frame.setResizable(true);
         frame.add(navbar);
     }
+
 }

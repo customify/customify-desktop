@@ -106,10 +106,10 @@ public class CustomerFeedbackForm extends JPanel {
 
         textField.getDocument().addDocumentListener((IInputChangedEventListener) e -> {
             switch (placeholderTextParam) {
-                case "Customer name" : format.setCustomer_name(textField.getText());
-                case "Business Id" : format.setBusinessId(Integer.parseInt(textField.getText()));
+                case "Customer name": format.setCustomer_name(textField.getText());
+                case "Business Id": format.setBusinessId(Integer.parseInt(textField.getText()));
                 case "Title" : format.setTitle(textField.getText());
-                case "Description" : format.setDescription(textField.getText());
+                case "Description": format.setDescription(textField.getText());
             }
         });
 
