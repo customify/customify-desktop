@@ -8,6 +8,8 @@ import com.customify.desktop.utils.interfaces.IInputChangedEventListener;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -26,10 +28,24 @@ public class CustomerFeedbackForm extends JPanel {
         setLayout(null);
 
         Businesses b = new Businesses(socket);
-        String[] busList = new String[b.viewAll().size()];
+        String[] busList = new String[b.viewAll().getNames().size()];
         for(int i = 0; i < busList.length; i++) {
-            busList[i] = b.viewAll().get(i);
+            busList[i] = b.viewAll().getNames().get(i);
         }
+        JComboBox<String> cb=new JComboBox<>(busList);
+        cb.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    format.setBusinessId(b.viewAll().getIds().get(cb.getSelectedIndex()));
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                } catch (ClassNotFoundException classNotFoundException) {
+                    classNotFoundException.printStackTrace();
+                }
+            }
+        });
+
         JPanel header = new JPanel();
         JLabel headline = new JLabel("Customer feedback ");
         headline.setPreferredSize(new Dimension(300, 100));
@@ -40,8 +56,7 @@ public class CustomerFeedbackForm extends JPanel {
 
         JPanel customer_name = createNewInput("Customer name");
         JPanel business_id = createNewInput("Business Id");
-        JComboBox cb=new JComboBox(busList);
-        cb.setPreferredSize(new Dimension(300, 20));
+//        cb.setPreferredSize(new Dimension(300, 20));
         JPanel title = createNewInput("Title");
         JPanel description = createNewInput("Description");
 
@@ -106,10 +121,10 @@ public class CustomerFeedbackForm extends JPanel {
 
         textField.getDocument().addDocumentListener((IInputChangedEventListener) e -> {
             switch (placeholderTextParam) {
-                case "Customer name" : format.setCustomer_name(textField.getText());
-                case "Business Id" : format.setBusinessId(Integer.parseInt(textField.getText()));
-                case "Title" : format.setTitle(textField.getText());
-                case "Description" : format.setDescription(textField.getText());
+                case "Customer name" -> format.setCustomer_name(textField.getText());
+//                case "Business Id" -> format.setBusinessId(Integer.parseInt(textField.getText()));
+                case "Title" -> format.setTitle(textField.getText());
+                case "Description" -> format.setDescription(textField.getText());
             }
         });
 
