@@ -286,4 +286,24 @@ public class ProductService {
         return;
     }
 
+    public List<String> searchByName(String json) throws IOException, ClassNotFoundException {
+        SendToServer serverSend = new SendToServer(json, this.socket);
+        if (serverSend.send()) {
+            //Get response
+            this.inputStream = this.socket.getInputStream();
+            this.objectInputStream = new ObjectInputStream(this.inputStream);
+
+            //Casting the response data to list
+            List<String> data = (List<String>) this.objectInputStream.readObject();
+
+            if(data.get(0)=="500") System.out.println("An error occurred");
+
+            else return data;
+        } else {
+            System.out.println("Request failed...");
+        }
+
+        return null;
+    }
+
 }

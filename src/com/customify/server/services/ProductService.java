@@ -263,4 +263,49 @@ public class ProductService {
 //        output = new DataOutputStream(this.socket.getOutputStream());
 //        output.writeUTF("Single product with ID: ");
 //    }
+
+    public void searchByName(String input) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(input);
+        String statusCode;
+        //formatting the response into a data format
+        Statement statement = Db.getStatement();
+        String query = "Select * from products where name LIKE '%"+jsonNode.get("name").asText()+"%'";
+        System.out.println(jsonNode.get("name"));
+        List<String> allData = new ArrayList<>();
+
+        try {
+            statusCode = "200";
+            allData.add(statusCode);
+            ResultSet res = statement.executeQuery(query);
+            String data;
+            while(res.next()){
+
+                ProductFormat bs = new ProductFormat(
+                        res.getInt(1),
+                        res.getString(2),
+                        res.getFloat(3),
+                        res.getInt(4),
+                        res.getString(5),
+                        res.getDouble(6),
+                        res.getInt(7),
+                        res.getString(8)
+                );
+
+                data = objectMapper.writeValueAsString(bs);
+                allData.add(data);
+            }
+        }
+        catch (Exception e){
+            statusCode = "500";
+            allData.add(statusCode);
+        }
+        finally{
+            this.output = socket.getOutputStream();
+            this.objectOutput = new CustomizedObjectOutputStream(this.output);
+            objectOutput.writeObject(allData);
+
+        }
+
+    }
 }
