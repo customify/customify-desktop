@@ -5,8 +5,10 @@ import com.customify.cli.services.CustomerFeedbackService;
 import com.customify.desktop.business.NewBusiness;
 import com.customify.desktop.customerFeedback.Businesses;
 import com.customify.desktop.customerFeedback.CustomerFeedbackForm;
+import com.customify.desktop.employee.UpdateEmployee;
 import com.customify.desktop.layout.Layout;
 
+import java.awt.*;
 import java.net.Socket;
 
 public class InitializeConnection {
@@ -26,11 +28,16 @@ public class InitializeConnection {
         try {
             Socket socket = new Socket(serverIp, portNumber);
 
+            Container container = new Container();
+            container.add(new UpdateEmployee(socket).init());
+
+            new Layout(container,"Update Employee");
+
 //            new Layout(new NewBusiness(socket), "New business");
-            new Layout(new CustomerFeedbackForm(socket),"Customer feedback registration");
+//            new Layout(new CustomerFeedbackForm(socket),"Customer feedback registration");
 
 //            String businesses[];
-            Businesses b = new Businesses(socket);
+//            Businesses b = new Businesses(socket);
 //            b.viewAll();
 //            CustomerFeedbackService c = new CustomerFeedbackService(socket);
 //            System.out.println("Business: "+c.handleGetResponse());

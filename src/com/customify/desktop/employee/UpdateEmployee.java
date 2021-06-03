@@ -1,7 +1,10 @@
 package com.customify.desktop.employee;
 
 import com.customify.cli.utils.authorization.structure.EmployeeUser;
+import com.customify.desktop.Keys;
+import com.customify.desktop.data_formats.employee.EmployeeDataFormat;
 import com.customify.desktop.layout.Layout;
+import com.customify.desktop.services.EmployeeService;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -16,7 +19,7 @@ public class UpdateEmployee extends JPanel {
         this.socket = socket;
     }
 
-    public static JPanel init(){
+    public JPanel init(){
         JPanel main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
         main.setBackground(Color.white);
@@ -45,7 +48,7 @@ public class UpdateEmployee extends JPanel {
         main.add(factory.createPanel("Title",titleField));
 
         JTextField usernameField = factory.createInput();
-        main.add(factory.createPanel("Username",usernameField));
+        main.add(factory.createPanel("Password",usernameField));
 
         JPanel buttonGroup = new JPanel();
         buttonGroup.setBackground(Color.white);
@@ -87,12 +90,17 @@ public class UpdateEmployee extends JPanel {
         return main;
     }
 
-    public void update(){
+    public void update(String firstName,String lastName,String email,String title){
+        EmployeeDataFormat format = new EmployeeDataFormat(firstName,lastName,email,title,5);
+        format.setKey(Keys.UPDATE_EMPLOYEE);
 
+        EmployeeService service = new EmployeeService(socket);
+        service.updateEmployee(format);
     }
+
     public static void main(String[] args) throws IOException {
         Container container = new Container();
-        container.add(UpdateEmployee.init());
+//        container.add(new UpdateEmployee().init());
 
         new Layout(container,"Update Employee");
     }
