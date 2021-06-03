@@ -1,6 +1,11 @@
-package com.customify.desktop.services.points;
+/**
+ @author GISA KAZE Fredson
+ Date: 20/03/2021
+ */
 
-import com.customify.cli.services.PointsService;
+package com.customify.desktop.points;
+
+import com.customify.server.services.PointsService;
 import com.customify.desktop.layout.Layout;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -28,7 +33,7 @@ public class PointsServices extends JPanel {
     public PointsServices(){}
     public void returnWinner(){
         PointsService pointsService = new PointsService(socket);
-        response = pointsService.getWinnersUi();
+//        response = pointsService.getWinnersUi();
     }
 
     public Container init() throws JsonProcessingException {
@@ -54,7 +59,7 @@ public class PointsServices extends JPanel {
         table.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
         table.setShowGrid(false);
         table.setIntercellSpacing(new Dimension(0, 1));
-
+        table.setRowHeight(40);
 
 //        Aligning content at the center in table
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer(){

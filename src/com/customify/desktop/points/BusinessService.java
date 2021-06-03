@@ -10,7 +10,7 @@
  * @since Wednesday, 3 February 2021 - 08:17 - Time in Nyabihu
  * */
 
-package com.customify.desktop.services;
+package com.customify.desktop.points;
 
 import com.customify.desktop.SendToServer;
 import com.customify.desktop.data_formats.business.BusinessFormat;
@@ -94,7 +94,7 @@ public class BusinessService {
 
     /**
      * @author Kellia Umuhire
-     * @role this function is for handling the response after fetching all the businesses from the server
+     * @role this function is for h+andling the response after fetching all the businesses from the server
      * and displaying the response
      */
     public void handleGetResponse() throws IOException, ClassNotFoundException {
