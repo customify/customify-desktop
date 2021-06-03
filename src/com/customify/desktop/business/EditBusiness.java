@@ -1,12 +1,25 @@
 package com.customify.desktop.business;
 
+import com.customify.desktop.Keys;
 import com.customify.desktop.components.FormControl;
+import com.customify.desktop.data_formats.business.BusinessFormat;
+import com.customify.desktop.layout.Layout;
+import com.customify.desktop.services.BusinessService;
+import com.customify.desktop.utils.interfaces.IInputChangedEventListener;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.io.IOException;
+import java.net.Socket;
 
 public class EditBusiness extends JPanel {
-    public EditBusiness(){
+    BusinessFormat format = new BusinessFormat();
+    private final Socket socket;
+
+    public EditBusiness(Socket socket){
+        this.socket = socket;
+
         JPanel main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
         main.setBackground(Color.white);
@@ -19,12 +32,11 @@ public class EditBusiness extends JPanel {
         headline.setForeground(new Color(53,32,88));
         header.setBackground(Color.white);
 
-        JPanel businessName = new FormControl("Business name");
-        JPanel businessLocation = new FormControl("Location");
-        JPanel address = new FormControl("Address");
-        JPanel phoneNumber = new FormControl("Phone number");
-        JPanel representative = new FormControl("Representative");
-        JPanel businessPlan = new FormControl("Business plan");
+        JPanel businessName = createNewInput("Business name");
+        JPanel businessLocation = createNewInput("Location");
+        JPanel address = createNewInput("Address");
+        JPanel phoneNumber = createNewInput("Phone number");
+        JPanel businessPlan = createNewSelect("Business Plan");
 
         JPanel buttonGroup = new JPanel();
         buttonGroup.setBackground(Color.white);
@@ -56,7 +68,6 @@ public class EditBusiness extends JPanel {
         main.add(businessLocation);
         main.add(address);
         main.add(phoneNumber);
-        main.add(representative);
         main.add(businessPlan);
         main.add(buttonGroup);
 
@@ -64,5 +75,67 @@ public class EditBusiness extends JPanel {
 
         add(main);
         setBackground(Color.WHITE);
+    }
+
+    public void updateBusiness() throws IOException, ClassNotFoundException {
+        BusinessService service = new BusinessService(this.socket);
+        this.format.setKey(Keys.CREATE_BUSINESS);
+        this.format.setRepresentative(1);
+        service.create(this.format);
+    }
+
+    public JPanel createNewSelect(String placeholderTextParam){
+        format.setPlan(1);
+        String[] strings = {"Basic", "Classic updated", "Plan updated"};
+        JPanel container = new JPanel();
+
+        container.setBackground(Color.white);
+
+        JLabel label = new JLabel(placeholderTextParam);
+        label.setPreferredSize(new Dimension(200, 30));
+        label.setFont(new Font("Montserrat", Font.PLAIN, 18));
+
+        JComboBox<String> comboBox = new JComboBox<>(strings);
+        comboBox.setPreferredSize(new Dimension(370, 40));
+        comboBox.addActionListener(actionEvent -> format.setPlan(comboBox.getSelectedIndex()+1));
+
+        container.add(label);
+        container.add(comboBox);
+
+        return container;
+    }
+
+    public JPanel createNewInput(String placeholderTextParam){
+        JPanel textFieldContainer = new JPanel();
+        textFieldContainer.setBackground(Color.white);
+        JLabel placeholderText = new JLabel(placeholderTextParam);
+        placeholderText.setFont(new Font("Montserrat", Font.PLAIN, 18));
+        placeholderText.setBackground(Color.green);
+        placeholderText.setPreferredSize(new Dimension(200, 30));
+
+        JTextField textField = new JTextField("", 20);
+        textField.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(Color.black, 1, true),
+                BorderFactory.createEmptyBorder(8, 15, 8, 15))
+        );
+        textField.setFont(new Font("Montserrat", Font.PLAIN, 18));
+
+        textField.getDocument().addDocumentListener((IInputChangedEventListener) e -> {
+            switch (placeholderTextParam) {
+                case "Business name" -> format.setName(textField.getText());
+                case "Location" -> format.setLocation(textField.getText());
+                case "Address" -> format.setAddress(textField.getText());
+                case "Phone number" -> format.setPhoneNumber(textField.getText());
+            }
+        });
+
+        textFieldContainer.add(placeholderText);
+        textFieldContainer.add(textField);
+
+        return textFieldContainer;
+    }
+
+    public static void main(String[] args) throws IOException {
+        new Layout(new EditBusiness(new Socket()), "Edit a business");
     }
 }

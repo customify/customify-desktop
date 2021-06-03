@@ -2,15 +2,12 @@ package com.customify.desktop.business;
 
 import com.customify.desktop.Keys;
 import com.customify.desktop.data_formats.business.BusinessFormat;
-import com.customify.desktop.layout.Layout;
 import com.customify.desktop.services.BusinessService;
 import com.customify.desktop.utils.interfaces.IInputChangedEventListener;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -38,7 +35,7 @@ public class NewBusiness extends JPanel {
         JPanel businessLocation = createNewInput("Location");
         JPanel address = createNewInput("Address");
         JPanel phoneNumber = createNewInput("Phone number");
-        JPanel testingSelect = createNewSelect("Business Plan");
+        JPanel businessPlan = createNewSelect("Business Plan");
 
         JPanel buttonGroup = new JPanel();
         buttonGroup.setBackground(Color.white);
@@ -78,7 +75,7 @@ public class NewBusiness extends JPanel {
         main.add(businessLocation);
         main.add(address);
         main.add(phoneNumber);
-        main.add(testingSelect);
+        main.add(businessPlan);
         main.add(buttonGroup);
 
         main.setBounds(200, 50, 800, 600);
@@ -143,9 +140,5 @@ public class NewBusiness extends JPanel {
         textFieldContainer.add(textField);
 
         return textFieldContainer;
-    }
-
-    public static void main(String[] args) throws IOException {
-        new Layout(new NewBusiness(new Socket()), "|text");
     }
 }

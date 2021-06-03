@@ -2,6 +2,7 @@ package com.customify.desktop;
 
 
 import com.customify.cli.services.CustomerFeedbackService;
+import com.customify.desktop.business.EditBusiness;
 import com.customify.desktop.business.NewBusiness;
 import com.customify.desktop.customerFeedback.Businesses;
 import com.customify.desktop.customerFeedback.CustomerFeedbackForm;
@@ -26,11 +27,11 @@ public class InitializeConnection {
         try {
             Socket socket = new Socket(serverIp, portNumber);
 
-//            new Layout(new NewBusiness(socket), "New business");
-            new Layout(new CustomerFeedbackForm(socket),"Customer feedback registration");
+            new Layout(new EditBusiness(socket), "New business");
+//            new Layout(new CustomerFeedbackForm(socket),"Customer feedback registration");
 
 //            String businesses[];
-            Businesses b = new Businesses(socket);
+//            Businesses b = new Businesses(socket);
 //            b.viewAll();
 //            CustomerFeedbackService c = new CustomerFeedbackService(socket);
 //            System.out.println("Business: "+c.handleGetResponse());
