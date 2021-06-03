@@ -1,6 +1,6 @@
 package com.customify.desktop.services;
 
-import com.customify.cli.SendToServer;
+import com.customify.desktop.SendToServer;
 import com.customify.server.Db.Db;
 import com.customify.desktop.data_formats.Customer_feedback.CustomerFeedbackFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;

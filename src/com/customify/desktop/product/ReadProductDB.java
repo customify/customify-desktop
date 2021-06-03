@@ -1,7 +1,7 @@
 package com.customify.desktop.product;
 
-import com.customify.cli.Keys;
-import com.customify.cli.services.ProductService;
+import com.customify.desktop.Keys;
+import com.customify.server.services.ProductService;
 import com.customify.desktop.business.Search;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -106,7 +106,8 @@ public class ReadProductDB extends JPanel {
 //        JsonNode productNode = objectMapper.readTree(service.getAllProducts().get(0));
 //        System.out.println("Product node "+productNode);
 //        System.out.println("Testing paths"+productNode.at("/products/productCode"));
-        this.productData = service.getAllProducts();
+
+//        this.productData = service.getAllProducts();
         //
         System.out.println("Results"+productData);
     }

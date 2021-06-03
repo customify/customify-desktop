@@ -1,7 +1,9 @@
 package com.customify.desktop.layout;
 
+import com.customify.desktop.components.FeatureRegister;
 import com.customify.desktop.components.SideBarListItem;
 import com.customify.desktop.components.Sidebar;
+import com.customify.desktop.enums.UserRoles;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -16,7 +18,8 @@ public class Layout  {
     public Layout(Container body, String title) throws IOException {
         JFrame frame = new JFrame(title);
         frame.setBackground(Color.white);
-        JPanel sidebar = new Sidebar();
+        FeatureRegister featureRegister = new FeatureRegister();
+        JPanel sidebar = new Sidebar(UserRoles.ADMIN, frame);
         JPanel navbar = new JPanel();
 
         /*   header starts */
@@ -81,7 +84,7 @@ public class Layout  {
 
         body.setBackground(Color.GREEN);
         body.setBounds(300,70,1060,667);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         frame.setLayout(null);
         frame.setSize(1920, 900);
         frame.setVisible(true);

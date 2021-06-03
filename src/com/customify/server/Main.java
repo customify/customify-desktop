@@ -28,9 +28,7 @@ public class Main {
             while(true){
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("New Client is connected on the Servers");
-                Thread client = new Server(clientSocket);
-                ExecutorService Pool = Executors.newFixedThreadPool(2);
-                Pool.execute(client);
+
             }
         } catch (Exception e) {
             System.out.println("Can not listen to port: " + portNumber + ", Exception " + e);
