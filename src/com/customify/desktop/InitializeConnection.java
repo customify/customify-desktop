@@ -1,7 +1,8 @@
 package com.customify.desktop;
 
 
-import com.customify.desktop.business.NewBusiness;
+import com.customify.desktop.business.ReadBusiness;
+import com.customify.desktop.customers.ReadCustomer;
 import com.customify.desktop.layout.Layout;
 
 
@@ -24,7 +25,7 @@ public class InitializeConnection {
         try {
             Socket socket = new Socket(serverIp, portNumber);
 
-            new Layout(new NewBusiness(socket), "New business");
+            new Layout(new ReadCustomer(), "All business");
 
         } catch (Exception e) {
             System.out.println("Failed to connect to the server at port: " + portNumber);
