@@ -8,13 +8,16 @@ import java.net.Socket;
 
 public class Products {
 
-    public Products(Socket socket) throws IOException {
+//    public Products(Socket socket) throws IOException {
+//
+//        JPanel newProduct=new NewProduct(socket);
+//        new Layout(newProduct);
+//    }
 
-        JPanel newProduct=new NewProduct(socket);
+    public Products() throws IOException {
+        JPanel newProduct=new NewProduct();
         new Layout(newProduct);
     }
-
-    public Products(){}
 
 
 }

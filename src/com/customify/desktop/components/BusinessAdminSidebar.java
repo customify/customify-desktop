@@ -48,7 +48,12 @@ public class BusinessAdminSidebar extends JPanel {
         ActionListener productAction = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Products();
+                try {
+                    new Products();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+
             }
         };
 
