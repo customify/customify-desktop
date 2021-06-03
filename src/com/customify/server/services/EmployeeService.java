@@ -133,32 +133,37 @@ public class EmployeeService {
 
 
     public void update(String data) throws SQLException, IOException {
-
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(data);
 
         OutputStream output = this.socket.getOutputStream();
         ObjectOutputStream objectOutput =  new ObjectOutputStream(output);
 
-        Statement stmt = null;
-        Connection connection = null;
+        String response = "";
 
         try {
-            connection = Db.getConnection();
+            String sql = "UPDATE Employee SET email =?,firstName=?,lastName=?,title=? WHERE emp_id =? ";
+            PreparedStatement statement = Db.getConnection().prepareStatement(sql);
 
-            // System.out.println("Creating statement...");
-            stmt = connection.createStatement();
+            statement.setString(1,jsonNode.get("email").asText());
+            statement.setString(2,jsonNode.get("firstName").asText());
+            statement.setString(3,jsonNode.get("lastName").asText());
+            statement.setString(4,jsonNode.get("title").asText());
+            statement.setString(5,jsonNode.get("empId").asText());
 
-            String sql = "UPDATE customers SET customer_code = "+jsonNode.get("customer_code").asText()+",email = "+jsonNode.get("email").asText()+
-                    ",firstName="+jsonNode.get("firstName").asText()+",lastName="+jsonNode.get("lastName").asText()+", WHERE customer_code = "+jsonNode.get("customer_code").asText();
-
-            stmt.executeUpdate(sql);
-
-            stmt.close();
-            connection.close();
+            if(statement.executeUpdate() > 0) response = "{ \"status\" : \"200\"}";
+            else response = "{ \"status\" : \"400\"}";
         }
         catch (Exception e){
+            System.out.println("DB-ERROR " + e.getMessage());
+            response = "{ \"status\" : \"500\"}";
+        }
+        finally {
+            this.output = socket.getOutputStream();
+            this.objectOutput = new CustomizedObjectOutputStream(this.output);
 
+            responseData.add(response);
+            objectOutput.writeObject(this.responseData);
         }
     }
 

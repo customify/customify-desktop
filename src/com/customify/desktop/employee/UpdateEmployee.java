@@ -14,7 +14,6 @@ import java.net.Socket;
 
 public class UpdateEmployee extends JPanel {
     private final Socket socket;
-
     public UpdateEmployee(Socket socket) {
         this.socket = socket;
     }
@@ -89,8 +88,7 @@ public class UpdateEmployee extends JPanel {
 
         return main;
     }
-
-    public void update(String firstName,String lastName,String email,String title){
+    public void update(String firstName,String lastName,String email,String title) throws IOException {
         EmployeeDataFormat format = new EmployeeDataFormat(firstName,lastName,email,title,5);
         format.setKey(Keys.UPDATE_EMPLOYEE);
 
@@ -101,12 +99,9 @@ public class UpdateEmployee extends JPanel {
     public static void main(String[] args) throws IOException {
         Container container = new Container();
 //        container.add(new UpdateEmployee().init());
-
         new Layout(container,"Update Employee");
     }
 }
-
-
 class InputFactory{
     public JTextField createInput(){
         JTextField textField = new JTextField("", 20);
@@ -116,10 +111,8 @@ class InputFactory{
         );
         textField.setFont(new Font("Montserrat", Font.PLAIN, 18));
         textField.setBounds(0,0,30,10);
-
         return textField;
     }
-
     public JPanel createPanel(String placeholder,JTextField jTextField){
         JPanel container = new JPanel();
         container.setBackground(Color.white);
