@@ -13,9 +13,6 @@ public class Main {
     private  Socket socket;
     public Main(Socket socket) throws Exception {
         this.socket=socket;
-//        new Product(socket);
-//        new Product(socket);
-        new PointsServices(socket);
     }
 
     public static void main(String[] args) throws  IOException {
