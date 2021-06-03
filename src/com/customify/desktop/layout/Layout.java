@@ -80,7 +80,7 @@ public class Layout  {
 
         /*Header ends here*/
 
-        body.setBackground(Color.GREEN);
+        body.setBackground(Color.lightGray);
         body.setBounds(300,70,1060,667);
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         frame.setLayout(null);
@@ -92,5 +92,8 @@ public class Layout  {
         frame.add(sidebar);
         frame.setResizable(true);
         frame.add(navbar);
+    }
+
+    public Layout(Container body) {
     }
 }
