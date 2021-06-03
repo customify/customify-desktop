@@ -37,8 +37,8 @@ public class Main {
 ////                new Overview().init();
 //                System.out.println("Client connected to server");
 //            }
-            new Sidebar(socket);
-            new Overview().init();
+//            new Sidebar(socket);
+//            new Overview().init();
         }catch (Exception e){
             this.isConnectionOn = false;
             System.out.println("Failed to connect to the server at port: "+ portNumber);

@@ -1,13 +1,11 @@
 package com.customify.desktop.layout;
 
 import com.customify.desktop.components.FeatureRegister;
-import com.customify.desktop.components.SideBarListItem;
 import com.customify.desktop.components.Sidebar;
 import com.customify.desktop.enums.UserRoles;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
