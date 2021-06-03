@@ -11,6 +11,7 @@ package com.customify.cli.services;
 import com.customify.cli.Colors;
 import com.customify.cli.SendToServer;
 import com.customify.cli.data_format.CustomerFeedback.CustomerFeedbackDataFormat;
+import com.customify.desktop.utils.interfaces.SelectBusinessFormat;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -120,37 +121,37 @@ public class CustomerFeedbackService {
 
 
 
-    public ArrayList<String> getBusinesses(String json) throws IOException, ClassNotFoundException {
+    public SelectBusinessFormat getBusinesses(String json) throws IOException, ClassNotFoundException {
         SendToServer serverSend = new SendToServer(json, this.socket);
-        ArrayList<String> businessesList = new ArrayList<>();
         if (serverSend.send()) {
-//            System.out.println(this.handleGetResponse().get(0));
-            for(String blist:this.handleGetResponse()){
-                businessesList.add(blist);
-            }
+
+            return this.handleGetResponse();
         } else {
             System.out.println("Request failed...");
+            return new SelectBusinessFormat();
         }
-        return businessesList;
     }
 
-    public ArrayList<String> handleGetResponse() throws IOException, ClassNotFoundException {
+    public SelectBusinessFormat handleGetResponse() throws IOException, ClassNotFoundException {
+
         this.input = this.socket.getInputStream();
         this.objectInput = new ObjectInputStream(this.input);
         ObjectMapper objectMapper = new ObjectMapper();
         List<String> data = (List<String>) this.objectInput.readObject();
-        ArrayList<String> businesses = new ArrayList<>();
+        ArrayList<String> businessNames = new ArrayList<>();
+        ArrayList<Integer> businessIds = new ArrayList<>();
 
         if(data.get(0)=="500") System.out.println("An error occurred");
         else {
-//            System.out.format("%20s\n","Name");
             for (int i = 1; i < data.size(); i++) {
                 JsonNode bs = objectMapper.readTree(data.get(i));
-                businesses.add(bs.get("name").asText());
-//                System.out.format("%10s\n", bs.get("name").asText());
+                businessIds.add(bs.get("id").asInt());
+                businessNames.add(bs.get("name").asText());
             }
         }
-        return businesses;
-    }
+        SelectBusinessFormat response = new SelectBusinessFormat(businessIds, businessNames);
 
+        return response;
+
+    }
 }

@@ -69,6 +69,7 @@ public class FeedbackServices {
             System.out.format("%20s\n","Name");
             for (int i = 1; i < data.size(); i++) {
                 JsonNode bs = objectMapper.readTree(data.get(i));
+                System.out.format("%10d\n", bs.get("id").asInt());
                 System.out.format("%10s\n", bs.get("name").asText());
             }
         }
