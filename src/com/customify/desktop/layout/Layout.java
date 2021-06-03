@@ -85,6 +85,8 @@ public class Layout  {
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         frame.setLayout(null);
         frame.setSize(1920, 900);
+
+        
         frame.setVisible(true);
         frame.add(body);
         frame.add(sidebar);

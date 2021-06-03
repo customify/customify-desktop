@@ -47,13 +47,13 @@ public class Sidebar extends JPanel {
         switch (role){
             case ADMIN:
                 navBarItems.add(overView);
-                navBarItems.add(report);
-                navBarItems.add(subscription);
+                navBarItems.add(business);
                 navBarItems.add(features);
                 navBarItems.add(plans);
                 navBarItems.add(billing);
+                navBarItems.add(report);
+                navBarItems.add(subscription);
                 navBarItems.add(settings);
-                navBarItems.add(business);
                 break;
             case BUSINESS_OWNER:
                 navBarItems.add(overView);
@@ -121,17 +121,6 @@ public class Sidebar extends JPanel {
             }
         };
         business.addActionListener(triggerBusiness);
-
-    /*
-        navBarItems.add(employees);
-        navBarItems.add(customers);
-        navBarItems.add(sales);
-        navBarItems.add(report);
-        navBarItems.add(feedback);
-        navBarItems.add(line);
-        navBarItems.add(settings);
-        navBarItems.add(subscription);
-     */
 
         JPanel logo = logo();
 

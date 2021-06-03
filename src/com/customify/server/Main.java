@@ -27,8 +27,11 @@ public class Main {
             Db.init();
             while(true){
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("New Client is connected on the Servers");
-
+                System.out.println("New Client is connected on the Server");
+                RequestHandler con = new RequestHandler(clientSocket);
+                while(true) {
+                    con.init(clientSocket.getInputStream());
+                }
             }
         } catch (Exception e) {
             System.out.println("Can not listen to port: " + portNumber + ", Exception " + e);
