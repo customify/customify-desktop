@@ -25,13 +25,13 @@ public class PlanRegister {
         JLabel label3 = new JLabel("Price");
         label3.setFont(new Font("Montserrat", Font.BOLD, 20));
 
-        JLabel label4 = new JLabel("Select Feature");
-        label4.setFont(new Font("Montserrat", Font.BOLD, 20));
+//        JLabel label4 = new JLabel("Select Feature");
+//        label4.setFont(new Font("Montserrat", Font.BOLD, 20));
 
         label1.setBounds(200,200,200,20);
         label2.setBounds(200,250,200,20);
         label3.setBounds(200,300,200,20);
-        label4.setBounds(200,350,200,20);
+//        label4.setBounds(200,350,200,20);
 
         JTextField planTitle  = new JTextField();
         planTitle.setBounds(400,200,400,40);
@@ -45,11 +45,11 @@ public class PlanRegister {
         planPrice.setBounds(400,300,400,40);
         container.add(planPrice);
 
-        JCheckBox checkBox1 = new JCheckBox();
-        checkBox1.setText("Shop");
-
-        JCheckBox checkBox2 = new JCheckBox();
-        checkBox2.setText("Order");
+//        JCheckBox checkBox1 = new JCheckBox();
+//        checkBox1.setText("Shop");
+//
+//        JCheckBox checkBox2 = new JCheckBox();
+//        checkBox2.setText("Order");
 
         CheckboxGroup checkBoxGroup = new CheckboxGroup();
 //        here to put the loop for creating multiple checkbox according to features in database
@@ -57,14 +57,29 @@ public class PlanRegister {
 
 //        checkBoxGroup.add(checkBox1);
 //        checkBoxGroup.add(checkBox2);
-        container.add(checkBox1);
-        container.add(checkBox2);
+//        container.add(checkBox1);
+//        container.add(checkBox2);
 
 
         container.add(label1);
         container.add(label2);
         container.add(label3);
-        container.add(label4);
+        
+        JButton btnNewButton = new JButton("Save");
+		btnNewButton.setForeground(Color.WHITE);
+		btnNewButton.setBounds(550,400, 114, 34);
+		btnNewButton.setFont(new Font("Montserrat", Font.BOLD, 16));
+		btnNewButton.setBackground(new Color(53,32,88));
+		container.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Cancel");
+		btnNewButton_1.setBounds(400,400, 114, 34);
+		btnNewButton_1.setBackground(Color.WHITE);
+		btnNewButton_1.setForeground(new Color(53,32,88));
+		btnNewButton_1.setFont(new Font("Montserrat", Font.BOLD, 16));
+		
+		container.add(btnNewButton_1);
+//        container.add(label4);
 
 
         return container;

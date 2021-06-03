@@ -75,6 +75,4 @@ public class PlanRead extends JPanel {
 	public static void main(String[] args) throws IOException {
         new Layout((new PlanRead().init()));
     }
-	
-	
 }
