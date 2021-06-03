@@ -4,6 +4,7 @@ package com.customify.desktop;
 import com.customify.desktop.business.NewBusiness;
 import com.customify.desktop.customerFeedback.Businesses;
 import com.customify.desktop.customerFeedback.CustomerFeedbackForm;
+import com.customify.desktop.employee.CreateEmp;
 import com.customify.desktop.employee.UpdateEmployee;
 import com.customify.desktop.layout.Layout;
 
@@ -28,9 +29,14 @@ public class InitializeConnection {
             Socket socket = new Socket(serverIp, portNumber);
 
             Container container = new Container();
+            container.add(new CreateEmp(socket).init());
+
+            new Layout(container,"Create Employee");
+
+            /*Container container = new Container();
             container.add(new UpdateEmployee(socket).init());
 
-            new Layout(container,"Update Employee");
+            new Layout(container,"Update Employee");*/
 
 //            new Layout(new NewBusiness(socket), "New business");
 //            new Layout(new CustomerFeedbackForm(socket),"Customer feedback registration");

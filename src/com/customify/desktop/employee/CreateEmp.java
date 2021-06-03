@@ -1,17 +1,24 @@
 package com.customify.desktop.employee;
 
-import com.customify.cli.utils.authorization.structure.EmployeeUser;
+import com.customify.desktop.Keys;
+import com.customify.desktop.data_formats.employee.EmployeeDataFormat;
 import com.customify.desktop.layout.Layout;
-import com.customify.desktop.data_formats.business.BusinessFormat;
-import com.customify.desktop.utils.interfaces.IInputChangedEventListener;
+import com.customify.desktop.services.EmployeeService;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.io.IOException;
+import java.net.Socket;
 
-public class createEmp extends JPanel {
-    public static JPanel init(){
+public class CreateEmp extends JPanel {
+    private final Socket socket;
+
+    public CreateEmp(Socket socket) {
+        this.socket = socket;
+    }
+
+    public JPanel init(){
         JPanel main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
         main.setBackground(Color.white);
@@ -52,7 +59,7 @@ public class createEmp extends JPanel {
                 BorderFactory.createEmptyBorder(7, 30, 7, 30)));
         cancel.setFont(new Font("Montserrat", Font.PLAIN, 18));
 
-        JButton btn = new JButton("Save");
+        JButton btn = new JButton("Create");
         btn.setBounds(1020,400,180,40);
         btn.setBackground(new Color(53,32,88));
         btn.setForeground(Color.white);
@@ -62,8 +69,12 @@ public class createEmp extends JPanel {
         btn.setFont(new Font("Montserrat", Font.PLAIN, 18));
 
         btn.addActionListener(actionEvent -> {
-            EmployeeUser employee = new EmployeeUser();
+//            EmployeeUser employee = new EmployeeUser();
+            EmployeeDataFormat format = new EmployeeDataFormat(firstNameField.getText(), lastNameField.getText() , emailField.getText() , titleField.getText() , passwordField.getText() , 2);
+            format.setKey(Keys.CREATE_EMPLOYEE);
 
+            EmployeeService service = new EmployeeService(this.socket);
+            service.updateEmployee(format);
         });
 
         buttonGroup.add(cancel);
@@ -78,7 +89,7 @@ public class createEmp extends JPanel {
 
     public static void main(String[] args) throws IOException {
         Container container = new Container();
-        container.add(createEmp.init());
+//        container.add(new createEmp().init());
 
         new Layout(container,"Create Employee");
     }

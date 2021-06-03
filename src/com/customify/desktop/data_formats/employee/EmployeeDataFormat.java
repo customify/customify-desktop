@@ -27,6 +27,17 @@ public class EmployeeDataFormat {
         this.createdAt = LocalDate.now().toString();
     }
 
+    public EmployeeDataFormat(String firstName, String lastName, String email, String title,String password, int businessId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.title = title;
+        this.businessId = businessId;
+
+        this.empId = this.generateId();
+        this.createdAt = LocalDate.now().toString();
+    }
+
     public EmployeeDataFormat(int empId, String firstName, String lastName, String email, String title, int businessId, String createdAt) {
         this.empId = empId;
         this.firstName = firstName;
