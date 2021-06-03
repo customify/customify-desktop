@@ -132,6 +132,35 @@ public class EmployeeService {
     }
 
 
+    public void update(String data) throws SQLException, IOException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(data);
+
+        OutputStream output = this.socket.getOutputStream();
+        ObjectOutputStream objectOutput =  new ObjectOutputStream(output);
+
+        Statement stmt = null;
+        Connection connection = null;
+
+        try {
+            connection = Db.getConnection();
+
+            // System.out.println("Creating statement...");
+            stmt = connection.createStatement();
+
+            String sql = "UPDATE customers SET customer_code = "+jsonNode.get("customer_code").asText()+",email = "+jsonNode.get("email").asText()+
+                    ",firstName="+jsonNode.get("firstName").asText()+",lastName="+jsonNode.get("lastName").asText()+", WHERE customer_code = "+jsonNode.get("customer_code").asText();
+
+            stmt.executeUpdate(sql);
+
+            stmt.close();
+            connection.close();
+        }
+        catch (Exception e){
+
+        }
+    }
 
 }
 
