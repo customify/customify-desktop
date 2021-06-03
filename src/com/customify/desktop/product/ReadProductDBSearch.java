@@ -220,7 +220,7 @@ public class ReadProductDBSearch extends JPanel {
 
     private void search(String searchTerm) throws IOException, ClassNotFoundException {
         ProductService service = new ProductService(this.socket);
-        String json = "{ \"name\" : \""+searchTerm+"\", \"key\" : \""+ Keys.GET_PRODUCTS_BY_NAME +"\" }";
+        String json = "{ \"name\" : \""+searchTerm+"\", \"key\" : \""+ Keys.GET_PRODUCT_BY_ID +"\" }";
         this.searchResult= service.searchByName(json);
         this.searched = true;
     }

@@ -9,21 +9,29 @@ import com.customify.desktop.product.Product;
 import java.io.IOException;
 import java.net.Socket;
 
+//public class Main {
+//    private  Socket socket;
+//    public Main(Socket socket) throws Exception {
+//        this.socket=socket;
+////        new Product(socket);
+////        new Product(socket);
+//        new PointsServices(socket);
+//    }
+//
+//    public void main(String[] args) throws  IOException {
+//        new Sales();
+//        try {
+//            new Main(this.socket);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//}
+
 public class Main {
-    private  Socket socket;
+    private Socket socket;
     public Main(Socket socket) throws Exception {
         this.socket=socket;
-//        new Product(socket);
-//        new Product(socket);
-        new PointsServices(socket);
-    }
-
-    public void main(String[] args) throws  IOException {
-        new Sales();
-        try {
-            new Main(this.socket);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        new Product(socket);
     }
 }
