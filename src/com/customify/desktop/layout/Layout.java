@@ -88,4 +88,7 @@ public class Layout  {
         frame.setResizable(true);
         frame.add(navbar);
     }
+
+    public Layout(Container body) {
+    }
 }
