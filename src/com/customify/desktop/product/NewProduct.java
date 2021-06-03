@@ -11,15 +11,13 @@ public class NewProduct extends JPanel {
     public NewProduct(){
 
         JPanel header = new JPanel();
-        //header.setSize(new Dimension(300,30));
-        //header.setBackground(Color.white);
 
         JLabel headline = new JLabel("ADD PRODUCT ");
         headline.setFont(new Font("Montserrat", Font.BOLD, 20));
         headline.setForeground(new Color(53,32,88));
 
         header.setBackground(Color.white);
-        header.setBounds(15,20,300,30);
+        header.setBounds(100,90,300,30);
         header.add(headline);
 
         JPanel main = new JPanel();
@@ -54,7 +52,7 @@ public class NewProduct extends JPanel {
 
 
         JButton btn = new JButton("ADD");
-        btn.setBounds(1020,400,180,40);
+        btn.setBounds(1020,400,100,40);
         btn.setBackground(new Color(53,32,88));
         btn.setForeground(Color.white);
         btn.setBorder(BorderFactory.createCompoundBorder(
@@ -77,8 +75,9 @@ public class NewProduct extends JPanel {
         main.add(buttonGroup);
 
 
-        main.setBounds(90, 50, 800, 600);
-        main2.setBounds(90, 50, 800, 600);
+        main.setBounds(150, 120, 700, 500);
+        main2.setBounds(150, 100, 600, 600);
+
         add(header);
         add(main);
         setBackground(Color.white);
