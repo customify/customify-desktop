@@ -2,10 +2,12 @@ package com.customify.desktop;
 
 
 import com.customify.desktop.pages.LoginWindow;
+import com.customify.desktop.pages.customer.CreateWindow;
 import com.customify.desktop.utils.VerifyAuth;
 
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 
 public class Main {
     private OutputStream output = null;
@@ -28,7 +30,10 @@ public class Main {
         try{
             Socket socket = new Socket(serverIp, portNumber);
             while(isConnectionOn){
-                VerifyAuth auth = new VerifyAuth(socket);
+//                VerifyAuth auth = new VerifyAuth(socket);
+                CreateWindow customer = new CreateWindow(socket);
+                Scanner scan = new Scanner(System.in);
+                String name = scan.nextLine();
             }
         }catch (Exception e){
             this.isConnectionOn = false;
