@@ -12,6 +12,9 @@ public class EmployeeService {
     }
 
     public void updateEmployee(EmployeeDataFormat format){
+    }
+    public void createEmp(EmployeeDataFormat format){
 
     }
+
 }
