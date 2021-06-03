@@ -27,7 +27,7 @@ public class InitializeConnection {
         try {
             Socket socket = new Socket(serverIp, portNumber);
 
-            new Layout(new EditBusiness(socket), "New business");
+            new Layout(new NewBusiness(socket), "New business");
 //            new Layout(new CustomerFeedbackForm(socket),"Customer feedback registration");
 
 //            String businesses[];
