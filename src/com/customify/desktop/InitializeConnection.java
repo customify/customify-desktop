@@ -29,7 +29,6 @@ public class InitializeConnection {
 
 //            new Layout(new NewBusiness(socket), "New business");
 //            new Layout(new CustomerFeedbackForm(socket),"Customer feedback registration");
-
 //            String businesses[];
 //              new Sidebar(socket);
 //              new Overview().init();
