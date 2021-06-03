@@ -33,15 +33,18 @@ public class CustomerFeedbackMainView {
         System.out.println("------------------Customer feedback operations---------------------");
         System.out.println("         1. Get all feedbacks");
         System.out.println("         2. Delete feedback");
+        System.out.println("         3. Get Business by names");
         choice = scan.nextInt();
 
         switch (choice) {
             case 1:
-//                readFeedbacks.GetFeedbacks();
-                readFeedbacks.viewAll();
+                readFeedbacks.GetFeedbacks();
                 break;
             case 2:
                 readFeedbacks.deleteCustomerFeedback();
+                break;
+            case 3:
+                readFeedbacks.viewAll();
                 break;
             default:
                 System.out.println("No such option");

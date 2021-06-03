@@ -17,7 +17,7 @@ public class CustomerFeedbackForm extends JPanel {
     private final Socket socket;
     private JPanel contentPane;
 
-    public CustomerFeedbackForm(Socket socket){
+    public CustomerFeedbackForm(Socket socket) throws IOException, ClassNotFoundException {
         this.socket = socket;
 
         contentPane = new JPanel();
@@ -25,7 +25,11 @@ public class CustomerFeedbackForm extends JPanel {
         contentPane.setBackground(Color.white);
         setLayout(null);
 
-        String country[]={"India","Aus","U.S.A","England","Newzealand"};
+        Businesses b = new Businesses(socket);
+        String[] busList = new String[b.viewAll().size()];
+        for(int i = 0; i < busList.length; i++) {
+            busList[i] = b.viewAll().get(i);
+        }
         JPanel header = new JPanel();
         JLabel headline = new JLabel("Customer feedback ");
         headline.setPreferredSize(new Dimension(300, 100));
@@ -36,21 +40,13 @@ public class CustomerFeedbackForm extends JPanel {
 
         JPanel customer_name = createNewInput("Customer name");
         JPanel business_id = createNewInput("Business Id");
-        // JComboBox cb=new JComboBox(country);
-        // cb.setPreferredSize(new Dimension(300, 20));
+        JComboBox cb=new JComboBox(busList);
+        cb.setPreferredSize(new Dimension(300, 20));
         JPanel title = createNewInput("Title");
         JPanel description = createNewInput("Description");
 
         JPanel buttonGroup = new JPanel();
         buttonGroup.setBackground(Color.white);
-
-        // JButton cancel = new JButton("Cancel");
-        // cancel.setBounds(400,400,180,40);
-        // cancel.setBackground(Color.white);
-        // cancel.setBorder(BorderFactory.createCompoundBorder(
-        //         cancel.getBorder(),
-        //         BorderFactory.createEmptyBorder(7, 30, 7, 30)));
-        // cancel.setFont(new Font("Montserrat", Font.PLAIN, 18));
 
         JButton btn = new JButton("Register");
         btn.setBounds(1020,400,180,40);
@@ -76,7 +72,7 @@ public class CustomerFeedbackForm extends JPanel {
         contentPane.add(header);
         contentPane.add(customer_name);
         contentPane.add(business_id);
-        // contentPane.add(cb);
+         contentPane.add(cb);
         contentPane.add(title);
         contentPane.add(description);
         contentPane.add(buttonGroup);
@@ -110,10 +106,10 @@ public class CustomerFeedbackForm extends JPanel {
 
         textField.getDocument().addDocumentListener((IInputChangedEventListener) e -> {
             switch (placeholderTextParam) {
-                case "Customer name": format.setCustomer_name(textField.getText());
-                case "Business Id": format.setBusinessId(Integer.parseInt(textField.getText()));
+                case "Customer name" : format.setCustomer_name(textField.getText());
+                case "Business Id" : format.setBusinessId(Integer.parseInt(textField.getText()));
                 case "Title" : format.setTitle(textField.getText());
-                case "Description": format.setDescription(textField.getText());
+                case "Description" : format.setDescription(textField.getText());
             }
         });
 
