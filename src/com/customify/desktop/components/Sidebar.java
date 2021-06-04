@@ -120,7 +120,7 @@ public class Sidebar extends JPanel {
                 try {
                     ReadBusiness readBusiness = new ReadBusiness(socket,closableFrame);
 
-                } catch (IOException ioException) {
+                } catch (IOException | ClassNotFoundException ioException) {
                     ioException.printStackTrace();
                 }
             }
