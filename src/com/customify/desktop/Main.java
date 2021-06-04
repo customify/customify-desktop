@@ -11,6 +11,7 @@ import com.customify.desktop.product.Product;
 import java.io.*;
 import java.net.*;
 
+
 public class Main {
     private OutputStream output = null;
     private ObjectOutputStream objectOutput = null;
@@ -28,7 +29,7 @@ public class Main {
     }
 
     private boolean connectTOServer(String serverIp){
-        int portNumber = 3000;
+        int portNumber = 4000;
         try{
             Socket socket = new Socket(serverIp, portNumber);
 //            while(isConnectionOn){

@@ -4,7 +4,6 @@
  */
 package com.customify.desktop.sales;
 import com.customify.desktop.layout.Layout;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -12,6 +11,7 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.List;
 
 public class Sales extends JPanel {
  public  void DisplaySales(Socket socket, JFrame closableFrame) throws IOException {
@@ -113,8 +113,7 @@ public class Sales extends JPanel {
    new Layout(container, "List sales", socket);
  }
 
-
-//  public static void main(String[] args) throws  IOException{
-//    new Layout(new Sales().DisplaySales(), "Sales");
+//  public  Sales() throws IOException {
+//    new Layout(DisplaySales(),"Sales");
 //  }
 }

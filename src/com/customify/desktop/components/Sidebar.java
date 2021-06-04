@@ -9,6 +9,7 @@ import com.customify.desktop.points.PointsServices;
 import com.customify.desktop.product.Product;
 import com.customify.desktop.product.ReadProduct;
 import com.customify.desktop.sales.Sales;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,6 +38,8 @@ public class Sidebar extends JPanel {
         setBounds(0, 0, 300, 1080);
         setLayout(null);
 
+//        Socket socket = new Socket("localhost",3000);
+
         JPanel navBarItems = new JPanel();
         navBarItems.setLayout(new BoxLayout(navBarItems, BoxLayout.Y_AXIS));
         navBarItems.setBounds(0, 180, 250, 500);
@@ -60,6 +63,7 @@ public class Sidebar extends JPanel {
 
         System.out.println("Test........."+role);
 
+
         switch (role){
             case "SUPER_ADMIN":
                 navBarItems.add(overView);
@@ -68,6 +72,7 @@ public class Sidebar extends JPanel {
                 navBarItems.add(plans);
                 navBarItems.add(billing);
                 navBarItems.add(report);
+                navBarItems.add(sales);
                 navBarItems.add(subscription);
                 navBarItems.add(settings);
                 break;
