@@ -36,7 +36,7 @@ public class PointsServices extends JPanel {
 //        response = pointsService.getWinnersUi();
     }
 
-    public Container init() throws JsonProcessingException {
+    public Container init(Socket socket) throws JsonProcessingException {
 //        call function to return winner in desktop table
         returnWinner();
         JPanel main = new JPanel();
@@ -130,9 +130,9 @@ public class PointsServices extends JPanel {
     }
 
 //    main method for calling main layout
-    public PointsServices(Socket socket) throws IOException, ClassNotFoundException{
-        this.socket = socket;
-        new Layout(init(), "Points Services");
-
-    }
+//    public PointsServices(Socket socket) throws IOException, ClassNotFoundException{
+//        this.socket = socket;
+//        new Layout(init(), "Points Services", socket);
+//
+//    }
 }

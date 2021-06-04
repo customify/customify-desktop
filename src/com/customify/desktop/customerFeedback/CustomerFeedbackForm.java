@@ -2,6 +2,7 @@ package com.customify.desktop.customerFeedback;
 
 import com.customify.desktop.Keys;
 import com.customify.desktop.data_formats.Customer_feedback.CustomerFeedbackFormat;
+import com.customify.desktop.layout.Layout;
 import com.customify.desktop.services.FeedbackServices;
 import com.customify.desktop.utils.interfaces.IInputChangedEventListener;
 import com.customify.desktop.utils.interfaces.SelectBusinessFormat;
@@ -14,16 +15,16 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.Socket;
 
-public class CustomerFeedbackForm extends JPanel {
+public class CustomerFeedbackForm extends Container {
     CustomerFeedbackFormat format = new CustomerFeedbackFormat();
 
     private final Socket socket;
 //    private JPanel contentPane;
 
-    public CustomerFeedbackForm(Socket socket) throws IOException, ClassNotFoundException {
+    public CustomerFeedbackForm(Socket socket, JFrame closableFrame) throws IOException, ClassNotFoundException {
         this.socket = socket;
 
-        JPanel contentPane = new JPanel();
+        Container contentPane = new Container();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
         contentPane.setBackground(Color.white);
         setLayout(null);
@@ -92,6 +93,7 @@ public class CustomerFeedbackForm extends JPanel {
 
         add(contentPane);
         setBackground(Color.WHITE);
+        new Layout(contentPane,"Send feedback", socket);
     }
 
     public void newCustomerFeedback() throws IOException, ClassNotFoundException {

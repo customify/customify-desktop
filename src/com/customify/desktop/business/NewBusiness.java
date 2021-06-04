@@ -87,7 +87,7 @@ public class NewBusiness extends JPanel {
 //        setBackground(Color.WHITE);
 //        JFrame frame = new JFrame();
 //        frame.add(main);
-        Layout layout = new Layout(main,"New Business");
+        Layout layout = new Layout(main,"New Business", socket);
     }
 
 

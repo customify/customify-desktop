@@ -10,7 +10,7 @@ public class Product {
 
     public Product(Socket socket) throws Exception {
         JPanel product = new ReadProductDB(socket);
-        new Layout(product, "Read Business");
+        new Layout(product, "Read Business", socket);
     }
 
 }

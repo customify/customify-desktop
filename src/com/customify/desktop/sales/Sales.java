@@ -11,9 +11,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.io.IOException;
+import java.net.Socket;
 
 public class Sales extends JPanel {
- public  Container DisplaySales() {
+ public  void DisplaySales(Socket socket, JFrame closableFrame) throws IOException {
    Container container=new Container();
 
    String[][] data = {
@@ -109,11 +110,11 @@ public class Sales extends JPanel {
    nextButton.setBackground(Color.white);
    container.add(nextButton);
 
-   return container;
+   new Layout(container, "List sales", socket);
  }
 
 
-  public static void main(String[] args) throws  IOException{
-    new Layout(new Sales().DisplaySales(), "Sales");
-  }
+//  public static void main(String[] args) throws  IOException{
+//    new Layout(new Sales().DisplaySales(), "Sales");
+//  }
 }
