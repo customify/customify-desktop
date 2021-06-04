@@ -125,7 +125,7 @@ public class Sidebar extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 closableFrame.dispose();
                 try {
-                    ReadBusiness readBusiness = new ReadBusiness(socket,closableFrame);
+                    new Layout(new ReadBusiness(socket,closableFrame), "Read Business", socket);
 
                 } catch (IOException | ClassNotFoundException ioException) {
                     ioException.printStackTrace();
