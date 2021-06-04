@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
 
 public class Main {
 
-    private static final int portNumber = 3000;
+    private static final int portNumber = 5500;
 
     public static void main(String[] args) throws Exception {
         ServerSocket serverSocket;

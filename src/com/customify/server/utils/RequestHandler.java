@@ -53,7 +53,7 @@ public class RequestHandler {
         ProductService productService = new ProductService(this.clientSocket);
         CouponService couponService = new CouponService(this.clientSocket);
         FeatureService featureService = new FeatureService(this.clientSocket);
-        System.out.println("Handling routes "+this.key);
+//        System.out.println("Handling routes "+this.key);
         SalesService salesService = new SalesService(this.clientSocket);
 //        CustomerFeedbackService feedback = new CustomerFeedbackService(this.clientSocket);
 

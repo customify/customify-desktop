@@ -23,7 +23,7 @@ public class InitializeConnection {
     }
 
     private boolean connectTOServer(String serverIp) {
-        int portNumber = 3000;
+        int portNumber = 5500;
         try {
             Socket socket = new Socket(serverIp, portNumber);
 
