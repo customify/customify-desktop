@@ -26,6 +26,7 @@ public class ProductFormat  {
     public  ProductFormat(){
         this.productCode = this.generateCode();
     }
+
     public ProductFormat(int business_id, String name, float price, int quantity, String description, double bondedPoints, int registered_by, String createdAt) {
         this.productCode = this.generateCode();
         this.business_id = business_id;
@@ -37,10 +38,10 @@ public class ProductFormat  {
         this.registered_by = registered_by;
         this.createdAt = createdAt;
     }
+
     public long generateCode(){
         int max = 99999999;
         int min=100000;
-
         return (long) (Math.random() * (max - min + 1) + min);
     }
 
@@ -111,4 +112,6 @@ public class ProductFormat  {
     public void setKey(Keys key) {
         this.key = key;
     }
+
+
 }

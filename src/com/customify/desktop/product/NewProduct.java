@@ -1,7 +1,13 @@
 package com.customify.desktop.product;
 
 import com.customify.cli.data_format.products.ProductFormat;
+import com.customify.cli.services.ProductService;
+import com.customify.cli.Keys;
 import com.customify.desktop.components.FormControl;
+import com.customify.desktop.utils.interfaces.IInputChangedEventListener;
+
+
+
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -9,8 +15,13 @@ import java.awt.*;
 import java.net.Socket;
 
 public class NewProduct extends JPanel {
-   private Socket socket;
-  public NewProduct(){
+     private Socket socket;
+
+     ProductFormat format = new ProductFormat();
+
+     public NewProduct(Socket socket){
+        this.socket=socket;
+
        JPanel header = new JPanel();
        JPanel main = new JPanel();
        JLabel headline = new JLabel("ADD PRODUCT ");
@@ -34,7 +45,7 @@ public class NewProduct extends JPanel {
 
 
        JPanel productName = new FormControl("Product name");
-       JPanel productDescription = new FormControl("Product Description");
+       JPanel productDescription = new FormControl("Product description");
        JPanel quantity = new FormControl("Quantity");
        JPanel points = new FormControl("Points");
        JPanel price = new FormControl("Price");
@@ -78,7 +89,41 @@ public class NewProduct extends JPanel {
        add(main);
        setBackground(Color.white);
   }
-   public NewProduct(Socket socket){
-       // this.socket=socket;
-    }
+
+     public void createNewProduct() throws Exception {
+          ProductService service = new ProductService(this.socket);
+          this.format.setKey(Keys.CREATE_PRODUCT);
+          service.addNewProduct(this.format);
+     }
+
+     public JPanel createNewInput(String placeholderTextParam){
+          JPanel textFieldContainer = new JPanel();
+          textFieldContainer.setBackground(Color.white);
+          JLabel placeholderText = new JLabel(placeholderTextParam);
+          placeholderText.setFont(new Font("Montserrat", Font.PLAIN, 18));
+          placeholderText.setBackground(Color.green);
+          placeholderText.setPreferredSize(new Dimension(200, 30));
+
+          JTextField textField = new JTextField("", 20);
+          textField.setBorder(BorderFactory.createCompoundBorder(
+                  new LineBorder(Color.black, 1, true),
+                  BorderFactory.createEmptyBorder(8, 15, 8, 15))
+          );
+          textField.setFont(new Font("Montserrat", Font.PLAIN, 18));
+
+          textField.getDocument().addDocumentListener((IInputChangedEventListener) e -> {
+               switch (placeholderTextParam) {
+                    case "product name": format.setName(textField.getText());
+                    case "product description" : format.setDescription(textField.getText());
+                    case "Quantity" : format.setQuantity(Integer.parseInt(textField.getText()));
+                    case "Points" : format.setBondedPoints(Integer.parseInt(textField.getText()));
+                    case "Price" : format.setPrice(Integer.parseInt(textField.getText()));
+              }
+          });
+
+          textFieldContainer.add(placeholderText);
+          textFieldContainer.add(textField);
+
+          return textFieldContainer;
+     }
 }

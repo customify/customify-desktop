@@ -28,7 +28,7 @@ public class Main {
     }
 
     private boolean connectTOServer(String serverIp){
-        int portNumber = 3000;
+     int portNumber = 3000;
         try{
             Socket socket = new Socket(serverIp, portNumber);
 //            while(isConnectionOn){
@@ -37,8 +37,9 @@ public class Main {
 ////                new Overview().init();
 //                System.out.println("Client connected to server");
 //            }
-//            new Sidebar(socket);
+        // new Sidebar(socket);
 //            new Overview().init();
+
 
         }catch (Exception e){
             this.isConnectionOn = false;
