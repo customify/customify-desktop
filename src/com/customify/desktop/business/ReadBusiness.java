@@ -113,7 +113,7 @@ public class ReadBusiness extends Container {
             }
         };
         bLabel.addActionListener(triggerCreateBus);
-        layout = new Layout(main, "List business");
+        layout = new Layout(main, "List business", socket);
     }
 
 //    public static  void main(String args[]) throws IOException {

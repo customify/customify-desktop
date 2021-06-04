@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.Socket;
 
 public class FeatureRegister  {
     Container c = new Container();
@@ -23,7 +24,7 @@ public class FeatureRegister  {
     public FeatureRegister() throws IOException {
 //        this.init();
     }
-    public void init() throws IOException {
+    public void init(Socket socket) throws IOException {
         JLabel title = new JLabel("Register a feature");
         title.setFont(new Font("Montserrat", Font.BOLD, 20));
         title.setBounds(400, 20, 300, 100);
@@ -63,7 +64,7 @@ public class FeatureRegister  {
         c.setBackground(Color.red);
 //        return c;
 
-        layout = new Layout(c, "Feature register");
+        layout = new Layout(c, "Feature register", socket);
 
 
 //     public static void main(String args[]) throws IOException {

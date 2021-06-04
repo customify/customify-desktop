@@ -24,6 +24,7 @@ public class SaveUser {
     public  SaveUser(String userType,Object user){
         File file;
         FileWriter writer;
+
         try {
             switch (userType){
                 case "EMPLOYEE":
@@ -35,7 +36,9 @@ public class SaveUser {
                     this.setSaved(true);
                     break;
                 case "ADMIN":
+
                     AdminUser admin_user =(AdminUser)user;
+                    System.out.println( "\n THE RESPPONSE ............. "+admin_user.getId()+"\t"+admin_user.getFirName()+"\t "+admin_user.getLasName()+"\t "+admin_user.getEmail()+"\t"+admin_user.getBusiness_id()+"\t"+admin_user.getTitle()+"\t"+"5-21-2021");
                     file = new File("src/com/customify/cli/utils/authorization/files/Admin.csv");
                     writer = new FileWriter(file,true);
                     writer.write("\n"+admin_user.getId()+"\t"+admin_user.getFirName()+"\t "+admin_user.getLasName()+"\t "+admin_user.getEmail()+"\t"+admin_user.getBusiness_id()+"\t"+admin_user.getTitle()+"\t"+"5-21-2021");

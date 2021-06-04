@@ -11,6 +11,7 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.Socket;
 
 
 public class Overview extends  JFrame{
@@ -21,18 +22,28 @@ public class Overview extends  JFrame{
     JButton btn;
     JFrame frame = new JFrame();
     Layout layout;
+    public  Socket socket;
 
-    public void init() throws IOException {
+    public Overview(Socket socket){
+        this.socket  = socket;
+    }
+
+    public Overview() {
+
+    }
+
+    public void init(Socket socket) throws IOException {
         JLabel title = new JLabel("Welcome to Customify ");
         title.setFont(new Font("Montserrat", Font.BOLD, 20));
         title.setBounds(400,20,300,100);
         title.setBorder(new EmptyBorder(50,0,0,0));
         title.setForeground(new Color(53,32,88));
         c.add(title);
-        layout = new Layout(c,"Overview");
+//        new Layout(this.socket);
+        layout = new Layout(c,"Overview", socket);
     }
 
-    public static void main(String args[]) throws IOException {
-        new Overview().init();
-    }
+//    public static void main(String args[]) throws IOException {
+//        new Overview().init();
+//    }
 }

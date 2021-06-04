@@ -3,6 +3,7 @@ package com.customify.desktop;
 import com.customify.cli.data_format.AuthenticationDataFormat;
 import com.customify.cli.services.AuthService;
 import com.customify.cli.*;
+import com.customify.cli.utils.authorization.UserSession;
 import com.customify.desktop.components.Overview;
 import com.customify.desktop.components.Sidebar;
 import com.customify.desktop.components.buttons_fields.DialogBox;
@@ -12,6 +13,7 @@ import com.customify.desktop.components.buttons_fields.RoundJTextField;
 import com.customify.desktop.utils.RouteWindow;
 
 
+import javax.mail.Session;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -150,10 +152,14 @@ public class LoginWindow {
             AuthService authService = new AuthService(this.socket, format);
             if (authService.authenticate()) {
                 dialogBox.dialog("AUTH RESPONSE","Logged In Successfully","SUCCESS");
-//                RouteWindow route = new RouteWindow(authService.getLoggedInUser(),this.socket);
-                  mainFrame.dispose();
-                  new Sidebar(this.socket);
-                  new Overview().init();
+                mainFrame.dispose();
+
+                  Sidebar sideBar = new Sidebar();
+                  System.out.println("User....."+authService.getLoggedInUser());
+                  new Sidebar(authService.getLoggedInUser(), mainFrame, this.socket);
+//                  new Sidebar(this.socket);
+//                  new Overview(this.socket);
+                  new Overview().init(this.socket);
             } else {
 
                 dialogBox.dialog("AUTH ERROR","SORRY YOU HAVE WRONG CREDENTIALS","ERROR");
