@@ -31,9 +31,6 @@ public class InitializeConnection {
             Socket socket = new Socket(serverIp, portNumber);
 
             Container container = new Container();
-            container.add(new UpdateEmployee(socket).init());
-
-            new Layout(container,"Update Employee");
 
 //            new Layout(new NewBusiness(socket), "New business");
 //            new Layout(new CustomerFeedbackForm(socket),"Customer feedback registration");

@@ -100,10 +100,6 @@ public class Layout  {
 
         navbar.add(imageLabel,gbc);
 
-        UserSession userSession = new UserSession();
-        String json = userSession.getUserJsonObject();
-        JsonNode jsonNode = new ObjectMapper().readTree(json);
-
         JLabel name = new JLabel(jsonNode.get("firName").asText() + " " + jsonNode.get("lasName").asText());;
         name.setForeground(Color.white);
         name.setFont(name.getFont().deriveFont(16.0f));

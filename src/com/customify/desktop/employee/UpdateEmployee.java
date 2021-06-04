@@ -14,11 +14,12 @@ import java.net.Socket;
 
 public class UpdateEmployee extends JPanel {
     private final Socket socket;
-    public UpdateEmployee(Socket socket) {
+    public UpdateEmployee(Socket socket,JFrame frame) throws IOException {
         this.socket = socket;
+        this.init();
     }
 
-    public JPanel init(){
+    public JPanel init() throws IOException {
         JPanel main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
         main.setBackground(Color.white);
@@ -86,6 +87,11 @@ public class UpdateEmployee extends JPanel {
 
         main.setBounds(90, 40, 800, 550);
 
+        Container container = new Container();
+        container.add(main);
+
+        new Layout(container, "Update Employee", socket);
+
         return main;
     }
     public void update(String firstName,String lastName,String email,String title) throws IOException {
@@ -99,7 +105,7 @@ public class UpdateEmployee extends JPanel {
     public static void main(String[] args) throws IOException {
         Container container = new Container();
 //        container.add(new UpdateEmployee().init());
-        new Layout(container,"Update Employee");
+//        new Layout(container,"Update Employee");
     }
 }
 class InputFactory{

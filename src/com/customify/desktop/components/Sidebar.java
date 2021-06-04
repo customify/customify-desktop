@@ -3,6 +3,7 @@ package com.customify.desktop.components;
 import com.customify.desktop.business.Business;
 import com.customify.desktop.business.ReadBusiness;
 import com.customify.desktop.customerFeedback.CustomerFeedbackForm;
+import com.customify.desktop.employee.UpdateEmployee;
 import com.customify.desktop.enums.UserRoles;
 import com.customify.desktop.layout.Layout;
 import com.customify.desktop.points.PointsServices;
@@ -93,6 +94,7 @@ public class Sidebar extends JPanel {
                 navBarItems.add(customers);
                 navBarItems.add(sales);
                 navBarItems.add(settings);
+                navBarItems.add(employees);
                 break;
         }
 
@@ -119,6 +121,14 @@ public class Sidebar extends JPanel {
         };
         features.addActionListener(triggerFeatures);
 
+        employees.addActionListener(e -> {
+            closableFrame.dispose();
+            try {
+                new UpdateEmployee(socket,closableFrame);
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        });
 
         //open business event
         ActionListener triggerBusiness = new ActionListener() {
