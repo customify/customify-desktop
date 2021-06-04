@@ -3,12 +3,9 @@
  * Date:24/05/2021
  * this is form for adding a new sale made.
  */
-package com.customify.desktop.sales;
-import com.customify.desktop.layout.Layout;
+package com.customify.desktop.layout;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 
@@ -66,7 +63,7 @@ public class AddSales extends JPanel{
       lbl_product_id.setForeground(new Color(53, 32, 88));
       container.add(lbl_product_id);
 
-      JLabel lbl_price = new JLabel("Total Price");
+      JLabel lbl_price = new JLabel("Price per each");
       lbl_price.setFont(new Font("Tahoma", Font.PLAIN, 16));
       lbl_price.setBounds(450, 220, 110, 29);
       lbl_price.setForeground(new Color(53, 32, 88));
@@ -95,8 +92,6 @@ public class AddSales extends JPanel{
       addButton.setBackground(new Color(53, 32, 88));
       addButton.setForeground(Color.white);
       addButton.setBorder(BorderFactory.createLineBorder(new Color(53, 32, 88),1));
-
-
       container.add(addButton);
 
 
@@ -109,23 +104,11 @@ public class AddSales extends JPanel{
       cancel.setBackground(Color.white);
       container.add(cancel);
       container.add(content);
-
-
-      cancel.addActionListener(new ActionListener() {
-         @Override
-         public void actionPerformed(ActionEvent e) {
-            customer_id.setText("");
-            quantity.setText("");
-            product_id.setText("");
-            price.setText("");
-         }
-      });
       return container;
    }
 
 
-
    public static void main(String[] args) throws IOException {
-     new Layout(new AddSales().addingSales(),"Add Sale");
+//     new Layout(new AddSales().addingSales());
    }
 }
