@@ -5,6 +5,7 @@ import com.customify.desktop.business.ReadBusiness;
 import com.customify.desktop.customerFeedback.CustomerFeedbackForm;
 import com.customify.desktop.enums.UserRoles;
 import com.customify.desktop.layout.Layout;
+import com.customify.desktop.points.PointsServices;
 import com.customify.desktop.product.Product;
 import com.customify.desktop.product.ReadProduct;
 import com.customify.desktop.sales.Sales;
@@ -54,6 +55,7 @@ public class Sidebar extends JPanel {
         JButton billing = new SideBarListItem("4. contacts.png", "Billing");
         JButton business = new SideBarListItem("4. contacts.png", "Businesses");
         JButton product = new SideBarListItem("4. contacts.png", "Products");
+        JButton winners = new SideBarListItem("4. contacts.png", "Winners");
 
 
         System.out.println("Test........."+role);
@@ -77,7 +79,7 @@ public class Sidebar extends JPanel {
                 navBarItems.add(employees);
                 navBarItems.add(customers);
                 navBarItems.add(report);
-                navBarItems.add(settings);
+                navBarItems.add(winners);
 
                 break;
             case "EMPLOYEE":
@@ -175,6 +177,23 @@ public class Sidebar extends JPanel {
             }
         };
         product.addActionListener(triggerProducts);
+
+
+        //open sales feedback
+        ActionListener triggerWinners = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closableFrame.dispose();
+                try {
+                    PointsServices pointsServices = new PointsServices();
+                    pointsServices.init(socket, closableFrame);
+
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+        };
+        winners.addActionListener(triggerWinners);
 
 
         JPanel logo = logo();
