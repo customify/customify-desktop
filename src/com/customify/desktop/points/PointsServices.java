@@ -5,7 +5,7 @@
 
 package com.customify.desktop.points;
 
-import com.customify.cli.services.PointsService;
+import com.customify.server.services.PointsService;
 import com.customify.desktop.layout.Layout;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -33,7 +33,7 @@ public class PointsServices extends JPanel {
     public PointsServices(){}
     public void returnWinner(){
         PointsService pointsService = new PointsService(socket);
-        response = pointsService.getWinnersUi();
+  //response = pointsService.getWinnersUi();
     }
 
     public Container init() throws JsonProcessingException {

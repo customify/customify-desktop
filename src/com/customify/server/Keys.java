@@ -47,5 +47,6 @@ public enum Keys {
     UPDATE_FEATURE,
     GET_FEATURE_BY_ID,
     UPDATE_EMPLOYEE,
+    GET_PRODUCTS_BY_NAME
 }
 

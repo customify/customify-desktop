@@ -1,6 +1,8 @@
 package com.customify.desktop.layout;
 
+import com.customify.desktop.components.FeatureRegister;
 import com.customify.desktop.components.Sidebar;
+import com.customify.desktop.enums.UserRoles;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -10,15 +12,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Layout extends JPanel {
+public class Layout  {
     public Layout(Container body, String title) throws IOException {
         JFrame frame = new JFrame(title);
         frame.setBackground(Color.white);
-
-        JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        frame.setContentPane(pane);
-
-        JPanel sidebar = new Sidebar();
+        FeatureRegister featureRegister = new FeatureRegister();
+        JPanel sidebar = new Sidebar(UserRoles.ADMIN, frame);
         JPanel navbar = new JPanel();
 
         /*   header starts */
@@ -83,9 +82,11 @@ public class Layout extends JPanel {
 
         body.setBackground(Color.lightGray);
         body.setBounds(300,70,1060,667);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         frame.setLayout(null);
         frame.setSize(1920, 900);
+
+        
         frame.setVisible(true);
         frame.add(body);
         frame.add(sidebar);

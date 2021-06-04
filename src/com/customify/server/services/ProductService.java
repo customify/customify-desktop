@@ -111,7 +111,7 @@ public class ProductService {
 
             //STEP 5: Extract data from result set
             while (rs.next()) {
-                System.out.println("Sent ID: " + jsonNode.get("id").asText());
+//                System.out.println("Sent ID: " + jsonNode.get("id").asText());
 
                 productFormat.setProductCode(rs.getLong("product_code"));
                 productFormat.setBusiness_id(rs.getInt("business_id"));
@@ -258,9 +258,59 @@ public class ProductService {
             objectOutput.writeObject(alldata);
         }
     }
-
 //    public void getProduct() throws IOException {
 //        output = new DataOutputStream(this.socket.getOutputStream());
 //        output.writeUTF("Single product with ID: ");
 //    }
+
+    public void searchByName(String input) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(input);
+        String statusCode;
+        //formatting the response into a data format
+        Statement statement = Db.getStatement();
+        String query = "Select * from products where name LIKE '%"+jsonNode.get("name").asText()+"%'";
+        System.out.println(jsonNode.get("name"));
+        List<String> allData = new ArrayList<>();
+
+        try {
+            statusCode = "200";
+            allData.add(statusCode);
+            ResultSet res = statement.executeQuery(query);
+            String data;
+            while(res.next()){
+
+                ProductFormat bs = new ProductFormat(
+//                        res.getInt(1),
+//                        res.getString(2),
+//                        res.getFloat(3),
+//                        res.getInt(4),
+//                        res.getString(5),
+//                        res.getDouble(6),
+//                        res.getInt(7),
+//                        res.getString(8)
+                        res.getInt("business_id"), res.getString("name"),
+                        res.getFloat("price"), res.getInt("quantity"),
+                        res.getString("description"), res.getDouble("bonded_points"),
+                        res.getInt("registered_by"), res.getString("created_at")
+                );
+                //testing Print
+                System.out.println("Obtained search product: "+ bs);
+
+                data = objectMapper.writeValueAsString(bs);
+                allData.add(data);
+            }
+        }
+        catch (Exception e){
+            statusCode = "500";
+            allData.add(statusCode);
+        }
+        finally{
+            this.output = socket.getOutputStream();
+            this.objectOutput = new CustomizedObjectOutputStream(this.output);
+            objectOutput.writeObject(allData);
+
+        }
+
+    }
 }
