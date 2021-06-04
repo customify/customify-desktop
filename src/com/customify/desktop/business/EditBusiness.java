@@ -169,8 +169,4 @@ public class EditBusiness extends JPanel {
 
         return textFieldContainer;
     }
-
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        new Layout(new EditBusiness(new Socket()), "Edit a business");
-    }
 }
