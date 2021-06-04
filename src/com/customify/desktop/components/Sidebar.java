@@ -5,9 +5,11 @@ import com.customify.desktop.business.ReadBusiness;
 import com.customify.desktop.customerFeedback.CustomerFeedbackForm;
 import com.customify.desktop.enums.UserRoles;
 import com.customify.desktop.layout.Layout;
+import com.customify.desktop.points.PointsServices;
 import com.customify.desktop.product.Product;
 import com.customify.desktop.product.ReadProduct;
 import com.customify.desktop.sales.Sales;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,6 +38,8 @@ public class Sidebar extends JPanel {
         setBounds(0, 0, 300, 1080);
         setLayout(null);
 
+//        Socket socket = new Socket("localhost",3000);
+
         JPanel navBarItems = new JPanel();
         navBarItems.setLayout(new BoxLayout(navBarItems, BoxLayout.Y_AXIS));
         navBarItems.setBounds(0, 180, 250, 500);
@@ -54,9 +58,11 @@ public class Sidebar extends JPanel {
         JButton billing = new SideBarListItem("4. contacts.png", "Billing");
         JButton business = new SideBarListItem("4. contacts.png", "Businesses");
         JButton product = new SideBarListItem("4. contacts.png", "Products");
+        JButton winners = new SideBarListItem("4. contacts.png", "Winners");
 
 
         System.out.println("Test........."+role);
+
 
         switch (role){
             case "SUPER_ADMIN":
@@ -66,6 +72,7 @@ public class Sidebar extends JPanel {
                 navBarItems.add(plans);
                 navBarItems.add(billing);
                 navBarItems.add(report);
+                navBarItems.add(sales);
                 navBarItems.add(subscription);
                 navBarItems.add(settings);
                 break;
@@ -77,7 +84,7 @@ public class Sidebar extends JPanel {
                 navBarItems.add(employees);
                 navBarItems.add(customers);
                 navBarItems.add(report);
-                navBarItems.add(settings);
+                navBarItems.add(winners);
 
                 break;
             case "EMPLOYEE":
@@ -120,7 +127,7 @@ public class Sidebar extends JPanel {
                 try {
                     ReadBusiness readBusiness = new ReadBusiness(socket,closableFrame);
 
-                } catch (IOException | ClassNotFoundException ioException) {
+                } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
             }
@@ -175,6 +182,23 @@ public class Sidebar extends JPanel {
             }
         };
         product.addActionListener(triggerProducts);
+
+
+        //open sales feedback
+        ActionListener triggerWinners = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closableFrame.dispose();
+                try {
+                    PointsServices pointsServices = new PointsServices();
+                    pointsServices.init(socket, closableFrame);
+
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+        };
+        winners.addActionListener(triggerWinners);
 
 
         JPanel logo = logo();

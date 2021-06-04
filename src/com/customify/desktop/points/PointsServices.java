@@ -5,7 +5,7 @@
 
 package com.customify.desktop.points;
 
-import com.customify.server.services.PointsService;
+import com.customify.cli.services.PointsService;
 import com.customify.desktop.layout.Layout;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -31,15 +31,15 @@ public class PointsServices extends JPanel {
     String column[] = {"Customer Id", "First Name", "Last Name", "Email", "Points", "Winning Date", "Customer Code"};
 
     public PointsServices(){}
-    public void returnWinner(){
+    public void returnWinner(Socket socket) throws IOException {
         PointsService pointsService = new PointsService(socket);
-  //response = pointsService.getWinnersUi();
+        response =  pointsService.getWinnersUi(socket);
     }
 
-    public Container init(Socket socket) throws JsonProcessingException {
+    public void init(Socket socket, JFrame closableFrame) throws IOException {
 //        call function to return winner in desktop table
-        returnWinner();
-        JPanel main = new JPanel();
+        returnWinner(socket);
+        Container main = new Container();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
 //        main.setBackground(Color.white);
         setLayout(null);
@@ -126,7 +126,8 @@ public class PointsServices extends JPanel {
 
         add(main);
         c.add(main);
-        return c;
+        System.out.println("Here..........");
+        new Layout(main, "Winners", socket);
     }
 
 //    main method for calling main layout
