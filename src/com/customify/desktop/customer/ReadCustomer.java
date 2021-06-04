@@ -1,7 +1,8 @@
-package com.customify.desktop.business;
+package com.customify.desktop.customer;
 
 import com.customify.cli.Keys;
 import com.customify.cli.services.BusinessService;
+import com.customify.desktop.services.CustomerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +20,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
 
-public class ReadBusiness extends JPanel {
+public class ReadCustomer extends JPanel {
     private Socket socket;
     public List<String> searchResult;
     public Boolean searched=false;
@@ -29,8 +30,8 @@ public class ReadBusiness extends JPanel {
     JButton searchButton;
     JButton resetButton;
     JTextField searchField;
-    String column[]={"Business ID","Name","Location", "Address", "Phone Number", "Date created", "Action"};
-    public ReadBusiness(Socket socket, JFrame closableFrame) throws IOException, ClassNotFoundException {
+    String column[]={"Customer ID","First_Name","Last_Name", "Email", "Status"};
+    public ReadCustomer(Socket socket) throws IOException, ClassNotFoundException {
         this.socket=socket;
         this.getData();
         JPanel main = new JPanel();
@@ -39,7 +40,7 @@ public class ReadBusiness extends JPanel {
         setLayout(null);
 
         JPanel header = new JPanel();
-        JLabel headline = new JLabel("All businesses ");
+        JLabel headline = new JLabel("ALL CUSTOMERS ");
         headline.setPreferredSize(new Dimension(300, 100));
         headline.setFont(new Font("Montserrat", Font.BOLD, 25));
         headline.setForeground(new Color(53,32,88));
@@ -107,9 +108,6 @@ public class ReadBusiness extends JPanel {
         setBackground(Color.WHITE);
     }
 
-    public ReadBusiness() {
-
-    }
 
     private void createTable() throws JsonProcessingException {
         table = new JTable();
@@ -139,7 +137,7 @@ public class ReadBusiness extends JPanel {
 
             for (int i = 1; i < this.bussData.size(); i++) {
                 JsonNode bs = objectMapper.readTree(this.bussData.get(i));
-                model.addRow(new Object[]{bs.get("id"), bs.get("name").textValue(), bs.get("location").textValue(), bs.get("address").textValue(), bs.get("phone_number").textValue(), bs.get("created_at").textValue(),"Action"});
+                model.addRow(new Object[]{bs.get("code").asText(), bs.get("firstName").asText(), bs.get("lastName").asText(), bs.get("email").asText(),bs.get("stateDesc").asText()});
             }
         }
         JTableHeader tableHeader = table.getTableHeader();
@@ -152,17 +150,17 @@ public class ReadBusiness extends JPanel {
     }
 
     private void getData() throws IOException, ClassNotFoundException {
-        BusinessService service = new BusinessService(this.socket);
-        String json = "{ \"key\" : \""+ Keys.GET_ALL_BUSINESSES +"\" }";
-        service.getBusinesses(json);
+        CustomerService service = new CustomerService(this.socket);
+        String json = "{ \"key\" : \""+ Keys.GET_ALL_CUSTOMERS +"\" }";
+        this.bussData= service.getAll(json);
     }
 
-//    private void search(String searchTerm) throws IOException, ClassNotFoundException {
-//        BusinessService service = new BusinessService(this.socket);
-//        String json = "{ \"name\" : \""+searchTerm+"\", \"key\" : \""+ Keys.GET_BUSINESSES_BY_NAME +"\" }";
-//        this.searchResult= service.getById(json);
-//        this.searched = true;
-//    }
+    private void search(String searchTerm) throws IOException, ClassNotFoundException {
+        CustomerService service = new CustomerService(this.socket);
+        String json = "{ \"name\" : \""+searchTerm+"\", \"key\" : \""+ Keys.GET_CUSTOMER +"\" }";
+        this.searchResult= service.get(json);
+        this.searched = true;
+    }
 
     class SearchActionListener implements ActionListener{
 
@@ -173,7 +171,7 @@ public class ReadBusiness extends JPanel {
                     if(!searched){
                         resetButton.setVisible(true);
                     }
-//                    search(searchField.getText());
+                    search(searchField.getText());
                     model = new DefaultTableModel();
                     model.setColumnIdentifiers(column);
                     table.setModel(model);
@@ -182,11 +180,13 @@ public class ReadBusiness extends JPanel {
 
                         for (int i = 1; i < searchResult.size(); i++) {
                             JsonNode bs = objectMapper.readTree(searchResult.get(i));
-                            model.addRow(new Object[]{bs.get("id"), bs.get("name").textValue(), bs.get("location").textValue(), bs.get("address").textValue(), bs.get("phone_number").textValue(), bs.get("created_at").textValue(),"Action"});
+                            model.addRow(new Object[]{bs.get("code").asText(), bs.get("firstName").asText(), bs.get("lastName").asText(), bs.get("email").asText(),bs.get("stateDesc").asText()});
                         }
                     }
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
+                } catch (ClassNotFoundException classNotFoundException) {
+                    classNotFoundException.printStackTrace();
                 }
             }
 
@@ -206,7 +206,7 @@ public class ReadBusiness extends JPanel {
                         } catch (JsonProcessingException jsonProcessingException) {
                             jsonProcessingException.printStackTrace();
                         }
-                        model.addRow(new Object[]{bs.get("id"), bs.get("name").textValue(), bs.get("location").textValue(), bs.get("address").textValue(), bs.get("phone_number").textValue(), bs.get("created_at").textValue(),"Action"});
+                        model.addRow(new Object[]{bs.get("customer_id").asText(), bs.get("first_name").asText(), bs.get("email").asText(), bs.get("disable").asInt()});
                     }
                 }
 

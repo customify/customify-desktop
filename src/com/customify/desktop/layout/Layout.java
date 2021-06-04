@@ -17,7 +17,7 @@ public class Layout  {
         JFrame frame = new JFrame(title);
         frame.setBackground(Color.white);
         FeatureRegister featureRegister = new FeatureRegister();
-        JPanel sidebar = new Sidebar(UserRoles.ADMIN, frame);
+        JPanel sidebar = new Sidebar(UserRoles.BUSINESS_OWNER, frame);
         JPanel navbar = new JPanel();
 
         /*   header starts */

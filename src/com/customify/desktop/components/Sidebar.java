@@ -57,18 +57,20 @@ public class Sidebar extends JPanel {
                 break;
             case BUSINESS_OWNER:
                 navBarItems.add(overView);
+                navBarItems.add(customers);
+                navBarItems.add(employees);
+                navBarItems.add(sales);
                 navBarItems.add(report);
                 navBarItems.add(subscription);
-                navBarItems.add(sales);
-                navBarItems.add(settings);
                 navBarItems.add(feedback);
-                navBarItems.add(employees);
-                navBarItems.add(customers);
+                navBarItems.add(settings);
+
+
+
 
                 break;
             case EMPLOYEE:
                 navBarItems.add(overView);
-                navBarItems.add(customers);
                 navBarItems.add(sales);
                 navBarItems.add(settings);
                 break;
@@ -115,7 +117,7 @@ public class Sidebar extends JPanel {
                 try {
                     ReadBusiness readBusiness = new ReadBusiness(socket,closableFrame);
 
-                } catch (IOException ioException) {
+                } catch (IOException | ClassNotFoundException ioException) {
                     ioException.printStackTrace();
                 }
             }

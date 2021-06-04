@@ -1,4 +1,4 @@
-package com.customify.desktop.pages.customer;
+package com.customify.desktop.customer;
 
 import com.customify.cli.data_format.CreateCustomerFormat;
 import com.customify.cli.services.CustomerService;
