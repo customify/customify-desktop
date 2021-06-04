@@ -14,7 +14,7 @@ import java.net.Socket;
 import java.util.List;
 
 public class Sales extends JPanel {
- public  Container DisplaySales() {
+ public  void DisplaySales(Socket socket, JFrame closableFrame) throws IOException {
    Container container=new Container();
 
    String[][] data = {
@@ -110,10 +110,10 @@ public class Sales extends JPanel {
    nextButton.setBackground(Color.white);
    container.add(nextButton);
 
-   return container;
+   new Layout(container, "List sales", socket);
  }
 
- public  Sales() throws IOException {
-   new Layout(DisplaySales(),"Sales");
- }
+//  public  Sales() throws IOException {
+//    new Layout(DisplaySales(),"Sales");
+//  }
 }
