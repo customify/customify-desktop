@@ -3,6 +3,7 @@ import com.customify.cli.SendToServer;
 import com.customify.cli.data_format.AuthenticationDataFormat;
 
 import com.customify.cli.utils.authorization.UserSession;
+import com.customify.desktop.enums.UserRoles;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

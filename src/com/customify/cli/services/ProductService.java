@@ -84,17 +84,24 @@ public class ProductService {
         }
     }
 
-    public void getAllProducts() throws Exception {
+    public List<String> getAllProducts() throws Exception {
         ProductFormat format = new ProductFormat();
         format.setKey(Keys.GET_ALL_PRODUCTS);
 
         SendToServer sendToServer = new SendToServer(new ObjectMapper().writeValueAsString(format),this.socket);
         if (sendToServer.send()) {
-            this.handleGetProductListSuccess();
+            this.inputStream = this.socket.getInputStream();
+            this.objectInputStream = new ObjectInputStream(this.inputStream);
+
+            System.out.println("Storing data");
+            List<String> data = (List<String>) this.objectInputStream.readObject();
+            System.out.println("data"+data);
+//            this.handleGetProductListSuccess();
+            return data;
         }
         else System.out.println("\n\n\t\t\tERROR OCCURRED WHEN SENDING REQUEST TO SERVER\n");
+        return null;
     }
-
     /**
      * @description
      * Service to Update Product By Id
@@ -276,6 +283,26 @@ public class ProductService {
         }
 
         return;
+    }
+
+    public List<String> searchByName(String json) throws IOException, ClassNotFoundException {
+        SendToServer serverSend = new SendToServer(json, this.socket);
+        if (serverSend.send()) {
+            //Get response
+            this.inputStream = this.socket.getInputStream();
+            this.objectInputStream = new ObjectInputStream(this.inputStream);
+
+            //Casting the response data to list
+            List<String> data = (List<String>) this.objectInputStream.readObject();
+
+            if(data.get(0)=="500") System.out.println("An error occurred");
+
+            else return data;
+        } else {
+            System.out.println("Request failed...");
+        }
+
+        return null;
     }
 
 }

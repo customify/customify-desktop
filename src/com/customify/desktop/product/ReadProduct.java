@@ -1,6 +1,7 @@
 package com.customify.desktop.product;
 
 import com.customify.desktop.business.Search;
+import com.customify.desktop.layout.Layout;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -9,9 +10,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.io.IOException;
 import java.net.Socket;
 
-public class ReadProduct extends JPanel {
+public class ReadProduct extends Container {
 
     String data[][]={ {"101","Amit","670000","670000","670000","670000","670000","me","June 10"},
             {"102","Jai","670000","670000","670000","670000","670000","me"},
@@ -23,8 +25,8 @@ public class ReadProduct extends JPanel {
 
     String column[]={"Product Code","Business Id","Name", "Price", "Quantity", "Description", "Bonded points","Registered_by","Created At"};
 
-    public ReadProduct(){
-        JPanel main = new JPanel();
+    public ReadProduct(Socket socket, JFrame closableFrame) throws IOException {
+        Container main = new Container();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
         main.setBackground(Color.white);
         setLayout(null);
@@ -65,7 +67,7 @@ public class ReadProduct extends JPanel {
         model.setColumnIdentifiers(column);
         table.setModel(model);
         for (int i = 0; i < 7; i++) {
-            model.addRow(new Object[]{data[i][0],data[i][1],data[i][2],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7],data[i][8]});
+            model.addRow(new Object[]{data[i][0],data[i][1],data[i][2],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7]});
         }
         JTableHeader tableHeader = table.getTableHeader();
         tableHeader.setBackground(new Color(53,32,88));
@@ -90,6 +92,7 @@ public class ReadProduct extends JPanel {
 
         add(main);
         setBackground(Color.WHITE);
+        new Layout(main, "List products",socket);
     }
 }
 
