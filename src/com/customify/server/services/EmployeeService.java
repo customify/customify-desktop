@@ -132,6 +132,40 @@ public class EmployeeService {
     }
 
 
+    public void update(String data) throws SQLException, IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(data);
+
+        OutputStream output = this.socket.getOutputStream();
+        ObjectOutputStream objectOutput =  new ObjectOutputStream(output);
+
+        String response = "";
+
+        try {
+            String sql = "UPDATE Employee SET email =?,firstName=?,lastName=?,title=? WHERE emp_id =? ";
+            PreparedStatement statement = Db.getConnection().prepareStatement(sql);
+
+            statement.setString(1,jsonNode.get("email").asText());
+            statement.setString(2,jsonNode.get("firstName").asText());
+            statement.setString(3,jsonNode.get("lastName").asText());
+            statement.setString(4,jsonNode.get("title").asText());
+            statement.setString(5,jsonNode.get("empId").asText());
+
+            if(statement.executeUpdate() > 0) response = "{ \"status\" : \"200\"}";
+            else response = "{ \"status\" : \"400\"}";
+        }
+        catch (Exception e){
+            System.out.println("DB-ERROR " + e.getMessage());
+            response = "{ \"status\" : \"500\"}";
+        }
+        finally {
+            this.output = socket.getOutputStream();
+            this.objectOutput = new CustomizedObjectOutputStream(this.output);
+
+            responseData.add(response);
+            objectOutput.writeObject(this.responseData);
+        }
+    }
 
 }
 

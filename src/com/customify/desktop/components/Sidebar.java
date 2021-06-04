@@ -3,6 +3,7 @@ package com.customify.desktop.components;
 import com.customify.desktop.business.Business;
 import com.customify.desktop.business.ReadBusiness;
 import com.customify.desktop.customerFeedback.CustomerFeedbackForm;
+import com.customify.desktop.employee.UpdateEmployee;
 import com.customify.desktop.enums.UserRoles;
 import com.customify.desktop.layout.Layout;
 import com.customify.desktop.points.PointsServices;
@@ -75,6 +76,7 @@ public class Sidebar extends JPanel {
                 navBarItems.add(sales);
                 navBarItems.add(subscription);
                 navBarItems.add(settings);
+                navBarItems.add(employees);
                 break;
             case "BUSINESS_ADMIN":
                 navBarItems.add(overView);
@@ -92,6 +94,7 @@ public class Sidebar extends JPanel {
                 navBarItems.add(customers);
                 navBarItems.add(sales);
                 navBarItems.add(settings);
+                navBarItems.add(employees);
                 break;
         }
 
@@ -118,6 +121,14 @@ public class Sidebar extends JPanel {
         };
         features.addActionListener(triggerFeatures);
 
+        employees.addActionListener(e -> {
+            closableFrame.dispose();
+            try {
+                new UpdateEmployee(socket,closableFrame);
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        });
 
         //open business event
         ActionListener triggerBusiness = new ActionListener() {
@@ -211,7 +222,7 @@ public class Sidebar extends JPanel {
         myLogo.setBackground(new Color(53,32,88));
         myLogo.setBounds(53, 81, 200, 50);
 
-        JLabel logoName = new JLabel("Customize");
+        JLabel logoName = new JLabel("Customify");
         logoName.setFont(new Font("Montserrat", Font.BOLD, 29));
         logoName.setForeground(new Color(164, 166, 179));
 

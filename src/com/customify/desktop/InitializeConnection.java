@@ -5,10 +5,12 @@ package com.customify.desktop;
 import com.customify.desktop.business.NewBusiness;
 import com.customify.desktop.customerFeedback.Businesses;
 import com.customify.desktop.customerFeedback.CustomerFeedbackForm;
+import com.customify.desktop.employee.UpdateEmployee;
 import com.customify.desktop.layout.Layout;
 import com.customify.desktop.sales.Sales;
 import com.customify.desktop.utils.VerifyAuth;
 
+import java.awt.*;
 import java.net.Socket;
 
 public class InitializeConnection {
@@ -27,6 +29,8 @@ public class InitializeConnection {
         int portNumber = 3000;
         try {
             Socket socket = new Socket(serverIp, portNumber);
+
+            Container container = new Container();
 
 //            new Layout(new NewBusiness(socket), "New business");
 //            new Layout(new CustomerFeedbackForm(socket),"Customer feedback registration");
