@@ -59,6 +59,7 @@ public class Sidebar extends JPanel {
                 navBarItems.add(sales);
                 navBarItems.add(subscription);
                 navBarItems.add(settings);
+                navBarItems.add(employees);
                 break;
             case BUSINESS_OWNER:
                 navBarItems.add(overView);

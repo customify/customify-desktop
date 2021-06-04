@@ -1,8 +1,11 @@
 package com.customify.desktop.layout;
 
+import com.customify.cli.utils.authorization.UserSession;
 import com.customify.desktop.components.FeatureRegister;
 import com.customify.desktop.components.Sidebar;
 import com.customify.desktop.enums.UserRoles;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -69,7 +72,11 @@ public class Layout  {
 
         navbar.add(imageLabel,gbc);
 
-        JLabel name = new JLabel("Gisa Kaze Fredson");;
+        UserSession userSession = new UserSession();
+        String json = userSession.getUserJsonObject();
+        JsonNode jsonNode = new ObjectMapper().readTree(json);
+
+        JLabel name = new JLabel(jsonNode.get("firName").asText() + " " + jsonNode.get("lasName").asText());;
         name.setForeground(Color.white);
         name.setFont(name.getFont().deriveFont(16.0f));
 
