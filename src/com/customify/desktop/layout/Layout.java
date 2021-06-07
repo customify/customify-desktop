@@ -100,7 +100,7 @@ public class Layout  {
 
         navbar.add(imageLabel,gbc);
 
-        JLabel name = new JLabel("Gisa Kaze Fredson");;
+        JLabel name = new JLabel(jsonNode.get("firName").asText() + " " + jsonNode.get("lasName").asText());;
         name.setForeground(Color.white);
         name.setFont(name.getFont().deriveFont(16.0f));
 

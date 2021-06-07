@@ -57,6 +57,8 @@ public class RequestHandler {
         SalesService salesService = new SalesService(this.clientSocket);
 //        CustomerFeedbackService feedback = new CustomerFeedbackService(this.clientSocket);
 
+        EmployeeService employeeService = new EmployeeService(this.clientSocket,json_data);
+
         switch (this.key) {
             case CREATE_BUSINESS:
                 businessService.create(json_data);
@@ -170,6 +172,8 @@ public class RequestHandler {
             case  GET_FEATURE_BY_ID:
                 featureService.getFeatureByCode(json_data);
                 break;
+            case UPDATE_EMPLOYEE:
+                employeeService.update(json_data);
             default:
                 System.out.println("\t\t\tSORRY INVALID API KEY");
 
