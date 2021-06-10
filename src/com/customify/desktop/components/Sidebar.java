@@ -3,6 +3,7 @@ package com.customify.desktop.components;
 import com.customify.desktop.business.Business;
 import com.customify.desktop.business.ReadBusiness;
 import com.customify.desktop.customerFeedback.CustomerFeedbackForm;
+import com.customify.desktop.employee.ReadEmployees;
 import com.customify.desktop.employee.UpdateEmployee;
 import com.customify.desktop.enums.UserRoles;
 import com.customify.desktop.layout.Layout;
@@ -95,6 +96,7 @@ public class Sidebar extends JPanel {
                 navBarItems.add(sales);
                 navBarItems.add(settings);
                 navBarItems.add(employees);
+                navBarItems.add(business);
                 break;
         }
 
@@ -124,7 +126,7 @@ public class Sidebar extends JPanel {
         employees.addActionListener(e -> {
             closableFrame.dispose();
             try {
-                new UpdateEmployee(socket,closableFrame);
+                new ReadEmployees(socket,closableFrame);
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
