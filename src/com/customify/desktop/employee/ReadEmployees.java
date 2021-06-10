@@ -105,7 +105,7 @@ public class ReadEmployees extends Container {
         tableHeader.setPreferredSize(new Dimension(100, 32));*/
 
         main.add(new JScrollPane().add(table));
-        main.setBounds(0, 0, 980, 600);
+        main.setBounds(0, 0, 980, 450);
 
         container.add(main);
         new Layout(container,"Employees",this.socket);
