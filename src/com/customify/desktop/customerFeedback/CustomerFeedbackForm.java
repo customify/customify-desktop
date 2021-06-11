@@ -26,7 +26,8 @@ public class CustomerFeedbackForm extends Container {
 
         Container contentPane = new Container();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
-        contentPane.setBackground(Color.white);
+        contentPane.setBounds(200, 50, 400, 200);
+        contentPane.setBackground(Color.LIGHT_GRAY);
         setLayout(null);
 
         Businesses b = new Businesses(socket);
@@ -35,8 +36,9 @@ public class CustomerFeedbackForm extends Container {
         for(int i = 0; i < busList.length; i++) {
             busList[i] = businessFormat.getNames().get(i);
         }
+
         JComboBox<String> cb=new JComboBox<>(busList);
-        cb.setPreferredSize(new Dimension(100,40));
+        cb.setPreferredSize(new Dimension(320,40));
         cb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -45,6 +47,7 @@ public class CustomerFeedbackForm extends Container {
         });
 
         JPanel header = new JPanel();
+        JPanel comboxContainer = new JPanel();
         JLabel headline = new JLabel("Customer feedback ");
         headline.setPreferredSize(new Dimension(300, 100));
         headline.setFont(new Font("Montserrat", Font.BOLD, 29));
@@ -52,15 +55,24 @@ public class CustomerFeedbackForm extends Container {
         header.setBackground(Color.white);
 
 
+
         JPanel customer_name = createNewInput("Customer name");
+        JLabel comboxLab = new JLabel("Business name");
+        comboxLab.setBackground(Color.white);
+        comboxLab.setFont(new Font("Montserrat", Font.PLAIN, 18));
+        comboxLab.setBackground(Color.green);
+        comboxLab.setPreferredSize(new Dimension(200, 30));
         JPanel business_id = createNewInput("Business Id");
         JPanel title = createNewInput("Title");
         JPanel description = createNewInput("Description");
 
+        comboxContainer.add(comboxLab);
+        comboxContainer.setBackground(Color.white);
+
         JPanel buttonGroup = new JPanel();
         buttonGroup.setBackground(Color.white);
 
-        JButton btn = new JButton("Register");
+        JButton btn = new JButton("Send");
         btn.setBounds(1020,400,180,40);
         btn.setBackground(new Color(53,32,88));
         btn.setForeground(Color.white);
@@ -80,16 +92,14 @@ public class CustomerFeedbackForm extends Container {
         buttonGroup.add(btn);
 
         header.add(headline);
+        comboxContainer.add(cb);
 
         contentPane.add(header);
         contentPane.add(customer_name);
-        contentPane.add(cb);
-//        contentPane.add(business_id);
+        contentPane.add(comboxContainer);
         contentPane.add(title);
         contentPane.add(description);
         contentPane.add(buttonGroup);
-
-        contentPane.setBounds(200, 50, 800, 450);
 
         add(contentPane);
         setBackground(Color.WHITE);
