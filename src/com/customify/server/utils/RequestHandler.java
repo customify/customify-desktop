@@ -113,6 +113,9 @@ public class RequestHandler {
             case GET_ALL_BUSINESSES:
                 businessService.getAll();
                 break;
+            case GET_BUSINESSES_BY_NAME:
+                businessService.searchByName(json_data);
+                break;
             case GET_BUSINESS:
                 businessService.getBusinessById(json_data);
                 break;
