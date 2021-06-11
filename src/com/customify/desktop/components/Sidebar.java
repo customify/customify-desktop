@@ -1,15 +1,15 @@
 package com.customify.desktop.components;
 
-import com.customify.desktop.business.Business;
 import com.customify.desktop.business.ReadBusiness;
 import com.customify.desktop.customerFeedback.CustomerFeedbackForm;
-import com.customify.desktop.enums.UserRoles;
+import com.customify.desktop.employee.UpdateEmployee;
 import com.customify.desktop.layout.Layout;
+import com.customify.desktop.plans.ui.PlanAssign;
+import com.customify.desktop.plans.ui.PlanHome;
+import com.customify.desktop.plans.ui.PlanRegister;
 import com.customify.desktop.points.PointsServices;
-import com.customify.desktop.product.Product;
 import com.customify.desktop.product.ReadProduct;
 import com.customify.desktop.sales.Sales;
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,7 +42,7 @@ public class Sidebar extends JPanel {
 
         JPanel navBarItems = new JPanel();
         navBarItems.setLayout(new BoxLayout(navBarItems, BoxLayout.Y_AXIS));
-        navBarItems.setBounds(0, 180, 250, 500);
+        navBarItems.setBounds(0, 180, 250, 200);
         navBarItems.setBackground(new Color(53, 32, 88));
 
         JButton overView = new SideBarListItem("Overview.png", "Overview");
@@ -70,11 +70,11 @@ public class Sidebar extends JPanel {
                 navBarItems.add(business);
                 navBarItems.add(features);
                 navBarItems.add(plans);
-                navBarItems.add(billing);
                 navBarItems.add(report);
                 navBarItems.add(sales);
                 navBarItems.add(subscription);
                 navBarItems.add(settings);
+                navBarItems.add(employees);
                 break;
             case "BUSINESS_ADMIN":
                 navBarItems.add(overView);
@@ -92,6 +92,9 @@ public class Sidebar extends JPanel {
                 navBarItems.add(customers);
                 navBarItems.add(sales);
                 navBarItems.add(settings);
+                navBarItems.add(plans);
+                navBarItems.add(features);
+                navBarItems.add(employees);
                 break;
         }
 
@@ -99,40 +102,61 @@ public class Sidebar extends JPanel {
 
         JPanel line = new JPanel();
         line.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(164, 166, 179)));
-        line.setSize(100, 10);
+        line.setSize(100, 100);
         line.setBackground(new Color(53, 32, 88));
 
 
         //open features event
-        ActionListener triggerFeatures = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                closableFrame.dispose();
-                try {
-                    featureRegister = new FeatureRegister();
-                    featureRegister.init(socket);
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
+
+        features.addActionListener(e->{
+            closableFrame.dispose();
+            try {
+                featureRegister = new FeatureRegister();
+                featureRegister.init(socket);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
             }
-        };
-        features.addActionListener(triggerFeatures);
+        });
 
+        plans.addActionListener(e->{
+            closableFrame.dispose();
+            try {
+                PlanHome planHome = new PlanHome();
+                planHome.init(socket);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
 
+        employees.addActionListener(e -> {
+            closableFrame.dispose();
+            try {
+                UpdateEmployee updateEmployee=new UpdateEmployee(socket,closableFrame);
+                updateEmployee.init();
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        });
+        business.addActionListener(e->{
+            closableFrame.dispose();
+            try {
+                ReadBusiness readBusiness = new ReadBusiness(socket,closableFrame);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         //open business event
         ActionListener triggerBusiness = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 closableFrame.dispose();
                 try {
-                    ReadBusiness readBusiness = new ReadBusiness(socket,closableFrame);
+                    new Layout(new ReadBusiness(socket,closableFrame), "Read All businesses", socket);
 
-                } catch (IOException ioException) {
+                } catch (IOException | ClassNotFoundException ioException) {
                     ioException.printStackTrace();
                 }
             }
-        };
-        business.addActionListener(triggerBusiness);
+        });
 
         //open business feedback
         ActionListener triggerFeedback = new ActionListener() {
@@ -211,7 +235,7 @@ public class Sidebar extends JPanel {
         myLogo.setBackground(new Color(53,32,88));
         myLogo.setBounds(53, 81, 200, 50);
 
-        JLabel logoName = new JLabel("Customize");
+        JLabel logoName = new JLabel("Customify");
         logoName.setFont(new Font("Montserrat", Font.BOLD, 29));
         logoName.setForeground(new Color(164, 166, 179));
 

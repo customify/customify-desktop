@@ -11,6 +11,7 @@ import com.customify.server.Keys;
 //import com.customify.server.services.ProductService;
 import com.customify.server.services.SalesService;
 import com.customify.server.services.BusinessService;
+import com.customify.server.services.billing.PlanService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.customify.server.services.CouponService;
@@ -53,9 +54,12 @@ public class RequestHandler {
         ProductService productService = new ProductService(this.clientSocket);
         CouponService couponService = new CouponService(this.clientSocket);
         FeatureService featureService = new FeatureService(this.clientSocket);
+        PlanService planService = new PlanService(this.clientSocket);
         System.out.println("Handling routes "+this.key);
         SalesService salesService = new SalesService(this.clientSocket);
 //        CustomerFeedbackService feedback = new CustomerFeedbackService(this.clientSocket);
+
+        EmployeeService employeeService = new EmployeeService(this.clientSocket,json_data);
 
         switch (this.key) {
             case CREATE_BUSINESS:
@@ -108,6 +112,9 @@ public class RequestHandler {
                 break;
             case GET_ALL_BUSINESSES:
                 businessService.getAll();
+                break;
+            case GET_BUSINESSES_BY_NAME:
+                businessService.searchByName(json_data);
                 break;
             case GET_BUSINESS:
                 businessService.getBusinessById(json_data);
@@ -164,9 +171,14 @@ public class RequestHandler {
             case UPDATE_FEATURE:
                 featureService.update(json_data);
                 break;
+            case CREATE_PLAN:
+                planService.create(json_data);
+                break;
             case  GET_FEATURE_BY_ID:
                 featureService.getFeatureByCode(json_data);
                 break;
+            case UPDATE_EMPLOYEE:
+                employeeService.update(json_data);
             default:
                 System.out.println("\t\t\tSORRY INVALID API KEY");
 
