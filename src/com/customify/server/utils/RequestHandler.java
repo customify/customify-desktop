@@ -11,6 +11,7 @@ import com.customify.server.Keys;
 //import com.customify.server.services.ProductService;
 import com.customify.server.services.SalesService;
 import com.customify.server.services.BusinessService;
+import com.customify.server.services.billing.PlanService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.customify.server.services.CouponService;
@@ -53,6 +54,7 @@ public class RequestHandler {
         ProductService productService = new ProductService(this.clientSocket);
         CouponService couponService = new CouponService(this.clientSocket);
         FeatureService featureService = new FeatureService(this.clientSocket);
+        PlanService planService = new PlanService(this.clientSocket);
         System.out.println("Handling routes "+this.key);
         SalesService salesService = new SalesService(this.clientSocket);
 //        CustomerFeedbackService feedback = new CustomerFeedbackService(this.clientSocket);
@@ -165,6 +167,9 @@ public class RequestHandler {
                 break;
             case UPDATE_FEATURE:
                 featureService.update(json_data);
+                break;
+            case CREATE_PLAN:
+                planService.create(json_data);
                 break;
             case  GET_FEATURE_BY_ID:
                 featureService.getFeatureByCode(json_data);
