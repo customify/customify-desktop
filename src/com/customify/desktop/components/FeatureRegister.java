@@ -68,7 +68,7 @@ public class FeatureRegister  {
 
 
 //     public static void main(String args[]) throws IOException {
-// //        new Layout(new FeatureRegister().init(), "Feature Register");
+//         new Layout(new FeatureRegister().init(), "Feature Register");
 //     }
 
 //    public static void main(String args[]) throws IOException {

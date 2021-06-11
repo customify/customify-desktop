@@ -20,7 +20,7 @@ import java.util.List;
 
 public class PlanService {
     Socket socket;
-    private final Connection connection = Db.getConnection();
+    private Connection connection = Db.getConnection();
     private String response;
     public PlanService(Socket socket){
         this.socket = socket;
@@ -29,26 +29,23 @@ public class PlanService {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(inputs);
 
-        String query = "INSERT INTO Plans VALUES (NULL,?,?,NOW())";
+        String query = "INSERT INTO Plans (planTitle,planDescription,price) VALUES (?,?,?)";
 
         PreparedStatement statement = this.connection.prepareStatement(query);
         statement.setString(1,jsonNode.get("planTitle").asText());
         statement.setString(2,jsonNode.get("planDescription").asText());
+        statement.setInt(3,jsonNode.get("price").asInt());
 
-        try{
-            if(statement.execute()){
-                this.response = "Plan created successfully";
-                SendToClient sendToClient = new SendToClient(socket, Collections.singletonList(response));
-                if(sendToClient.send()){
-                    System.out.println("Response sent!");
-                }else{
-                    System.out.println("Response failed !");
-                }
+        if(statement.execute()){
+            this.response = "Plan created successfully";
+            SendToClient sendToClient = new SendToClient(socket, Collections.singletonList(response));
+            if(sendToClient.send()){
+                System.out.println("Response sent!");
             }else{
-                System.out.println("Ops failed to execute");
+                System.out.println("Response failed !");
             }
-        }catch (Exception e){
-            System.out.println(e.getMessage());
+        }else{
+            System.out.println("Ops failed to execute");
         }
     }
     public String read(Keys key){
@@ -61,7 +58,8 @@ public class PlanService {
                 PlanFormat planFormat = new PlanFormat(
                         results.getInt(1),
                         results.getString(2),
-                        results.getString(3)
+                        results.getString(3),
+                        results.getInt(4)
                 );
                 response.add(planFormat);
             }
@@ -90,7 +88,8 @@ public class PlanService {
                 PlanFormat planFormat = new PlanFormat(
                         results.getInt(1),
                         results.getString(2),
-                        results.getString(3)
+                        results.getString(3),
+                        results.getInt(4)
                 );
                 response.add(planFormat);
             }
