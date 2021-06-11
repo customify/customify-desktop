@@ -229,4 +229,54 @@ public class BusinessService {
         }
 
     }
+
+    /**
+     * @author Kellia Umuhire
+     * @role
+     * Method for fetching all businesses by given name
+     * */
+    public void searchByName(String input) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(input);
+
+        //formatting the response into a data format
+        Statement statement = Db.getStatement();
+        String query = "Select * from businesses where name LIKE '%"+jsonNode.get("name").asText()+"%'";
+        System.out.println(jsonNode.get("name"));
+        List<String> allData = new ArrayList<>();
+
+        try {
+            this.statusCode = "200";
+            allData.add(this.statusCode);
+            ResultSet res = statement.executeQuery(query);
+            String data;
+            while(res.next()){
+
+                BusinessRFormat bs = new BusinessRFormat(
+                        res.getInt(1),
+                        res.getString(2),
+                        res.getString(3),
+                        res.getString(4),
+                        res.getString(5),
+                        res.getInt(6),
+                        res.getInt(7),
+                        res.getDate(8).toString()
+                );
+
+                data = objectMapper.writeValueAsString(bs);
+                allData.add(data);
+            }
+        }
+        catch (Exception e){
+            this.statusCode = "500";
+            allData.add(this.statusCode);
+        }
+        finally{
+            this.output = socket.getOutputStream();
+            this.objectOutput = new CustomizedObjectOutputStream(this.output);
+            objectOutput.writeObject(allData);
+
+        }
+
+    }
 }
