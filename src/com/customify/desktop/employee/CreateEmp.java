@@ -69,12 +69,16 @@ public class CreateEmp extends JPanel {
         btn.setFont(new Font("Montserrat", Font.PLAIN, 18));
 
         btn.addActionListener(actionEvent -> {
-//            EmployeeUser employee = new EmployeeUser();
             EmployeeDataFormat format = new EmployeeDataFormat(firstNameField.getText(), lastNameField.getText() , emailField.getText() , titleField.getText() , passwordField.getText() , 2);
             format.setKey(Keys.CREATE_EMPLOYEE);
-
             EmployeeService service = new EmployeeService(this.socket);
-            service.updateEmployee(format);
+            try {
+                service.createEmp(format);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         });
 
         buttonGroup.add(cancel);
