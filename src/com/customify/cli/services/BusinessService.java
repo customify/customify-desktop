@@ -97,6 +97,51 @@ public class BusinessService {
 
     /**
      * @author Kellia Umuhire
+     * @param json Object key to send to the server
+     * @role this function is for getting all business and returning them as a list
+     */
+    public List<String> getAllBusinesses(String json) throws IOException, ClassNotFoundException{
+        SendToServer serverSend = new SendToServer(json, this.socket);
+        if (serverSend.send()) {
+            //Get response
+            this.input = this.socket.getInputStream();
+            this.objectInput = new ObjectInputStream(this.input);
+
+            //Casting the response data to list
+            List<String> data = (List<String>) this.objectInput.readObject();
+
+            if(data.get(0)=="500") System.out.println("An error occurred");
+
+            else return data;
+        } else {
+            System.out.println("Request failed...");
+        }
+
+        return null;
+    }
+
+    public List<String> searchByName(String json) throws IOException, ClassNotFoundException {
+        SendToServer serverSend = new SendToServer(json, this.socket);
+        if (serverSend.send()) {
+            //Get response
+            this.input = this.socket.getInputStream();
+            this.objectInput = new ObjectInputStream(this.input);
+
+            //Casting the response data to list
+            List<String> data = (List<String>) this.objectInput.readObject();
+
+            if(data.get(0)=="500") System.out.println("An error occurred");
+
+            else return data;
+        } else {
+            System.out.println("Request failed...");
+        }
+
+        return null;
+    }
+
+    /**
+     * @author Kellia Umuhire
      * @role this function is for handling the response after fetching all the businesses from the server
      * and displaying the response
      */

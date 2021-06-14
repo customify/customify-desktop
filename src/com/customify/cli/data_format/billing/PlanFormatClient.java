@@ -5,11 +5,11 @@ import com.customify.server.models.billing.PlanModel;
 
 // Created BY Moss Aimelyse whole document
 
-public class PlanFormatClient extends PlanModel<Integer, String, String> {
+public class PlanFormatClient extends PlanModel<Integer, String, String,Integer> {
     private Keys key;
 
-    public PlanFormatClient(Keys key, Integer planId, String planTitle, String planDescription) {
-        super(planId, planTitle, planDescription);
+    public PlanFormatClient(Keys key, int planId, String planTitle, String planDescription,int price) {
+        super(planId, planTitle, planDescription,price);
         this.key =key;
     }
     public void setKey(Keys key) {
