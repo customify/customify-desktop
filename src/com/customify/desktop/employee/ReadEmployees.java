@@ -5,6 +5,7 @@ import com.customify.desktop.business.NewBusiness;
 import com.customify.desktop.business.Search;
 import com.customify.desktop.components.FormControl;
 import com.customify.desktop.layout.Layout;
+import com.customify.desktop.services.EmployeeService;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -23,7 +24,8 @@ public class ReadEmployees extends Container {
     public Layout layout;
     public Socket socket;
 
-    String data[][]={ {"101","Amit","670000","670000","670000","670000","670000"},
+    String data[][]={
+            {"101","Amit","670000","670000","670000","670000","670000"},
             {"102","Jai","670000","670000","670000","670000","670000"},
             {"102","Jai","670000","670000","670000","670000","670000"},
             {"102","Jai","670000","670000","670000","670000","670000"},
@@ -33,11 +35,8 @@ public class ReadEmployees extends Container {
             {"102","Jai","670000","670000","670000","670000","670000"},
             {"102","Jai","670000","670000","670000","670000","670000"},
             {"102","Jai","670000","670000","670000","670000","670000"},
-            {"102","Jai","670000","670000","670000","670000","670000"},
-            {"102","Jai","670000","670000","670000","670000","670000"},
-            {"101","Sachin","670000","670000","670000","670000","670000"}
     };
-    String column[]={"Employee ID","First Name","Last Name", "Email", "Title"};
+    String column[]={"Employee ID","First Name","Last Name", "Email", "Title","Action"};
 
     public ReadEmployees(Socket socket,JFrame closableFrame) throws IOException {
         this.socket = socket;
@@ -80,6 +79,7 @@ public class ReadEmployees extends Container {
         table.setShowGrid(false);
         table.setIntercellSpacing(new Dimension(0, 0));
         table.setRowHeight(45);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
@@ -90,12 +90,18 @@ public class ReadEmployees extends Container {
             }
         });
 
+       /* table.setModel(new DefaultTableModel(
+                loadData(),
+                column
+        ));
+*/
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(column);
         table.setModel(model);
-        for (int i = 0; i < 7; i++) {
-            model.addRow(new Object[]{data[i][0],data[i][1],data[i][2],data[i][3],data[i][4]});
+        for (int i = 0; i < 9; i++) {
+            model.addRow(new Object[]{data[i][0],data[i][1],data[i][2],data[i][3],data[i][4],data[i][5]});
         }
+
         /*
         JTableHeader tableHeader = table.getTableHeader();
         tableHeader.setBackground(new Color(53,32,88));
@@ -105,7 +111,7 @@ public class ReadEmployees extends Container {
         tableHeader.setPreferredSize(new Dimension(100, 32));*/
 
         main.add(new JScrollPane().add(table));
-        main.setBounds(0, 0, 980, 450);
+        main.setBounds(0, 0, 980, 600);
 
         container.add(main);
         new Layout(container,"Employees",this.socket);
@@ -118,5 +124,13 @@ public class ReadEmployees extends Container {
                 exception.printStackTrace();
             }
         });
+    }
+
+    private String[][] loadData() throws IOException {
+        String data[][] = {};
+
+//        List employees = new EmployeeService(this.socket).getAll();
+
+        return this.data;
     }
 }
