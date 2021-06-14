@@ -46,7 +46,7 @@ public class RequestHandler {
 
     public void handleRequest() throws Exception {
         CustomerService customer = new CustomerService(this.clientSocket,json_data);
-        EmployeeService employee = new EmployeeService(this.clientSocket);
+  EmployeeService employee= new EmployeeService(this.clientSocket)     ;
         BusinessService businessService = new BusinessService(this.clientSocket);
 //        ProductService productService = new ProductService(this.clientSocket);
         PointsService pointsService = new PointsService(this.clientSocket);
@@ -144,6 +144,9 @@ public class RequestHandler {
                 break;
             case ADD_SALE:
                 salesService.buyAProduct(json_data);
+                break;
+            case CREATE_EMPLOYEE:
+                employee.create(json_data);
                 break;
             case GET_ALL_EMPLOYEES:
                 employee = new EmployeeService(this.clientSocket,this.json_data);
