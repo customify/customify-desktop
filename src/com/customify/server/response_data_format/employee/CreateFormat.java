@@ -30,8 +30,8 @@ public class CreateFormat {
         this.status = status;
     }
 
-    public CreateCustomerFormat() {}
-    public CreateCustomerFormat(String message,int status) {
+    public CreateFormat() {}
+    public CreateFormat(String message,int status) {
         this.message = message;
         this.status = status;
     }

@@ -45,10 +45,13 @@ public class EmployeeService {
         String email = jsonNode.get("email").asText();
         String firName = jsonNode.get("firName").asText();
         String lasName = jsonNode.get("lasName").asText();
+        String title = jsonNode.get("title").asText();
+        String password = jsonNode.get("password").asText();
+//        String bussiness_id = jsonNode.get("bussiness_id").asText();
 
         Connection connection = Db.getConnection();
 
-        String query = "INSERT INTO Customer (customer_id,first_name,last_name,email,code) VALUES(?,?, ?, ?, ?)";
+        String query = "INSERT INTO EMployee (emp_id,firName,lasName,email,title,password) VALUES(?,?, ?, ?, ?, ?)";
         CreateFormat format;
 
         try {
@@ -57,12 +60,13 @@ public class EmployeeService {
             statement.setString(2, firName);
             statement.setString(3, lasName);
             statement.setString(4, email);
-            statement.setString(5, "564-TSA-565");
+            statement.setString(5, title);
+            statement.setString(6 , password);
 
             int i = statement.executeUpdate();
             if (i > 0) {
 //                System.out.println("success");
-                format = new CreateFormat("Successfully registered a customer",201);
+                format = new CreateFormat("Successfully registered an Employee",201);
                 format.setJson_data(json_data);
 
 
