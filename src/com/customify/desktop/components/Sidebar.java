@@ -152,12 +152,13 @@ public class Sidebar extends JPanel {
                 closableFrame.dispose();
                 try {
                     new Layout(new ReadBusiness(socket, closableFrame), "Read All businesses", socket);
-
                 } catch (IOException | ClassNotFoundException ioException) {
                     ioException.printStackTrace();
                 }
             }
         };
+
+        business.addActionListener(triggerBusiness);
 
         //open business feedback
         ActionListener triggerFeedback = new ActionListener() {
