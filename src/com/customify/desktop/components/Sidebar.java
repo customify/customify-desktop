@@ -137,13 +137,14 @@ public class Sidebar extends JPanel {
                 exception.printStackTrace();
             }
         });
-        business.addActionListener(e->{
-            closableFrame.dispose();
-            try {
-                ReadBusiness readBusiness = new ReadBusiness(socket,closableFrame);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+        business.addActionListener(e-> {
+                    closableFrame.dispose();
+                    try {
+                        ReadBusiness readBusiness = new ReadBusiness(socket, closableFrame);
+                    } catch (IOException | ClassNotFoundException ioException) {
+                        ioException.printStackTrace();
+                    }
+                });
         //open business event
         ActionListener triggerBusiness = new ActionListener() {
             @Override
@@ -156,7 +157,7 @@ public class Sidebar extends JPanel {
                     ioException.printStackTrace();
                 }
             }
-        });
+        };
 
         //open business feedback
         ActionListener triggerFeedback = new ActionListener() {
