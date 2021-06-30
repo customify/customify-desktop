@@ -3,6 +3,7 @@ package com.customify.desktop.components;
 import com.customify.desktop.business.ReadBusiness;
 import com.customify.desktop.customerFeedback.CustomerFeedbackForm;
 import com.customify.desktop.employee.UpdateEmployee;
+import com.customify.desktop.features.Features;
 import com.customify.desktop.layout.Layout;
 import com.customify.desktop.plans.ui.PlanAssign;
 import com.customify.desktop.plans.ui.PlanHome;
@@ -108,21 +109,31 @@ public class Sidebar extends JPanel {
 
         //open features event
 
-        features.addActionListener(e->{
-            closableFrame.dispose();
-            try {
-                featureRegister = new FeatureRegister();
-                featureRegister.init(socket);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        });
+//        features.addActionListener(e->{
+//            closableFrame.dispose();
+//            try {
+//                featureRegister = new FeatureRegister();
+//                featureRegister.init(socket);
+//            } catch (IOException ioException) {
+//                ioException.printStackTrace();
+//            }
+//        });
 
         plans.addActionListener(e->{
             closableFrame.dispose();
             try {
                 PlanHome planHome = new PlanHome();
                 planHome.init(socket);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+
+        features.addActionListener(e->{
+            closableFrame.dispose();
+            try {
+                Features features1 = new Features();
+                features1.init(socket);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -137,26 +148,26 @@ public class Sidebar extends JPanel {
                 exception.printStackTrace();
             }
         });
-        business.addActionListener(e->{
-            closableFrame.dispose();
-            try {
-                ReadBusiness readBusiness = new ReadBusiness(socket,closableFrame);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        //open business event
-        ActionListener triggerBusiness = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                closableFrame.dispose();
-                try {
-                    new Layout(new ReadBusiness(socket,closableFrame), "Read All businesses", socket);
-
-                } catch (IOException | ClassNotFoundException ioException) {
-                    ioException.printStackTrace();
-                }
-            }
-        });
+//        business.addActionListener(e->{
+//            closableFrame.dispose();
+//            try {
+//                ReadBusiness readBusiness = new ReadBusiness(socket,closableFrame);
+//            } catch (IOException | ClassNotFoundException ioException) {
+//                ioException.printStackTrace();
+//            }
+//        //open business event
+//        ActionListener triggerBusiness = new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                closableFrame.dispose();
+//                try {
+//                    new Layout(new ReadBusiness(socket,closableFrame), "Read All businesses", socket);
+//
+//                } catch (IOException | ClassNotFoundException ioException) {
+//                    ioException.printStackTrace();
+//                }
+//            }
+//        });
 
         //open business feedback
         ActionListener triggerFeedback = new ActionListener() {
