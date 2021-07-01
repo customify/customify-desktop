@@ -37,6 +37,26 @@ public class BusinessFormat implements Serializable {
         this.plan = plan;
     }
 
+    public boolean isValid(){
+        if (this.getName() == null || this.getName().isEmpty()) {
+            System.out.println("Business name is required");
+            return false;
+        } else if (this.getLocation() == null || this.getLocation().isEmpty()) {
+            System.out.println("Location is Required");
+            return false;
+        } else if (this.getAddress() == null || this.getAddress().isEmpty()) {
+            System.out.println("Address is Required ");
+            return false;
+        }else if (this.getPhoneNumber() == null || this.getPhoneNumber().isEmpty()) {
+            System.out.println("Phone number is Required ");
+            return false;
+        } else if (this.getPlan() <= 0) {
+            System.out.println("Business plan is required");
+            return false;
+        } else
+            return true;
+    }
+
     public int getId() {
         return id;
     }
