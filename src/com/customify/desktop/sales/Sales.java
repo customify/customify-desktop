@@ -3,12 +3,15 @@
    Date: 20/05/2021
  */
 package com.customify.desktop.sales;
+import com.customify.desktop.components.FeatureRegister;
 import com.customify.desktop.layout.Layout;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
@@ -47,6 +50,22 @@ public class Sales extends JPanel {
    newButton.setBackground(Color.white);
    container.add(newButton);
 
+
+     ActionListener triggerAddSale = new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+             closableFrame.dispose();
+             //                 featureRegister = new FeatureRegister();
+//                 featureRegister.init(socket);
+
+             try {
+                 new AddSales().addingSales(socket);
+             } catch (IOException ioException) {
+                 ioException.printStackTrace();
+             }
+         }
+     };
+     newButton.addActionListener(triggerAddSale);
 
 
    JPanel main = new JPanel();

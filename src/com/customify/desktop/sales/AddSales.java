@@ -10,10 +10,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.Socket;
 
 
 public class AddSales extends JPanel{
-   public Container addingSales() {
+   public Layout layout;
+
+   public void addingSales(Socket socket) throws IOException {
       Container container = new Container();
 
       JPanel content=new JPanel();
@@ -120,7 +123,7 @@ public class AddSales extends JPanel{
             price.setText("");
          }
       });
-      return container;
+      layout = new Layout(container, "Feature register", socket);
    }
 
 
