@@ -1,13 +1,7 @@
 package com.customify.desktop.layout;
 
-import com.customify.cli.services.AuthService;
-import com.customify.cli.utils.authorization.UserSession;
-import com.customify.desktop.components.FeatureRegister;
 import com.customify.desktop.components.Sidebar;
-import com.customify.desktop.enums.UserRoles;
-import com.customify.desktop.utils.RouteWindow;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.customify.desktop.customerFeedback.ReadFeedbacks;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -16,40 +10,12 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.Socket;
 
 public class Layout  {
-    public Socket socket;
-
-//    public Layout(Socket socket){
-//      this.socket = socket;
-//    }
-    public Layout(Container body, String title, Socket socket) throws IOException {
-        JFrame frame = new JFrame(title);
+    public Layout(Container body, String customer_feedback_registration) throws IOException {
+        JFrame frame = new JFrame("Layout");
         frame.setBackground(Color.white);
-        FeatureRegister featureRegister = new FeatureRegister();
-//        JPanel sidebar = new Sidebar(UserRoles.BUSINESS_OWNER, frame);
-
-//        System.out.println("IN Layo: "+new AuthService().getLoggedInUser());
-//        JPanel sidebar = new Sidebar(new AuthService().getLoggedInUser(), frame);
-
-
-        UserSession userSession = new UserSession();
-//        if(userSession.isLoggedIn())
-//        {
-            String json = userSession.getUserJsonObject();
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.readTree(json);
-//            RouteWindow route = new RouteWindow(jsonNode.get("appUser").asText(),this.socket);
-//          new Sidebar(this.socket);
-          Sidebar sidebar =  new Sidebar(jsonNode.get("appUser").asText(), frame, socket);
-        System.out.println("JSON: "+jsonNode.get("appUser").asText());
-//        }else{
-//            openLogin=true;
-//            this.view();
-//        }
-
-
+        JPanel sidebar = new Sidebar();
         JPanel navbar = new JPanel();
 
         /*   header starts */
@@ -101,7 +67,7 @@ public class Layout  {
 
         navbar.add(imageLabel,gbc);
 
-        JLabel name = new JLabel(jsonNode.get("firName").asText() + " " + jsonNode.get("lasName").asText());;
+        JLabel name = new JLabel("Gisa Kaze Fredson");;
         name.setForeground(Color.white);
         name.setFont(name.getFont().deriveFont(16.0f));
 
@@ -114,11 +80,9 @@ public class Layout  {
 
         body.setBackground(Color.lightGray);
         body.setBounds(300,70,1060,667);
-        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
         frame.setSize(1920, 900);
-
-        
         frame.setVisible(true);
         frame.add(body);
         frame.add(sidebar);
@@ -128,4 +92,5 @@ public class Layout  {
 
     public Layout(Container body) {
     }
+
 }

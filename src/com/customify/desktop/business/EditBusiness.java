@@ -129,8 +129,8 @@ public class EditBusiness extends JPanel {
         comboBox.setPreferredSize(new Dimension(370, 40));
         comboBox.addActionListener(actionEvent -> {
             switch (placeholderTextParam) {
-                case "Business Plan" -> format.setPlan(values[comboBox.getSelectedIndex()]);
-                case "Business" -> format.setId(values[comboBox.getSelectedIndex()]);
+                case "Business Plan" : format.setPlan(values[comboBox.getSelectedIndex()]);
+                case "Business" : format.setId(values[comboBox.getSelectedIndex()]);
             }
         });
 
@@ -157,10 +157,10 @@ public class EditBusiness extends JPanel {
 
         textField.getDocument().addDocumentListener((IInputChangedEventListener) e -> {
             switch (placeholderTextParam) {
-                case "Business name" -> format.setName(textField.getText());
-                case "Location" -> format.setLocation(textField.getText());
-                case "Address" -> format.setAddress(textField.getText());
-                case "Phone number" -> format.setPhoneNumber(textField.getText());
+                case "Business name" : format.setName(textField.getText());
+                case "Location" : format.setLocation(textField.getText());
+                case "Address" : format.setAddress(textField.getText());
+                case "Phone number" : format.setPhoneNumber(textField.getText());
             }
         });
 

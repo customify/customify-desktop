@@ -69,6 +69,7 @@ public class Sidebar extends JPanel {
         switch (role){
             case "SUPER_ADMIN":
                 navBarItems.add(overView);
+                navBarItems.add(employees);
                 navBarItems.add(business);
                 navBarItems.add(features);
                 navBarItems.add(plans);
@@ -76,7 +77,6 @@ public class Sidebar extends JPanel {
                 navBarItems.add(sales);
                 navBarItems.add(subscription);
                 navBarItems.add(settings);
-                navBarItems.add(employees);
                 navBarItems.add(customers);
                 break;
             case "BUSINESS_ADMIN":
@@ -102,11 +102,11 @@ public class Sidebar extends JPanel {
                 break;
             case "EMPLOYEE":
                 navBarItems.add(overView);
+                navBarItems.add(employees);
                 navBarItems.add(sales);
                 navBarItems.add(settings);
                 navBarItems.add(plans);
                 navBarItems.add(features);
-//                navBarItems.add(employees);
                 navBarItems.add(customers);
                 break;
         }
