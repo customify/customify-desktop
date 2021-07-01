@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.Socket;
 
 public class FeatureRegister  {
     Container c = new Container();
@@ -23,12 +24,12 @@ public class FeatureRegister  {
     public FeatureRegister() throws IOException {
 //        this.init();
     }
-    public void init() throws IOException {
+    public void init(Socket socket) throws IOException {
         JLabel title = new JLabel("Register a feature");
         title.setFont(new Font("Montserrat", Font.BOLD, 20));
-        title.setBounds(400,20,300,100);
-        title.setBorder(new EmptyBorder(50,0,0,0));
-        title.setForeground(new Color(53,32,88));
+        title.setBounds(400, 20, 300, 100);
+        title.setBorder(new EmptyBorder(50, 0, 0, 0));
+        title.setForeground(new Color(53, 32, 88));
         c.add(title);
 
         label1 = new JLabel("Feature Name");
@@ -37,39 +38,41 @@ public class FeatureRegister  {
         label2 = new JLabel("Description");
         label2.setFont(new Font("Montserrat", Font.BOLD, 17));
 
-        label1.setBounds(200,200,200,20);
-        label2.setBounds(200,250,200,20);
+        label1.setBounds(200, 200, 200, 20);
+        label2.setBounds(200, 250, 200, 20);
 
         c.add(label1);
         c.add(label2);
 
-        user  = new JTextField();
-        user.setBounds(400,200,400,40);
+        user = new JTextField();
+        user.setBounds(400, 200, 400, 40);
         c.add(user);
 
         pass = new JPasswordField();
-        pass.setBounds(400,250,400,60);
+        pass.setBounds(400, 250, 400, 60);
         c.add(pass);
 
         JButton cancel = new JButton("Cancel");
-        cancel.setBounds(400,400,180,40);
+        cancel.setBounds(400, 400, 180, 40);
         c.add(cancel);
 
         btn = new JButton("Create");
-        btn.setBounds(620,400,180,40);
-        btn.setBackground(new Color(53,32,88));
+        btn.setBounds(620, 400, 180, 40);
+        btn.setBackground(new Color(53, 32, 88));
         btn.setForeground(Color.white);
         c.add(btn);
         c.setBackground(Color.red);
 //        return c;
 
-        layout = new Layout(c, "Feature register");
+        layout = new Layout(c, "Feature register", socket);
 
 
-
-    }
+//     public static void main(String args[]) throws IOException {
+//         new Layout(new FeatureRegister().init(), "Feature Register");
+//     }
 
 //    public static void main(String args[]) throws IOException {
 //        new FeatureRegister().init();
 //    }
+    }
 }

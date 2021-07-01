@@ -2,7 +2,9 @@ package com.customify.cli.services;
 
 import com.customify.cli.Colors;
 import com.customify.cli.SendToServer;
+import com.customify.cli.data_format.GetWinnersDataFormat;
 import com.customify.cli.data_format.Sale.SaleDataFormat;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -88,6 +90,7 @@ public class SalesService {
             ioException.printStackTrace();
         }
     }
+
 
    private void handleCreateSale()  {
         try{

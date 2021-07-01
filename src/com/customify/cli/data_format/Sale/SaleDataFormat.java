@@ -19,6 +19,10 @@ public class SaleDataFormat {
         this.productID = productID;
     }
 
+    public SaleDataFormat() {
+
+    }
+
     public Keys getKey() {
         return key;
     }

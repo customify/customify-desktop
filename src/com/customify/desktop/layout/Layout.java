@@ -1,8 +1,13 @@
 package com.customify.desktop.layout;
 
+import com.customify.cli.services.AuthService;
+import com.customify.cli.utils.authorization.UserSession;
 import com.customify.desktop.components.FeatureRegister;
 import com.customify.desktop.components.Sidebar;
 import com.customify.desktop.enums.UserRoles;
+import com.customify.desktop.utils.RouteWindow;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,13 +16,40 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.Socket;
 
 public class Layout  {
-    public Layout(Container body, String title) throws IOException {
+    public Socket socket;
+
+//    public Layout(Socket socket){
+//      this.socket = socket;
+//    }
+    public Layout(Container body, String title, Socket socket) throws IOException {
         JFrame frame = new JFrame(title);
         frame.setBackground(Color.white);
         FeatureRegister featureRegister = new FeatureRegister();
         JPanel sidebar = new Sidebar(UserRoles.BUSINESS_OWNER, frame);
+
+//        System.out.println("IN Layo: "+new AuthService().getLoggedInUser());
+//        JPanel sidebar = new Sidebar(new AuthService().getLoggedInUser(), frame);
+
+
+        UserSession userSession = new UserSession();
+//        if(userSession.isLoggedIn())
+//        {
+            String json = userSession.getUserJsonObject();
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(json);
+//            RouteWindow route = new RouteWindow(jsonNode.get("appUser").asText(),this.socket);
+//          new Sidebar(this.socket);
+          Sidebar sidebar =  new Sidebar(jsonNode.get("appUser").asText(), frame, socket);
+        System.out.println("JSON: "+jsonNode.get("appUser").asText());
+//        }else{
+//            openLogin=true;
+//            this.view();
+//        }
+
+
         JPanel navbar = new JPanel();
 
         /*   header starts */
@@ -69,7 +101,7 @@ public class Layout  {
 
         navbar.add(imageLabel,gbc);
 
-        JLabel name = new JLabel("Gisa Kaze Fredson");;
+        JLabel name = new JLabel(jsonNode.get("firName").asText() + " " + jsonNode.get("lasName").asText());;
         name.setForeground(Color.white);
         name.setFont(name.getFont().deriveFont(16.0f));
 

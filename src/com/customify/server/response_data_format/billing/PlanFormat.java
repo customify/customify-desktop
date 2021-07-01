@@ -7,9 +7,9 @@ package com.customify.server.response_data_format.billing;
 
 import com.customify.server.models.billing.PlanModel;
 
-public class PlanFormat extends PlanModel<Integer, String, String> {
+public class PlanFormat extends PlanModel<Integer, String, String,Integer> {
     public PlanFormat(){}
-    public PlanFormat(Integer planId, String planTitle, String planDescription) {
-        super(planId, planTitle, planDescription);
+    public PlanFormat(int planId, String planTitle, String planDescription, int price) {
+        super(planId, planTitle, planDescription, price);
     }
 }

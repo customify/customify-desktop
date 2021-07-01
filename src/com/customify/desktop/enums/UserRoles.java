@@ -1,5 +1,5 @@
 package com.customify.desktop.enums;
 
 public enum UserRoles {
-    ADMIN,EMPLOYEE, BUSINESS_OWNER
+    SUPER_ADMIN,EMPLOYEE, BUSINESS_ADMIN
 }

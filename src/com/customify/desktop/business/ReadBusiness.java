@@ -2,6 +2,7 @@ package com.customify.desktop.business;
 
 import com.customify.cli.Keys;
 import com.customify.cli.services.BusinessService;
+import com.customify.desktop.layout.Layout;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -46,13 +47,21 @@ public class ReadBusiness extends JPanel {
         header.setBackground(Color.white);
 
         JPanel newButton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        newButton.setPreferredSize(new Dimension(100, 30));
-        JLabel bLabel = new JLabel("New");
-        bLabel.setPreferredSize(new Dimension(100, 30));
+//        newButton.setPreferredSize(new Dimension(100, 30));
+        JButton bLabel = new JButton("New");
         bLabel.setFont(new Font("Montserrat", Font.PLAIN, 13));
-        bLabel.setForeground(new Color(53,32,88));
-        bLabel.setBackground(Color.white);
-        bLabel.setBorder(new CompoundBorder(bLabel.getBorder(), new EmptyBorder(10,40,20,10)));
+        bLabel.setForeground(Color.white);
+        bLabel.setBackground(new Color(53,32,88));
+        bLabel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    new Layout(new NewBusiness(socket),"Create a new business ", socket);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         createTable();
 
@@ -163,6 +172,15 @@ public class ReadBusiness extends JPanel {
 //        this.searchResult= service.getById(json);
 //        this.searched = true;
 //    }
+        this.bussData= service.getAllBusinesses(json);
+    }
+
+    private void search(String searchTerm) throws IOException, ClassNotFoundException {
+        BusinessService service = new BusinessService(this.socket);
+        String json = "{ \"name\" : \""+searchTerm+"\", \"key\" : \""+ Keys.GET_BUSINESSES_BY_NAME +"\" }";
+        this.searchResult= service.searchByName(json);
+        this.searched = true;
+    }
 
     class SearchActionListener implements ActionListener{
 
@@ -174,6 +192,7 @@ public class ReadBusiness extends JPanel {
                         resetButton.setVisible(true);
                     }
 //                    search(searchField.getText());
+                    search(searchField.getText());
                     model = new DefaultTableModel();
                     model.setColumnIdentifiers(column);
                     table.setModel(model);
@@ -187,6 +206,8 @@ public class ReadBusiness extends JPanel {
                     }
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
+                } catch (ClassNotFoundException classNotFoundException) {
+                    classNotFoundException.printStackTrace();
                 }
             }
 
@@ -217,4 +238,5 @@ public class ReadBusiness extends JPanel {
             }
         }
     }
+}
 }
