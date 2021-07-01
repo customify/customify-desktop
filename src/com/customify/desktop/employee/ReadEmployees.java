@@ -1,42 +1,23 @@
 package com.customify.desktop.employee;
 
-import com.customify.cli.utils.authorization.structure.EmployeeUser;
-import com.customify.desktop.business.NewBusiness;
-import com.customify.desktop.business.Search;
-//import com.customify.desktop.components.FormControl;
+import com.customify.cli.services.EmployeeService;
 import com.customify.desktop.layout.Layout;
-import com.customify.desktop.services.EmployeeService;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class ReadEmployees extends Container {
     public Layout layout;
     public Socket socket;
 
-    String data[][]={
-            {"101","Amit","670000","670000","670000","670000","670000"},
-            {"102","Jai","670000","670000","670000","670000","670000"},
-            {"102","Jai","670000","670000","670000","670000","670000"},
-            {"102","Jai","670000","670000","670000","670000","670000"},
-            {"102","Jai","670000","670000","670000","670000","670000"},
-            {"102","Jai","670000","670000","670000","670000","670000"},
-            {"101","Sachin","670000","670000","670000","670000","670000"},
-            {"102","Jai","670000","670000","670000","670000","670000"},
-            {"102","Jai","670000","670000","670000","670000","670000"},
-            {"102","Jai","670000","670000","670000","670000","670000"},
-    };
-    String column[]={"Employee ID","First Name","Last Name", "Email", "Title","Action"};
+    String column[]={"Employee ID","First Name","Last Name", "Email", "Title","Action",""};
 
     public ReadEmployees(Socket socket,JFrame closableFrame) throws IOException {
         this.socket = socket;
@@ -90,17 +71,16 @@ public class ReadEmployees extends Container {
             }
         });
 
-       /* table.setModel(new DefaultTableModel(
+        table.setModel(new DefaultTableModel(
                 loadData(),
                 column
         ));
-*/
-        DefaultTableModel model = new DefaultTableModel();
+      /*  DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(column);
         table.setModel(model);
         for (int i = 0; i < 9; i++) {
             model.addRow(new Object[]{data[i][0],data[i][1],data[i][2],data[i][3],data[i][4],data[i][5]});
-        }
+        }*/
 
         /*
         JTableHeader tableHeader = table.getTableHeader();
@@ -127,10 +107,19 @@ public class ReadEmployees extends Container {
     }
 
     private String[][] loadData() throws IOException {
-        String data[][] = {};
+        java.util.List<String> json_records =new ArrayList<>();
+        json_records = new EmployeeService(this.socket).getAll();
 
-//        List employees = new EmployeeService(this.socket).getAll();
+        String data[][] = new String[json_records.size()][];
 
-        return this.data;
+        if (json_records != null || json_records.size() > 0) {
+            for (int i = 0; i < json_records.size(); i++) {
+                ObjectMapper objectMapper = new ObjectMapper();
+                JsonNode jsonNode = objectMapper.readTree(json_records.get(i));
+                data[i] = new String[]{jsonNode.get("employeeId").asText(), jsonNode.get("firstName").asText(), jsonNode.get("lastName").asText(), jsonNode.get("email").asText(),jsonNode.get("title").asText(),"edit","delete"};
+            }
+        }
+
+        return data;
     }
 }

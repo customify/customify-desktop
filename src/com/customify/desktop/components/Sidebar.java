@@ -2,6 +2,7 @@ package com.customify.desktop.components;
 
 import com.customify.desktop.business.ReadBusiness;
 import com.customify.desktop.customerFeedback.CustomerFeedbackForm;
+import com.customify.desktop.employee.ReadEmployees;
 import com.customify.desktop.employee.UpdateEmployee;
 import com.customify.desktop.layout.Layout;
 import com.customify.desktop.plans.ui.PlanAssign;
@@ -90,11 +91,11 @@ public class Sidebar extends JPanel {
             case "EMPLOYEE":
                 navBarItems.add(overView);
                 navBarItems.add(customers);
+                navBarItems.add(employees);
                 navBarItems.add(sales);
                 navBarItems.add(settings);
                 navBarItems.add(plans);
                 navBarItems.add(features);
-                navBarItems.add(employees);
                 break;
         }
 
@@ -131,8 +132,7 @@ public class Sidebar extends JPanel {
         employees.addActionListener(e -> {
             closableFrame.dispose();
             try {
-                UpdateEmployee updateEmployee=new UpdateEmployee(socket,closableFrame);
-                updateEmployee.init();
+                new ReadEmployees(socket,closableFrame );
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
