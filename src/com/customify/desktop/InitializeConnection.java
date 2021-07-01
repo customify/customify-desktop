@@ -33,7 +33,7 @@ public class InitializeConnection {
         try {
             Socket socket = new Socket(serverIp, portNumber);
 
-            new Layout(new ReadCustomer(socket),"ALL CUSTOMERS");
+//            new Layout(new ReadCustomer(socket),"ALL CUSTOMERS");
             Container container = new Container();
 
 //            new Layout(new NewBusiness(socket), "New business");

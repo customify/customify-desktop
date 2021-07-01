@@ -2,6 +2,7 @@ package com.customify.desktop.customer;
 
 import com.customify.cli.Keys;
 import com.customify.cli.services.BusinessService;
+import com.customify.desktop.layout.Layout;
 import com.customify.desktop.services.CustomerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -106,6 +107,9 @@ public class ReadCustomer extends JPanel {
 
         add(main);
         setBackground(Color.WHITE);
+        Container container = new Container();
+        container.add(main);
+        new Layout(container,"ALL CUSTOMERS",socket);
     }
 
 

@@ -1,6 +1,7 @@
 package com.customify.desktop.components;
 
 import com.customify.desktop.business.ReadBusiness;
+import com.customify.desktop.customer.ReadCustomer;
 import com.customify.desktop.customerFeedback.CustomerFeedbackForm;
 import com.customify.desktop.employee.UpdateEmployee;
 import com.customify.desktop.features.Features;
@@ -76,6 +77,7 @@ public class Sidebar extends JPanel {
                 navBarItems.add(subscription);
                 navBarItems.add(settings);
                 navBarItems.add(employees);
+                navBarItems.add(customers);
                 break;
             case "BUSINESS_ADMIN":
                 navBarItems.add(overView);
@@ -104,7 +106,8 @@ public class Sidebar extends JPanel {
                 navBarItems.add(settings);
                 navBarItems.add(plans);
                 navBarItems.add(features);
-                navBarItems.add(employees);
+//                navBarItems.add(employees);
+                navBarItems.add(customers);
                 break;
         }
 
@@ -178,6 +181,19 @@ public class Sidebar extends JPanel {
 //            }
 //        });
 
+        customers.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closableFrame.dispose();
+                try {
+                    ReadCustomer readCustomer = new ReadCustomer(socket);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                } catch (ClassNotFoundException classNotFoundException) {
+                    classNotFoundException.printStackTrace();
+                }
+            }
+        });
         //open business feedback
         ActionListener triggerFeedback = new ActionListener() {
             @Override
@@ -237,7 +253,7 @@ public class Sidebar extends JPanel {
                     PointsServices pointsServices = new PointsServices();
                     pointsServices.init(socket, closableFrame);
 
-                } catch (IOException | ClassNotFoundException ioException) {
+                } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
             }

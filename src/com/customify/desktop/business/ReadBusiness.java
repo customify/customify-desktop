@@ -172,8 +172,8 @@ public class ReadBusiness extends JPanel {
 //        this.searchResult= service.getById(json);
 //        this.searched = true;
 //    }
-        this.bussData= service.getAllBusinesses(json);
-    }
+//        this.bussData= service.getAllBusinesses(json);
+//    }
 
     private void search(String searchTerm) throws IOException, ClassNotFoundException {
         BusinessService service = new BusinessService(this.socket);
@@ -239,4 +239,4 @@ public class ReadBusiness extends JPanel {
         }
     }
 }
-}
+
