@@ -47,15 +47,15 @@ public class ReadCustomer extends JPanel {
         headline.setForeground(new Color(53,32,88));
         header.setBackground(Color.white);
 
-        JPanel newButton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        newButton.setPreferredSize(new Dimension(100, 30));
-        JLabel bLabel = new JLabel("New");
-        bLabel.setPreferredSize(new Dimension(100, 30));
-        bLabel.setFont(new Font("Montserrat", Font.PLAIN, 13));
-        bLabel.setForeground(new Color(53,32,88));
-        bLabel.setBackground(Color.white);
-        bLabel.setBorder(new CompoundBorder(bLabel.getBorder(), new EmptyBorder(10,40,20,10)));
-
+//        JPanel newButton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+//        newButton.setPreferredSize(new Dimension(100, 30));
+//        JLabel bLabel = new JLabel("New");
+//        bLabel.setPreferredSize(new Dimension(100, 30));
+//        bLabel.setFont(new Font("Montserrat", Font.PLAIN, 13));
+//        bLabel.setForeground(new Color(53,32,88));
+//        bLabel.setBackground(Color.white);
+//        bLabel.setBorder(new CompoundBorder(bLabel.getBorder(), new EmptyBorder(10,40,20,10)));
+//
         createTable();
 
         //search/////////
@@ -109,8 +109,8 @@ public class ReadCustomer extends JPanel {
         });
 
         header.add(headline);
-        newButton.add(bLabel);
-        header.add(newButton);
+//        newButton.add(bLabel);
+//        header.add(newButton);
         header.setBorder(BorderFactory.createEmptyBorder(1,-390,3,1));
 
         main.add(header);
