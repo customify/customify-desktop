@@ -4,6 +4,7 @@ import com.customify.desktop.business.ReadBusiness;
 import com.customify.desktop.customerFeedback.CustomerFeedbackForm;
 import com.customify.desktop.employee.ReadEmployees;
 import com.customify.desktop.employee.UpdateEmployee;
+import com.customify.desktop.features.Features;
 import com.customify.desktop.layout.Layout;
 import com.customify.desktop.plans.ui.PlanAssign;
 import com.customify.desktop.plans.ui.PlanHome;
@@ -27,14 +28,15 @@ public class Sidebar extends JPanel {
     public String role;
 
 
-    public Sidebar(){}
+    public Sidebar() {
+    }
 
 
 //    public Sidebar(Socket socket){
 //        this.socket = socket;
 //    }
 
-    public Sidebar(String role,JFrame closableFrame, Socket socket) throws IOException {
+    public Sidebar(String role, JFrame closableFrame, Socket socket) throws IOException {
         setBackground(new Color(53, 32, 88));
         setBounds(0, 0, 300, 1080);
         setLayout(null);
@@ -62,10 +64,10 @@ public class Sidebar extends JPanel {
         JButton winners = new SideBarListItem("4. contacts.png", "Winners");
 
 
-        System.out.println("Test........."+role);
+        System.out.println("Test........." + role);
 
 
-        switch (role){
+        switch (role) {
             case "SUPER_ADMIN":
                 navBarItems.add(overView);
                 navBarItems.add(business);
@@ -100,7 +102,6 @@ public class Sidebar extends JPanel {
         }
 
 
-
         JPanel line = new JPanel();
         line.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(164, 166, 179)));
         line.setSize(100, 100);
@@ -109,17 +110,17 @@ public class Sidebar extends JPanel {
 
         //open features event
 
-        features.addActionListener(e->{
-            closableFrame.dispose();
-            try {
-                featureRegister = new FeatureRegister();
-                featureRegister.init(socket);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        });
+//        features.addActionListener(e->{
+//            closableFrame.dispose();
+//            try {
+//                featureRegister = new FeatureRegister();
+//                featureRegister.init(socket);
+//            } catch (IOException ioException) {
+//                ioException.printStackTrace();
+//            }
+//        });
 
-        plans.addActionListener(e->{
+        plans.addActionListener(e -> {
             closableFrame.dispose();
             try {
                 PlanHome planHome = new PlanHome();
@@ -129,118 +130,127 @@ public class Sidebar extends JPanel {
             }
         });
 
+        features.addActionListener(e -> {
+            closableFrame.dispose();
+            try {
+                Features features1 = new Features();
+                features1.init(socket);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+
         employees.addActionListener(e -> {
             closableFrame.dispose();
             try {
-                new ReadEmployees(socket,closableFrame );
+                new ReadEmployees(socket, closableFrame);
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
         });
-        /*
-        business.addActionListener(e->{
-            closableFrame.dispose();
-            try {
-                ReadBusiness readBusiness = new ReadBusiness(socket,closableFrame);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
+//        business.addActionListener(e->{
+//            closableFrame.dispose();
+//            try {
+//                ReadBusiness readBusiness = new ReadBusiness(socket,closableFrame);
+//            } catch (IOException | ClassNotFoundException ioException) {
+//                ioException.printStackTrace();
+//            }
+//        //open business event
+//        ActionListener triggerBusiness = new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                closableFrame.dispose();
+//                try {
+//                    new Layout(new ReadBusiness(socket,closableFrame), "Read All businesses", socket);
+//
+//                } catch (IOException | ClassNotFoundException ioException) {
+//                    ioException.printStackTrace();
+//                }
+//            }
+//        });
+
+        //open business feedback
+        ActionListener triggerFeedback = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closableFrame.dispose();
+                try {
+                    CustomerFeedbackForm customerFeedbackForm = new CustomerFeedbackForm(socket, closableFrame);
+
+                } catch (IOException | ClassNotFoundException ioException) {
+                    ioException.printStackTrace();
+                }
             }
-            //open business event
-            ActionListener triggerBusiness = new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    closableFrame.dispose();
-                    try {
-                        new Layout(new ReadBusiness(socket,closableFrame), "Read All businesses", socket);
 
-                    } catch (IOException | ClassNotFoundException ioException) {
-                        ioException.printStackTrace();
-                    }
+            ;
+        };
+        feedback.addActionListener(triggerFeedback);
+        //open sales feedback
+        ActionListener triggerSales = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closableFrame.dispose();
+                try {
+                    Sales sales = new Sales();
+                    sales.DisplaySales(socket, closableFrame);
+
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
                 }
-            });
-*/
-            //open business feedback
-            ActionListener triggerFeedback = new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    closableFrame.dispose();
-                    try {
-                        CustomerFeedbackForm customerFeedbackForm = new CustomerFeedbackForm(socket,closableFrame);
+            }
+        };
+        sales.addActionListener(triggerSales);
 
-                    } catch (IOException | ClassNotFoundException ioException) {
-                        ioException.printStackTrace();
-                    }
+
+        //open sales feedback
+        ActionListener triggerProducts = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closableFrame.dispose();
+                try {
+                    ReadProduct products = new ReadProduct(socket, closableFrame);
+
+
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
                 }
-            };
-            feedback.addActionListener(triggerFeedback);
+            }
+        };
+        product.addActionListener(triggerProducts);
 
-            //open sales feedback
-            ActionListener triggerSales = new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    closableFrame.dispose();
-                    try {
-                        Sales sales = new Sales();
-                        sales.DisplaySales(socket, closableFrame);
 
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
-                    }
+        //open sales feedback
+        ActionListener triggerWinners = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closableFrame.dispose();
+                try {
+                    PointsServices pointsServices = new PointsServices();
+                    pointsServices.init(socket, closableFrame);
+
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
                 }
-            };
-            sales.addActionListener(triggerSales);
+            }
+        };
+        winners.addActionListener(triggerWinners);
 
 
-            //open sales feedback
-            ActionListener triggerProducts = new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    closableFrame.dispose();
-                    try {
-                        ReadProduct products = new ReadProduct(socket, closableFrame);
-
-
-
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
-                    }
-                }
-            };
-            product.addActionListener(triggerProducts);
-
-
-            //open sales feedback
-            ActionListener triggerWinners = new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    closableFrame.dispose();
-                    try {
-                        PointsServices pointsServices = new PointsServices();
-                        pointsServices.init(socket, closableFrame);
-
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
-                    }
-                }
-            };
-            winners.addActionListener(triggerWinners);
-
-
-            JPanel logo = logo();
-            add(logo);
-            add(navBarItems);
-        }
-
-        public JPanel logo(){
-            JPanel myLogo = new JPanel();
-            myLogo.setBackground(new Color(53,32,88));
-            myLogo.setBounds(53, 81, 200, 50);
-
-            JLabel logoName = new JLabel("Customify");
-            logoName.setFont(new Font("Montserrat", Font.BOLD, 29));
-            logoName.setForeground(new Color(164, 166, 179));
-
-            myLogo.add(logoName);
-            return myLogo;
-        }
+        JPanel logo = logo();
+        add(logo);
+        add(navBarItems);
     }
+
+    public JPanel logo() {
+        JPanel myLogo = new JPanel();
+        myLogo.setBackground(new Color(53, 32, 88));
+        myLogo.setBounds(53, 81, 200, 50);
+
+        JLabel logoName = new JLabel("Customify");
+        logoName.setFont(new Font("Montserrat", Font.BOLD, 29));
+        logoName.setForeground(new Color(164, 166, 179));
+
+        myLogo.add(logoName);
+        return myLogo;
+    }
+}
