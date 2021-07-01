@@ -146,6 +146,9 @@ public class RequestHandler {
                 customer.renableCard(json_data);
                 couponService.getAllCoupons(json_data);
                 break;
+            case GET_CUSTOMER_BY_NAME:
+                customer = new CustomerService(this.clientSocket,this.json_data);
+                customer.searchByName(json_data);
             case GET_FEATURES:
                 featureService.getAllFeature();
                 break;

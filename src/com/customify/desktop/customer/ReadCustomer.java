@@ -32,7 +32,7 @@ public class ReadCustomer extends JPanel {
     JButton resetButton;
     JTextField searchField;
     String column[]={"Customer ID","First_Name","Last_Name", "Email", "Status"};
-    public ReadCustomer(Socket socket) throws IOException, ClassNotFoundException {
+    public ReadCustomer(JFrame closableFrame,Socket socket) throws IOException, ClassNotFoundException {
         this.socket=socket;
         this.getData();
         JPanel main = new JPanel();
@@ -93,6 +93,20 @@ public class ReadCustomer extends JPanel {
         setBackground(Color.white);
 
         //search end
+
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closableFrame.dispose();
+                try {
+                    SearchCustomer searchCustomer = new SearchCustomer(socket,searchField.getText());
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                } catch (ClassNotFoundException classNotFoundException) {
+                    classNotFoundException.printStackTrace();
+                }
+            }
+        });
 
         header.add(headline);
         newButton.add(bLabel);
