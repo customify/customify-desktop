@@ -150,16 +150,13 @@ public class Sidebar extends JPanel {
         });
 
         //open business event
-        ActionListener triggerBusiness = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                closableFrame.dispose();
-                try {
-                    new Layout(new ReadBusiness(socket, closableFrame), "Read All businesses", socket);
+        ActionListener triggerBusiness = e -> {
+            closableFrame.dispose();
+            try {
+                new Layout(new ReadBusiness(socket, closableFrame), "Read All businesses", socket);
 
-                } catch (IOException | ClassNotFoundException ioException) {
-                    ioException.printStackTrace();
-                }
+            } catch (IOException | ClassNotFoundException ioException) {
+                ioException.printStackTrace();
             }
         };
 
