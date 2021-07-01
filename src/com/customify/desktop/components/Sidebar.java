@@ -23,18 +23,19 @@ public class Sidebar extends JPanel {
     public Overview overview = new Overview();
     public Layout layout;
     public FeatureRegister featureRegister;
-//    public Socket socket;
+    //    public Socket socket;
     public String role;
 
 
-    public Sidebar(){}
+    public Sidebar() {
+    }
 
 
 //    public Sidebar(Socket socket){
 //        this.socket = socket;
 //    }
 
-    public Sidebar(String role,JFrame closableFrame, Socket socket) throws IOException {
+    public Sidebar(String role, JFrame closableFrame, Socket socket) throws IOException {
         setBackground(new Color(53, 32, 88));
         setBounds(0, 0, 300, 1080);
         setLayout(null);
@@ -62,10 +63,10 @@ public class Sidebar extends JPanel {
         JButton winners = new SideBarListItem("4. contacts.png", "Winners");
 
 
-        System.out.println("Test........."+role);
+        System.out.println("Test........." + role);
 
 
-        switch (role){
+        switch (role) {
             case "SUPER_ADMIN":
                 navBarItems.add(overView);
                 navBarItems.add(business);
@@ -100,7 +101,6 @@ public class Sidebar extends JPanel {
         }
 
 
-
         JPanel line = new JPanel();
         line.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(164, 166, 179)));
         line.setSize(100, 100);
@@ -119,7 +119,7 @@ public class Sidebar extends JPanel {
 //            }
 //        });
 
-        plans.addActionListener(e->{
+        plans.addActionListener(e -> {
             closableFrame.dispose();
             try {
                 PlanHome planHome = new PlanHome();
@@ -129,7 +129,7 @@ public class Sidebar extends JPanel {
             }
         });
 
-        features.addActionListener(e->{
+        features.addActionListener(e -> {
             closableFrame.dispose();
             try {
                 Features features1 = new Features();
@@ -142,32 +142,28 @@ public class Sidebar extends JPanel {
         employees.addActionListener(e -> {
             closableFrame.dispose();
             try {
-                UpdateEmployee updateEmployee=new UpdateEmployee(socket,closableFrame);
+                UpdateEmployee updateEmployee = new UpdateEmployee(socket, closableFrame);
                 updateEmployee.init();
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
         });
-//        business.addActionListener(e->{
-//            closableFrame.dispose();
-//            try {
-//                ReadBusiness readBusiness = new ReadBusiness(socket,closableFrame);
-//            } catch (IOException | ClassNotFoundException ioException) {
-//                ioException.printStackTrace();
-//            }
-//        //open business event
-//        ActionListener triggerBusiness = new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                closableFrame.dispose();
-//                try {
-//                    new Layout(new ReadBusiness(socket,closableFrame), "Read All businesses", socket);
-//
-//                } catch (IOException | ClassNotFoundException ioException) {
-//                    ioException.printStackTrace();
-//                }
-//            }
-//        });
+
+        //open business event
+        ActionListener triggerBusiness = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closableFrame.dispose();
+                try {
+                    new Layout(new ReadBusiness(socket, closableFrame), "Read All businesses", socket);
+
+                } catch (IOException | ClassNotFoundException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+        };
+
+        business.addActionListener(triggerBusiness);
 
         //open business feedback
         ActionListener triggerFeedback = new ActionListener() {
@@ -175,13 +171,14 @@ public class Sidebar extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 closableFrame.dispose();
                 try {
-                    CustomerFeedbackForm customerFeedbackForm = new CustomerFeedbackForm(socket,closableFrame);
+                    CustomerFeedbackForm customerFeedbackForm = new CustomerFeedbackForm(socket, closableFrame);
 
                 } catch (IOException | ClassNotFoundException ioException) {
                     ioException.printStackTrace();
                 }
             }
         };
+
         feedback.addActionListener(triggerFeedback);
 
         //open sales feedback
@@ -208,7 +205,6 @@ public class Sidebar extends JPanel {
                 closableFrame.dispose();
                 try {
                     ReadProduct products = new ReadProduct(socket, closableFrame);
-
 
 
                 } catch (IOException ioException) {
@@ -241,9 +237,9 @@ public class Sidebar extends JPanel {
         add(navBarItems);
     }
 
-    public JPanel logo(){
+    public JPanel logo() {
         JPanel myLogo = new JPanel();
-        myLogo.setBackground(new Color(53,32,88));
+        myLogo.setBackground(new Color(53, 32, 88));
         myLogo.setBounds(53, 81, 200, 50);
 
         JLabel logoName = new JLabel("Customify");
