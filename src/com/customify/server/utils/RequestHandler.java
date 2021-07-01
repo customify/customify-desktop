@@ -41,7 +41,7 @@ public class RequestHandler {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(json_data);
         this.key = Keys.valueOf(jsonNode.get("key").asText());
-        this.handleRequest();
+//        this.handleRequest();
     }
 
     public void handleRequest() throws Exception {

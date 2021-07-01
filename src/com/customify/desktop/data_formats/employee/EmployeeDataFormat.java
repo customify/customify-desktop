@@ -13,16 +13,16 @@ public class EmployeeDataFormat {
     private String email;
     private String title;
     private int businessId;
+    private String password;
     private String createdAt;
     public Keys key;
 
-    public EmployeeDataFormat(String firstName, String lastName, String email, String title, int businessId) {
+    public EmployeeDataFormat(String firstName, String lastName, String email, String title, int businessId ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.title = title;
         this.businessId = businessId;
-
         this.empId = this.generateId();
         this.createdAt = LocalDate.now().toString();
     }
@@ -33,6 +33,7 @@ public class EmployeeDataFormat {
         this.email = email;
         this.title = title;
         this.businessId = businessId;
+        this.password = password;
 
         this.empId = this.generateId();
         this.createdAt = LocalDate.now().toString();

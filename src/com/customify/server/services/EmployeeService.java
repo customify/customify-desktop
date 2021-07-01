@@ -40,18 +40,19 @@ public class EmployeeService {
     }
 
     public void create(String json_data) throws SQLException, IOException {
+        System.out.println("request was received at server");
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(json_data);
         String email = jsonNode.get("email").asText();
-        String firName = jsonNode.get("firName").asText();
-        String lasName = jsonNode.get("lasName").asText();
+        String firName = jsonNode.get("firstName").asText();
+        String lasName = jsonNode.get("lastName").asText();
         String title = jsonNode.get("title").asText();
         String password = jsonNode.get("password").asText();
-//        String bussiness_id = jsonNode.get("bussiness_id").asText();
+        String businessId = jsonNode.get("businessId").asText();
 
         Connection connection = Db.getConnection();
 
-        String query = "INSERT INTO EMployee (emp_id,firName,lasName,email,title,password) VALUES(?,?, ?, ?, ?, ?)";
+        String query = "INSERT INTO EMployee (emp_id,firName,lasName,email,title,password,business_id) VALUES(?,?, ?, ?, ?, ?, ?)";
         CreateFormat format;
 
         try {
@@ -62,6 +63,7 @@ public class EmployeeService {
             statement.setString(4, email);
             statement.setString(5, title);
             statement.setString(6 , password);
+            statement.setString(7 , businessId);
 
             int i = statement.executeUpdate();
             if (i > 0) {
