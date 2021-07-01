@@ -10,11 +10,14 @@ import java.sql.Connection;
 
 public class FeatureDao {
     private static Connection con;
-
+    String conString = "jdbc:mysql://bfdc6au0tcay6gxeuohp-mysql.services.clever-cloud.com:3306/bfdc6au0tcay6gxeuohp";
+    String username = "uqq6c1ewt1hkbzwd";
+    String password = "jaW3mRUAAwzTAiOTVkZu";
     public FeatureDao(){
         if(con == null){
             try {
-                con = Db.getConnection();
+                con =  DriverManager.getConnection(conString, username, password);
+                System.out.println(con==null);
             }catch(Exception e) {
                 e.printStackTrace();
             }
@@ -28,7 +31,7 @@ public class FeatureDao {
      */
     public ArrayList<Feature> searchFeature(String key){
         ArrayList<Feature> result = new ArrayList<Feature>();
-        String sql = "SELECT * FROM Featuress WHERE name LIKE ?";
+        String sql = "SELECT * FROM Features WHERE featureName LIKE ?";
 
         try{
             PreparedStatement ps = con.prepareStatement(sql);
@@ -36,11 +39,12 @@ public class FeatureDao {
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Feature feature = new Feature();
-                feature.setId(rs.getInt("id"));
-                feature.setName(rs.getString("name"));
-                feature.setDescription(rs.getString("description"));
+                feature.setId(rs.getInt("featureId"));
+                feature.setName(rs.getString("featureName"));
+                feature.setDescription(rs.getString("featureDescription"));
                 result.add(feature);
             }
+            System.out.println(result);
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -51,8 +55,24 @@ public class FeatureDao {
      * update the @feature
      * @param feature
      */
+    public void saveFeature(Feature feature){
+        String sql = "INSERT Features SET featureName=?, featureDescription=? ";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, feature.getName());
+            ps.setString(2, feature.getDescription());
+            ps.executeUpdate();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * update the @feature
+     * @param feature
+     */
     public void editFeature(Feature feature){
-        String sql = "UPDATE Featuress SET name=?, description=? WHERE id=?";
+        String sql = "UPDATE Features SET featureName=?, featureDescription=? WHERE featureId=?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, feature.getName());
@@ -70,7 +90,7 @@ public class FeatureDao {
      * @param id
      */
     public void deleteFeature(int id){
-        String sql = "DELETE FROM Features WHERE id=?";
+        String sql = "DELETE FROM Features WHERE featureId=?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);

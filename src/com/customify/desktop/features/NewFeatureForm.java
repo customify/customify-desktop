@@ -10,7 +10,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.*;
 
-public class EditFeatureForm extends JFrame implements ActionListener{
+public class NewFeatureForm extends JFrame implements ActionListener{
     private SearchFeatureForm parent;
     private Feature client;
     private int index;
@@ -18,19 +18,18 @@ public class EditFeatureForm extends JFrame implements ActionListener{
     private JButton btnUpdate, btnReset;
 
 
-    public EditFeatureForm(SearchFeatureForm parent, Feature client, int index){
+    public NewFeatureForm(SearchFeatureForm parent, int index){
 
 
-        super("Edit a Feature");
+        super("Add a Feature");
         this.parent = parent;
-        this.client = client;
         this.index = index;
 
         txtId = new JTextField(15);
         txtId.setEditable(false);
         txtName = new JTextField(15);
         txtDescription = new JTextField(15);
-        btnUpdate = new JButton("Update");
+        btnUpdate = new JButton("Save");
         btnReset = new JButton("Reset");
 
         JPanel content = new JPanel();
@@ -38,10 +37,10 @@ public class EditFeatureForm extends JFrame implements ActionListener{
 
 
         content.setLayout(new GridLayout(7,2));
-        content.add(new JLabel("ID:"));     content.add(txtId);
+//        content.add(new JLabel("ID:"));     content.add(txtId);
         content.add(new JLabel("Name:"));     content.add(txtName);
         content.add(new JLabel("Description:"));     content.add(txtDescription);
-        content.add(btnUpdate);     content.add(btnReset);
+        content.add(btnUpdate);
 
         btnUpdate.addActionListener(this);
         btnReset.addActionListener(this);
@@ -54,11 +53,8 @@ public class EditFeatureForm extends JFrame implements ActionListener{
     }
 
     private void initForm(){
-        if(client != null){
-            txtId.setText(client.getId()+"");
-            txtName.setText(client.getName());
-            txtDescription.setText(client.getDescription());
-        }
+            txtName.setText("");
+            txtDescription.setText("");
     }
 
     @Override
@@ -79,8 +75,8 @@ public class EditFeatureForm extends JFrame implements ActionListener{
         client.setDescription(txtDescription.getText());
 
         FeatureDao clientDAO = new FeatureDao();
-        clientDAO.editFeature(client);
-        parent.refreshResultAfterUpdate(index, client);
+        clientDAO.saveFeature(client);
+        parent.refreshResultAfterUpdate(index+1, client);
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 

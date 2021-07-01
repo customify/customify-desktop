@@ -43,7 +43,6 @@ public void login() throws IOException, SQLException {
     String password = jsonNode.get("password").asText();
 
     Connection connection = Db.getConnection();
-
     String query = "SELECT * FROM Employee WHERE password='"+password+"' AND email='"+email+"'";
 
     try {

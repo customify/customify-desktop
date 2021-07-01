@@ -21,7 +21,7 @@ public class SearchFeatureForm extends JPanel implements ActionListener{
     private ArrayList<Feature> listFeature;
     private ArrayList<JButton> listEdit, listDelete;
     private JTextField txtKey;
-    private JButton btnSearch;
+    private JButton btnSearch,newButton;
     private JTable tblResult;
 
     public SearchFeatureForm(){
@@ -30,9 +30,32 @@ public class SearchFeatureForm extends JPanel implements ActionListener{
         listEdit = new ArrayList<JButton>();
         listDelete = new ArrayList<JButton>();
 
+
+
         JPanel pnMain = new JPanel();
         pnMain.setSize(this.getSize().width-5, this.getSize().height-20);
         pnMain.setLayout(new BoxLayout(pnMain,BoxLayout.Y_AXIS));
+
+        JPanel pnew = new JPanel();
+        pnew.setLayout(new BoxLayout(pnew,BoxLayout.X_AXIS));
+        pnew.setSize(this.getSize().width-5, 140);
+
+        JLabel heading = new JLabel("Billing Features");
+        heading.setFont(new Font("Tahoma", Font.BOLD, 20));
+        heading.setBounds(30, 42, 700, 150);
+        heading.setForeground(new Color(53, 32, 88));
+        pnew.add(heading);
+
+        newButton = new JButton("+ New");
+        newButton.setBounds(700,50,90, 65);
+        newButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        newButton.setForeground(new Color(53, 32, 88));
+        newButton.setBorder(BorderFactory.createLineBorder(new Color(53, 32, 88),1));
+        newButton.setBackground(Color.white);
+        pnew.setSize(new Dimension(800, 100));
+        pnew.add(newButton);
+
+
 
         JPanel pn1 = new JPanel();
         pn1.setLayout(new BoxLayout(pn1,BoxLayout.X_AXIS));
@@ -43,12 +66,14 @@ public class SearchFeatureForm extends JPanel implements ActionListener{
         pn1.add(txtKey);
         btnSearch = new JButton("Search ");
         btnSearch.addActionListener(this);
+        newButton.addActionListener(this);
         btnSearch.setFont(new Font("Tahoma", Font.PLAIN, 16));
         btnSearch.setForeground(Color.white);
         btnSearch.setBorder(BorderFactory.createLineBorder(new Color(53, 32, 88),1));
         btnSearch.setBackground(new Color(53, 32, 88));
 
         pn1.add(btnSearch);
+        pnMain.add(pnew);
         pnMain.add(pn1);
 
         JPanel pn2 = new JPanel();
@@ -101,6 +126,11 @@ public class SearchFeatureForm extends JPanel implements ActionListener{
             btnSearchClick();
             return;
         }
+        if(btnClicked.equals(newButton)){
+            btnNewClick(listFeature.size()-1);
+            return;
+        }
+
         for(int i=0; i<listEdit.size(); i++)
             if(btnClicked.equals(listEdit.get(i))){
                 btnEditClick(i);
@@ -142,10 +172,15 @@ public class SearchFeatureForm extends JPanel implements ActionListener{
      * @param index
      */
     private void btnEditClick(int index){
-
         (new EditFeatureForm(this, listFeature.get(index), index)).setVisible(true);
     }
-
+    /**
+     * processing the event that the  new button is clicked
+     * @param index
+     */
+    private void btnNewClick(int index){
+        (new NewFeatureForm(this, index)).setVisible(true);
+    }
     /**
      * enable to refresh the result table after update a feature from @Update form
      * @index: the index of updated feature in the list
