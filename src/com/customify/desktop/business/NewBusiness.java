@@ -2,6 +2,7 @@ package com.customify.desktop.business;
 
 import com.customify.desktop.Keys;
 import com.customify.desktop.data_formats.business.BusinessFormat;
+import com.customify.desktop.layout.Layout;
 import com.customify.desktop.services.BusinessService;
 import com.customify.desktop.utils.interfaces.IInputChangedEventListener;
 
@@ -66,6 +67,7 @@ public class NewBusiness extends JPanel {
 
             try {
                 if (createNewBusiness() == 1) response.setText("Successfully created the business");
+                else response.setText("Please Make sure that your form is valid");
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -92,10 +94,15 @@ public class NewBusiness extends JPanel {
     }
 
     public int createNewBusiness() throws IOException, ClassNotFoundException {
-        BusinessService service = new BusinessService(this.socket);
-        this.format.setKey(Keys.CREATE_BUSINESS);
-        this.format.setRepresentative(1);
-        return service.create(this.format);
+        if (format.isValid()) {
+            BusinessService service = new BusinessService(this.socket);
+            this.format.setKey(Keys.CREATE_BUSINESS);
+            this.format.setRepresentative(1);
+            return service.create(this.format);
+        } else {
+            System.out.println("You need to submit a full filled form");
+            return -1;
+        }
     }
 
     public JPanel createNewSelect(String placeholderTextParam) {

@@ -39,11 +39,12 @@ public class EditBusiness extends JPanel {
 
         JPanel main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
-        main.setBackground(Color.white);
+        main.setBackground(Color.yellow);
         setLayout(null);
 
         JPanel header = new JPanel();
         JLabel headline = new JLabel("Edit a Business ");
+        System.out.println("AN ERROR HERE");
         headline.setPreferredSize(new Dimension(300, 70));
         headline.setFont(new Font("Montserrat", Font.BOLD, 29));
         headline.setForeground(new Color(53, 32, 88));
@@ -83,6 +84,7 @@ public class EditBusiness extends JPanel {
         btn.addActionListener(actionEvent -> {
             try {
                 if (updateBusiness() == 1) response.setText("Successfully updated the business");
+                else response.setText("Please Make sure that your form is valid");
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -110,10 +112,15 @@ public class EditBusiness extends JPanel {
     }
 
     public int updateBusiness() throws IOException, ClassNotFoundException {
-        BusinessService service = new BusinessService(this.socket);
-        this.format.setKey(Keys.EDIT_BUSINESS);
-        this.format.setRepresentative(1);
-        return service.update(this.format);
+        if (format.isValid()) {
+            BusinessService service = new BusinessService(this.socket);
+            this.format.setKey(Keys.EDIT_BUSINESS);
+            this.format.setRepresentative(1);
+            return service.update(this.format);
+        } else {
+            System.out.println("You need to submit a full filled form");
+            return -1;
+        }
     }
 
     public JPanel createNewSelect(String placeholderTextParam, String[] options, int[] values) {
@@ -168,5 +175,13 @@ public class EditBusiness extends JPanel {
         textFieldContainer.add(textField);
 
         return textFieldContainer;
+    }
+
+    public static void main(String[] args) throws Exception {
+        String serverIp = "localhost";
+        int portNumber = 3000;
+
+        Socket socket = new Socket(serverIp, portNumber);
+        new Layout(new EditBusiness(socket), "Edit a business", socket);
     }
 }
