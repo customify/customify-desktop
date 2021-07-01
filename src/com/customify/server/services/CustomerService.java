@@ -1,8 +1,10 @@
 package com.customify.server.services;
 
+import com.customify.cli.data_format.GetCustomer;
 import com.customify.server.CustomizedObjectOutputStream;
 import com.customify.server.Db.Db;
 import com.customify.server.SendToClient;
+import com.customify.server.data_format.business.BusinessRFormat;
 import com.customify.server.response_data_format.customer.CreateCustomerFormat;
 import com.customify.server.response_data_format.customer.GetAll;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -213,7 +215,7 @@ public class CustomerService {
                     stateDesc = "ACTIVE";
                 }
 
-                GetAll format = new GetAll(firstName, lastName, email, code, customerId, 200, stateDesc);
+                GetAll format = new GetAll(firstName, lastName, email, code, customerId,  stateDesc ,200);
                 json = objectMapper.writeValueAsString(format);
                 responseData.add(json);
             }
@@ -263,7 +265,7 @@ public class CustomerService {
                         stateDesc = "ACTIVE";
                     }
 
-                    GetAll format = new GetAll(firstName, lastName, email, code, customerId, 200, stateDesc);
+                    GetAll format = new GetAll(firstName, lastName, email, code, customerId, stateDesc, 200);
                     json = objectMapper.writeValueAsString(format);
 
                     responseData.add(json);
@@ -319,6 +321,56 @@ public class CustomerService {
             this.objectOutput = new CustomizedObjectOutputStream(this.output);
             System.out.println("Response "+responseData.get(0));
             objectOutput.writeObject(this.responseData);
+        }
+
+    }
+
+    public void searchByName(String input) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(input);
+        String statusCode;
+        //formatting the response into a data format
+        Statement statement = Db.getStatement();
+        String query = "Select * from Customer where name LIKE '%"+jsonNode.get("name").asText()+"%'";
+        System.out.println(jsonNode.get("name"));
+        List<String> allData = new ArrayList<>();
+        String firstName, lastName, email, code,customerId,stateDesc = "";
+        int state;
+        try {
+            statusCode = "200";
+            allData.add(statusCode);
+            ResultSet rs = statement.executeQuery(query);
+            String json;
+            while(rs.next()){
+                customerId = rs.getString("customer_id");
+                firstName = rs.getString("first_name");
+                lastName = rs.getString("last_name");
+                email = rs.getString("email");
+                code = rs.getString("code");
+                state = rs.getInt("disable");
+
+                if(state == 0){
+                    stateDesc = "INACTIVE";
+                }
+                else if(state == 1){
+                    stateDesc = "ACTIVE";
+                }
+
+                GetAll format = new GetAll(firstName, lastName, email, code, customerId, stateDesc, 200);
+                json = objectMapper.writeValueAsString(format);
+
+                responseData.add(json);
+            }
+        }
+        catch (Exception e){
+            statusCode = "500";
+            allData.add(statusCode);
+        }
+        finally{
+            this.output = socket.getOutputStream();
+            this.objectOutput = new CustomizedObjectOutputStream(this.output);
+            objectOutput.writeObject(allData);
+
         }
 
     }

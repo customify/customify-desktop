@@ -40,6 +40,7 @@ public class LoginWindow {
     }
 
 
+
     public void layout(){
         JPanel panel = new JPanel();
         BorderLayout bdl = new BorderLayout();
@@ -67,7 +68,7 @@ public class LoginWindow {
 
     public JLabel title(){
         JLabel label = new JLabel();
-        label.setText("Welcome to Customify!");
+        label.setText("WELCOME TO CUSTOMIFY !");
         label.setForeground(Color.white);
         label.setFont(new Font("SansSerif",Font.PLAIN,20));
         label.setBounds(100,350,300,200);

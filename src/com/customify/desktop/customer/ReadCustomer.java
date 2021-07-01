@@ -1,8 +1,9 @@
-package com.customify.desktop.business;
+package com.customify.desktop.customer;
 
 import com.customify.cli.Keys;
 import com.customify.cli.services.BusinessService;
 import com.customify.desktop.layout.Layout;
+import com.customify.desktop.services.CustomerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,7 +21,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
 
-public class ReadBusiness extends JPanel {
+public class ReadCustomer extends JPanel {
     private Socket socket;
     public List<String> searchResult;
     public Boolean searched=false;
@@ -30,8 +31,8 @@ public class ReadBusiness extends JPanel {
     JButton searchButton;
     JButton resetButton;
     JTextField searchField;
-    String column[]={"Business ID","Name","Location", "Address", "Phone Number", "Date created", "Action"};
-    public ReadBusiness(Socket socket, JFrame closableFrame) throws IOException, ClassNotFoundException {
+    String column[]={"Customer ID","First_Name","Last_Name", "Email", "Status"};
+    public ReadCustomer(JFrame closableFrame,Socket socket) throws IOException, ClassNotFoundException {
         this.socket=socket;
         this.getData();
         JPanel main = new JPanel();
@@ -40,28 +41,20 @@ public class ReadBusiness extends JPanel {
         setLayout(null);
 
         JPanel header = new JPanel();
-        JLabel headline = new JLabel("All businesses ");
+        JLabel headline = new JLabel("ALL CUSTOMERS ");
         headline.setPreferredSize(new Dimension(300, 100));
         headline.setFont(new Font("Montserrat", Font.BOLD, 25));
         headline.setForeground(new Color(53,32,88));
         header.setBackground(Color.white);
 
         JPanel newButton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-//        newButton.setPreferredSize(new Dimension(100, 30));
-        JButton bLabel = new JButton("New");
+        newButton.setPreferredSize(new Dimension(100, 30));
+        JLabel bLabel = new JLabel("New");
+        bLabel.setPreferredSize(new Dimension(100, 30));
         bLabel.setFont(new Font("Montserrat", Font.PLAIN, 13));
-        bLabel.setForeground(Color.white);
-        bLabel.setBackground(new Color(53,32,88));
-        bLabel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                try {
-                    new Layout(new NewBusiness(socket),"Create a new business ", socket);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        bLabel.setForeground(new Color(53,32,88));
+        bLabel.setBackground(Color.white);
+        bLabel.setBorder(new CompoundBorder(bLabel.getBorder(), new EmptyBorder(10,40,20,10)));
 
         createTable();
 
@@ -101,6 +94,20 @@ public class ReadBusiness extends JPanel {
 
         //search end
 
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closableFrame.dispose();
+                try {
+                    SearchCustomer searchCustomer = new SearchCustomer(socket,searchField.getText());
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                } catch (ClassNotFoundException classNotFoundException) {
+                    classNotFoundException.printStackTrace();
+                }
+            }
+        });
+
         header.add(headline);
         newButton.add(bLabel);
         header.add(newButton);
@@ -114,11 +121,11 @@ public class ReadBusiness extends JPanel {
 
         add(main);
         setBackground(Color.WHITE);
+        Container container = new Container();
+        container.add(main);
+        new Layout(container,"ALL CUSTOMERS",socket);
     }
 
-    public ReadBusiness() {
-
-    }
 
     private void createTable() throws JsonProcessingException {
         table = new JTable();
@@ -148,7 +155,7 @@ public class ReadBusiness extends JPanel {
 
             for (int i = 1; i < this.bussData.size(); i++) {
                 JsonNode bs = objectMapper.readTree(this.bussData.get(i));
-                model.addRow(new Object[]{bs.get("id"), bs.get("name").textValue(), bs.get("location").textValue(), bs.get("address").textValue(), bs.get("phone_number").textValue(), bs.get("created_at").textValue(),"Action"});
+                model.addRow(new Object[]{bs.get("code").asText(), bs.get("firstName").asText(), bs.get("lastName").asText(), bs.get("email").asText(),bs.get("stateDesc").asText()});
             }
         }
         JTableHeader tableHeader = table.getTableHeader();
@@ -161,24 +168,15 @@ public class ReadBusiness extends JPanel {
     }
 
     private void getData() throws IOException, ClassNotFoundException {
-        BusinessService service = new BusinessService(this.socket);
-        String json = "{ \"key\" : \""+ Keys.GET_ALL_BUSINESSES +"\" }";
-        service.getBusinesses(json);
+        CustomerService service = new CustomerService(this.socket);
+        String json = "{ \"key\" : \""+ Keys.GET_ALL_CUSTOMERS +"\" }";
+        this.bussData= service.getAll(json);
     }
 
-//    private void search(String searchTerm) throws IOException, ClassNotFoundException {
-//        BusinessService service = new BusinessService(this.socket);
-//        String json = "{ \"name\" : \""+searchTerm+"\", \"key\" : \""+ Keys.GET_BUSINESSES_BY_NAME +"\" }";
-//        this.searchResult= service.getById(json);
-//        this.searched = true;
-//    }
-//        this.bussData= service.getAllBusinesses(json);
-//    }
-
     private void search(String searchTerm) throws IOException, ClassNotFoundException {
-        BusinessService service = new BusinessService(this.socket);
-        String json = "{ \"name\" : \""+searchTerm+"\", \"key\" : \""+ Keys.GET_BUSINESSES_BY_NAME +"\" }";
-        this.searchResult= service.searchByName(json);
+        CustomerService service = new CustomerService(this.socket);
+        String json = "{ \"name\" : \""+searchTerm+"\", \"key\" : \""+ Keys.GET_CUSTOMER +"\" }";
+        this.searchResult= service.get(json);
         this.searched = true;
     }
 
@@ -191,7 +189,6 @@ public class ReadBusiness extends JPanel {
                     if(!searched){
                         resetButton.setVisible(true);
                     }
-//                    search(searchField.getText());
                     search(searchField.getText());
                     model = new DefaultTableModel();
                     model.setColumnIdentifiers(column);
@@ -201,7 +198,7 @@ public class ReadBusiness extends JPanel {
 
                         for (int i = 1; i < searchResult.size(); i++) {
                             JsonNode bs = objectMapper.readTree(searchResult.get(i));
-                            model.addRow(new Object[]{bs.get("id"), bs.get("name").textValue(), bs.get("location").textValue(), bs.get("address").textValue(), bs.get("phone_number").textValue(), bs.get("created_at").textValue(),"Action"});
+                            model.addRow(new Object[]{bs.get("code").asText(), bs.get("firstName").asText(), bs.get("lastName").asText(), bs.get("email").asText(),bs.get("stateDesc").asText()});
                         }
                     }
                 } catch (IOException ioException) {
@@ -227,7 +224,7 @@ public class ReadBusiness extends JPanel {
                         } catch (JsonProcessingException jsonProcessingException) {
                             jsonProcessingException.printStackTrace();
                         }
-                        model.addRow(new Object[]{bs.get("id"), bs.get("name").textValue(), bs.get("location").textValue(), bs.get("address").textValue(), bs.get("phone_number").textValue(), bs.get("created_at").textValue(),"Action"});
+                        model.addRow(new Object[]{bs.get("customer_id").asText(), bs.get("first_name").asText(), bs.get("email").asText(), bs.get("disable").asInt()});
                     }
                 }
 
@@ -239,4 +236,3 @@ public class ReadBusiness extends JPanel {
         }
     }
 }
-

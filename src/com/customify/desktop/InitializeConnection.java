@@ -2,6 +2,9 @@
 package com.customify.desktop;
 
 
+import com.customify.desktop.business.ReadBusiness;
+
+import com.customify.desktop.customer.ReadCustomer;
 import com.customify.desktop.business.NewBusiness;
 import com.customify.desktop.customerFeedback.Businesses;
 import com.customify.desktop.customerFeedback.CustomerFeedbackForm;
@@ -30,6 +33,7 @@ public class InitializeConnection {
         try {
             Socket socket = new Socket(serverIp, portNumber);
 
+//            new Layout(new ReadCustomer(socket),"ALL CUSTOMERS");
             Container container = new Container();
 
 //            new Layout(new NewBusiness(socket), "New business");

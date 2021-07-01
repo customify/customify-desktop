@@ -11,7 +11,7 @@ public class GetAll {
 
 
 
-    public GetAll(String firstName, String lastName, String email, String code, String customerId, int status, String stateDesc) {
+    public GetAll(String firstName, String lastName, String email, String code, String customerId,  String stateDesc,int status) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

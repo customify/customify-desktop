@@ -28,6 +28,7 @@ public class Layout  {
         JFrame frame = new JFrame(title);
         frame.setBackground(Color.white);
         FeatureRegister featureRegister = new FeatureRegister();
+//        JPanel sidebar = new Sidebar(UserRoles.BUSINESS_OWNER, frame);
 
 //        System.out.println("IN Layo: "+new AuthService().getLoggedInUser());
 //        JPanel sidebar = new Sidebar(new AuthService().getLoggedInUser(), frame);
